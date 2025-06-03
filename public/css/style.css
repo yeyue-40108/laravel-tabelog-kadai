@@ -1,0 +1,80 @@
+body {
+    font-family: "Noto Sans JP", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    background-color: #f8fafc;
+    line-height: normal;
+    letter-spacing: 0.11px;
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -0.13px;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: normal;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.04px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: normal;
+    color: #191919;
+}
+
+/* ログイン関連フォームのinputタグ */
+.login_input {
+    border-radius: 2px;
+    border: solid 1px #b2b2b2;
+    background-color: #ffffff;
+}
+
+/* チェックボックス */
+.checkbox {
+    font-size: 12px;
+    letter-spacing: normal;
+    color: #191919;
+}
+
+/* フォームの必須ラベル */
+.require_label {
+    border-radius: 1px;
+    background-color: #e2001b;
+}
+
+.require_label_text {
+    font-size: 14px;
+    letter-spacing: normal;
+    color: #ffffff;
+}
+
+/* submitボタン */
+.submit_btn {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: normal;
+    background-color: #f58220;
+}
+
+/* header */
+.header_container {
+    background-color: #f58220;
+}
+
+/* 店舗一覧 */
+.shop_outline {
+    border: solid 2px #f58220;
+    border-radius: 5px;
+}

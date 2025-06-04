@@ -23,9 +23,12 @@
             @component('components.header')
             @endcomponent
 
-            <main>
+            <main class="py-4 mb-5">
                 @yield('content')
             </main>
+
+            @component('components.footer')
+            @endcomponent
         </div>
 
         <!-- Scripts -->

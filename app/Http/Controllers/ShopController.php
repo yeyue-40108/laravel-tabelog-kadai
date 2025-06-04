@@ -13,11 +13,26 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $shops = Shop::all();
+        $keyword = $request->keyword;
         
-        return view('shops.index', compact('shops'));
+        if ($request->category !== null) {
+            $shops = Shop::where('category_id', $request->category)->paginate(15);
+            $total_count = Shop::where('category_id', $request->category)->count();
+            $category = Category::find($request->category);
+        } elseif ($keyword !== null) {
+            $shops = Shop::where('name', 'like', "%{$keyword}%")->paginate(15);
+            $total_count = $shops->total();
+            $category = null;
+        } else {
+            $shops = Shop::paginate(15);
+            $total_count = "";
+            $category = null;
+        }
+        $categories = Category::all();
+        
+        return view('shops.index', compact('shops', 'total_count', 'category', 'keyword', 'categories'));
     }
 
     /**
@@ -60,7 +75,9 @@ class ShopController extends Controller
      */
     public function show(Shop $shop)
     {
-        return view('shops.show', compact('shop'));
+        $reviews = $shop->reviews()->get();
+        
+        return view('shops.show', compact('shop', 'reviews'));
     }
 
     /**

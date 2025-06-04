@@ -73,8 +73,63 @@ label {
     background-color: #f58220;
 }
 
+/* footer */
+.footer_container {
+    background-color: #f58220;
+}
+
+.copyright {
+    font-size: 12px;
+}
+
 /* 店舗一覧 */
 .shop_outline {
-    border: solid 2px #f58220;
-    border-radius: 5px;
+    border: solid 1px #e5e5e5;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* カテゴリサイドバー */
+.sidebar_label {
+    width: 156px;
+    height: 20px;
+}
+
+.search_input {
+    border-radius: 2px;
+    border: solid 1px #e5e5e5;
+}
+
+.search_btn {
+    background-color: #f58220;
+}
+
+/* 店舗詳細 */
+.shop_show_img {
+    height: 50vh;
+}
+
+/* レビュー */
+.review_star {
+    color: #f58220;
+}
+
+.review_star:focus {
+    color: #f58220;
+}
+
+/* お気に入り */
+.favorite_btn {
+    font-size: 14px;
+    font-weight: bold;
+    border: solid 1px #f58220;
+    background-color: #ffffff;
+    color: #f58220;
+}
+
+/* 予約 */
+.reservation_btn {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #f58220;
 }

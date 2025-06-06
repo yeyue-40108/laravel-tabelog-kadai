@@ -30,9 +30,10 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
+                            <span>さん</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">マイページ</a></li>
+                            <li><a class="dropdown-item" href="{{ route('mypage') }}">マイページ</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">ログアウト</a>
@@ -41,6 +42,11 @@
                                 </form>
                             </li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('mypage.favorite') }}">
+                            <i class="fa-solid fa-heart"></i>
+                        </a>
                     </li>
                 @endguest
             </ul>

@@ -19,7 +19,7 @@
 
             <form method="POST" action="{{ route('password.email') }}">
                 @csrf
-                <div class="form-group">
+                <div>
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror login_input" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="メールアドレス">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -27,7 +27,7 @@
                         </span>
                     @enderror
                 </div>
-                <div class="form-group">
+                <div>
                     <button type="submit" class="btn submit_btn w-100 text-white">送信</button>
                 </div>
             </form>

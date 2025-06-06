@@ -45,10 +45,33 @@
                     </nav>
                     <h1>店舗一覧<span class="ms-3">{{ $total_count }}件</span></h1>
                 @endif
-                <!-- 並び替え -->
+                <div class="d-flex align-items-center mb-4">
+                    <span class="small me-2">並び替え</span>
+                    <form method="GET" action="{{ route('shops.index') }}">
+                        @if ($category)
+                            <input type="hidden" name="category" value="{{ $category->id }}">
+                        @endif
+                        @if ($keyword)
+                            <input type="hidden" name="keyword" value="{{ $keyword }}">
+                        @endif
+                        <select class="form-select form-select-sm" name="select_sort" onChange="this.form.submit();">
+                            @foreach ($sorts as $key => $value)
+                                @if ($sorted === $value)
+                                    <option value="{{ $value }}" selected>{{ $key }}</option>
+                                @else
+                                    <option value="{{ $value }}">{{ $key }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
             </div>
 
             <div class="row">
+                <p>選択カテゴリID（request）: {{ request('category') }}</p>
+                <p>取得されたカテゴリID（$category->id）: {{ $category->id ?? 'なし' }}</p>
+                <p>カテゴリ名: {{ $category->name ?? '未設定' }}</p>
+
                 @foreach ($shops as $shop)
                     <div class="col-md-4 shop_outline">
                         <h2>{{ $shop->name }}</h2>
@@ -81,16 +104,16 @@
                         </div>
                     </div>
                 @endforeach
+                <form id="favorites-destroy-form" action="{{ route('favorites.destroy', $shop->id) }}" method="POST" class="d-none">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                <form id="favorites-store-form" action="{{ route('favorites.store', $shop->id) }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
         </div>
     </div>
-    <form id="favorites-destroy-form" action="{{ route('favorites.destroy', $shop->id) }}" method="POST" class="d-none">
-        @csrf
-        @method('DELETE')
-    </form>
-    <form id="favorites-store-form" action="{{ route('favorites.store', $shop->id) }}" method="POST" class="d-none">
-        @csrf
-    </form>
     <div class="mb-4">
         {{ $shops->appends(request()->query())->links() }}
     </div>

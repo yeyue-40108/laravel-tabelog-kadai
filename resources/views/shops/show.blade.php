@@ -2,14 +2,20 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <!-- パンくずリスト -->
+    <div>
+        <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">トップ</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('shops.index') }}">店舗一覧</a></li>
+                <li class="breadcrumb-item active" aria-current="page">店舗詳細</li>
+            </ol>
+        </nav>
     </div>
     <div class="row">
         <div class="col">
             <div class="row d-flex justify-content-between">
                 <div class="col-4">
-                    <!-- カテゴリ名 -->
+                    <h2>{{ $shop->category->name }}</h2>
                     <h1>{{ $shop->name }}</h1>
                     <!-- レビュー（星と数字） -->
                 </div>
@@ -46,15 +52,19 @@
                 <div class="col-6">
                     <div class="row">
                         <p class="col-2">営業時間</p>
-                        <!-- 営業時間 -->
+                        <p class="col-10">{{ $shop->open_time }}<span>～</span>{{ $shop->close_time }}</p>
                     </div>
                     <div class="row">
                         <p class="col-2">定休日</p>
-                        <!-- 定休日 -->
+                        <div class="col-10">
+                            @foreach ($holidays as $holiday)
+                                <span>{{ $holiday }}</span>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="row">
                         <p class="col-2">価格帯</p>
-                        <!-- 価格帯 -->
+                        <p class="col-10">{{ $shop->price }}<span>円</span></p>
                     </div>
                     <div class="row">
                         <p class="col-2">住所</p>

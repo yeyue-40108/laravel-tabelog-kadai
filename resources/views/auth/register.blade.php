@@ -10,10 +10,10 @@
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
-                <div class="form-group row mb-3">
+                <div class="row mb-3">
                     <label for="name" class="col-md-5 col-form-label text-md-left fw-medium">氏名<span class="ms-1 require_label"><span class="require_label_text">必須</span></span></label>
                     <div class="col-md-7">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror login_input" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="名古屋飯 太郎">
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="名古屋飯 太郎">
                         @error ('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>氏名を入力してください</strong>
@@ -21,10 +21,10 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group row mb-3">
+                <div class="row mb-3">
                     <label for="furigana" class="col-md-5 col-form-label text-md-left fw-medium">フリガナ<span class="ms-1 require_label"><span class="require_label_text">必須</span></span></label>
                     <div class="col-md-7">
-                        <input id="furigana" type="text" class="form-control @error('furigana') is-invalid @enderror login_input" name="furigana" value="{{ old('furigana') }}" required autocomplete="furigana" placeholder="ナゴヤメシ タロウ">
+                        <input id="furigana" type="text" class="form-control @error('furigana') is-invalid @enderror" name="furigana" value="{{ old('furigana') }}" required autocomplete="furigana" placeholder="ナゴヤメシ タロウ">
                         @error ('furigana')
                             <span class="invalid-feedback" role="alert">
                                 <strong>フリガナを入力してください</strong>
@@ -32,10 +32,10 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group row mb-3">
+                <div class="row mb-3">
                     <label for="email" class="col-md-5 col-form-label text-md-left fw-medium">メールアドレス<span class="ms-1 require_label"><span class="require_label_text">必須</span></span></label>
                     <div class="col-md-7">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror login_input" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="nagoyameshi@example.com">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="nagoyameshi@example.com">
                         @error ('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>メールアドレスを入力してください</strong>
@@ -46,10 +46,10 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group row mb-3">
+                <div class="row mb-3">
                     <label for="password" class="col-md-5 col-form-label text-md-left fw-medium">パスワード<span class="ms-1 require_label"><span class="require_label_text">必須</span></span></label>
                     <div class="col-md-7">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror login_input" name="password" required autocomplete="new-password">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                         @error ('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -57,10 +57,10 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group row mb-3">
+                <div class="row mb-3">
                     <label for="password-confirm" class="col-md-5 col-form-label text-md-left fw-medium">パスワード（確認用）<span class="ms-1 require_label"><span class="require_label_text">必須</span></span></label>
                     <div class="col-md-7">
-                        <input id="password-confirm" type="password" class="form-control login_input" name="password-confirmation" required autocomplete="new-password">
+                        <input id="password-confirm" type="password" class="form-control" name="password-confirmation" required autocomplete="new-password">
                     </div>
                 </div>
 

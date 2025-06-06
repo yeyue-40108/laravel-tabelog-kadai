@@ -16,23 +16,23 @@
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                <div class="form-group mb-3">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror login_input" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="メールアドレス">
+                <div class="mb-3">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="メールアドレス">
                     @error ('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>メールアドレスが正しくない可能性があります。</strong>
                         </span>
                     @enderror
                 </div>
-                <div class="form-group mb-3">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror login_input" name="password" required autocomplete="new-password" placeholder="パスワード">
+                <div class="mb-3">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="パスワード">
                     @error ('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>パスワードが正しくない可能性があります。</strong>
                         </span>
                     @enderror
                 </div>
-                <div class="form-group mb-4">
+                <div class="mb-4">
                     <div class="form-check">
                         <input id="remember" type="checkbox" class="form-check-input" name="remember" {{ old('remember') ? 'checked' : '' }}>
                         <label class="form-check-label checkbox w-100" for="remember">

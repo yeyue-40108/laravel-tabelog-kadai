@@ -34,13 +34,6 @@ label {
     color: #191919;
 }
 
-/* ログイン関連フォームのinputタグ */
-.login_input {
-    border-radius: 2px;
-    border: solid 1px #b2b2b2;
-    background-color: #ffffff;
-}
-
 /* チェックボックス */
 .checkbox {
     font-size: 12px;
@@ -50,12 +43,13 @@ label {
 
 /* フォームの必須ラベル */
 .require_label {
-    border-radius: 1px;
+    border-radius: 2px;
     background-color: #e2001b;
+    padding: 0 5px;
 }
 
 .require_label_text {
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: normal;
     color: #ffffff;
 }

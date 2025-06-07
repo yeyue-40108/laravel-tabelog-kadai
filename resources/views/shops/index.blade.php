@@ -14,8 +14,8 @@
                     </button>
                 </div>
             </form>
-            @foreach ($categories as $category)
-                <label class="sidebar_label"><a href="{{ route('shops.index', ['category' => $category->id]) }}">{{ $category->name }}</a></label>
+            @foreach ($categories as $c)
+                <label class="sidebar_label"><a href="{{ route('shops.index', ['category' => $c->id]) }}">{{ $c->name }}</a></label>
             @endforeach
         </div>
         <div class="col-9">
@@ -23,7 +23,7 @@
                 @if ($category !== null)
                     <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">トップ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('top') }}">トップ</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
                         </ol>
                     </nav>
@@ -31,7 +31,7 @@
                 @elseif ($keyword !== null)
                     <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">トップ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('top') }}">トップ</a></li>
                             <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
                         </ol>
                     </nav>
@@ -39,7 +39,7 @@
                 @else
                     <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">トップ</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('top') }}">トップ</a></li>
                             <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
                         </ol>
                     </nav>
@@ -68,14 +68,12 @@
             </div>
 
             <div class="row">
-                <p>選択カテゴリID（request）: {{ request('category') }}</p>
-                <p>取得されたカテゴリID（$category->id）: {{ $category->id ?? 'なし' }}</p>
-                <p>カテゴリ名: {{ $category->name ?? '未設定' }}</p>
-
                 @foreach ($shops as $shop)
-                    <div class="col-md-4 shop_outline">
-                        <h2>{{ $shop->name }}</h2>
-                        <!-- カテゴリ名 -->
+                    <div class="col-md-4 shop_outline m-3">
+                        <div class="row">
+                            <h2 class="col-9">{{ $shop->name }}</h2>
+                            <h3 class="col-3 category_label text-center">{{ $shop->category->name }}</h3>
+                        </div>
                         <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail">
                         <!-- レビュー -->
                         <!-- 価格帯 -->

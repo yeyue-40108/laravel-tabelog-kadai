@@ -77,23 +77,24 @@
             <label for="shop-category" class="form-label">カテゴリ</label>
             <select name="category_id" class="form-control" id="shop-category"  aria-label="Default select example">
                 @foreach ($categories as $category)
-                    @if ($category->id === $shop->category_id)
-                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-                    @else
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endif
+                    <option value="{{ $category->id }}" {{ $category->id === $shop->category_id ? 'selected' : (old('category->id') == $category->id ? 'selected' : '')}}>{{ $category-> name }}</option>
                 @endforeach
             </select>
         </div>
         <div class="mb-3">
             <label for="shop-price" class="form-label">価格帯</label>
+            @php
+                $selected = function ($value) use ($shop) {
+                    return old('price', $shop->price) === $value ? 'selected' : '';
+                };
+            @endphp
             <select name="price" class="form-select" id="shop-price" aria-label="Default select example">
-                <option value="~1000">～1,000円</option>
-                <option value="1000~2000">1,000～2,000円</option>
-                <option value="2000~3000">2,000～3,000円</option>
-                <option value="3000~4000">3,000～4,000円</option>
-                <option value="4000~5000">4,000～5,000円</option>
-                <option value="5000~">5000円～</option>
+                <option value="~1,000" {{ $selected('~1,000') }}>～1,000円</option>
+                <option value="1,000~2,000" {{ $selected('1,000~2,000') }}>1,000～2,000円</option>
+                <option value="2,000~3,000" {{ $selected('2,000~3,000') }}>2,000～3,000円</option>
+                <option value="3,000~4,000" {{ $selected('3,000~4,000') }}>3,000～4,000円</option>
+                <option value="4,000~5,000" {{ $selected('4,000~5,000') }}>4,000～5,000円</option>
+                <option value="5,000~" {{ $selected('5,000~') }}>5,000円～</option>
             </select>
         </div>
         <button type="submit" class="btn btn-warning">更新</button>

@@ -83,6 +83,13 @@ label {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
+.category_label {
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 2px;
+    background-color: #f58220;
+}
+
 /* カテゴリサイドバー */
 .sidebar_label {
     width: 156px;

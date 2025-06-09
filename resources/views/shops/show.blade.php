@@ -17,7 +17,17 @@
                 <div class="col-4">
                     <h2>{{ $shop->category->name }}</h2>
                     <h1>{{ $shop->name }}</h1>
-                    <!-- レビュー（星と数字） -->
+                    @php
+                        $percent = ($averageScore / 5) * 100;
+                    @endphp
+
+                    <div class="star_rating">
+                        <div class="stars">
+                            <div class="star_base">★★★★★</div>
+                            <div class="star_overlay" style="width: {{ $percent }}%">★★★★★</div>
+                        </div>
+                        <span class="score_text">{{ number_format($averageScore, 1) }}</span>
+                    </div>
                 </div>
                 <div class="col-4">
                     @if (Auth::user()->favorite_shops()->where('shop_id', $shop->id)->exists())

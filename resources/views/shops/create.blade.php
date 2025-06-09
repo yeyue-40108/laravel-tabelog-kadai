@@ -83,12 +83,12 @@
         <div class="mb-3">
             <label for="shop-price" class="form-label">価格帯</label>
             <select name="price" class="form-select" id="shop-price" aria-label="Default select example">
-                <option value="~1000">～1,000円</option>
-                <option value="1000~2000">1,000～2,000円</option>
-                <option value="2000~3000">2,000～3,000円</option>
-                <option value="3000~4000">3,000～4,000円</option>
-                <option value="4000~5000">4,000～5,000円</option>
-                <option value="5000~">5000円～</option>
+                <option value="~1,000">～1,000円</option>
+                <option value="1,000~2,000">1,000～2,000円</option>
+                <option value="2,000~3,000">2,000～3,000円</option>
+                <option value="3,000~4,000">3,000～4,000円</option>
+                <option value="4,000~5,000">4,000～5,000円</option>
+                <option value="5,000~">5000円～</option>
             </select>
         </div>
         <button type="submit" class="btn btn-warning">店舗を登録</button>

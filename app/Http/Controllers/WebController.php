@@ -7,10 +7,12 @@ use App\Models\Category;
 
 class WebController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $categories = Category::all();
 
-        return view('web.index', compact('categories'));
+        $keyword = $request->keyword;
+
+        return view('web.index', compact('categories', 'keyword'));
     }
 }

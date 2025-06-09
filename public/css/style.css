@@ -76,21 +76,24 @@ label {
     font-size: 12px;
 }
 
-/* 店舗一覧 */
-.shop_outline {
-    border: solid 1px #e5e5e5;
-    border-radius: 2px;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+/* トップ */
+/* .main_visual {
+    height: 80vh;
+    margin: 0 auto;
 }
 
-.category_label {
-    font-size: 16px;
-    font-weight: normal;
-    border-radius: 2px;
-    background-color: #f58220;
-}
+.top_img {
+    height: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+} */
 
 /* カテゴリサイドバー */
+.sidebar_title {
+    font-weight: normal;
+    font-size: 16px;
+}
+
 .sidebar_label {
     width: 156px;
     height: 20px;
@@ -102,6 +105,20 @@ label {
 }
 
 .search_btn {
+    background-color: #f58220;
+}
+
+/* 店舗一覧 */
+.shop_outline {
+    border: solid 1px #e5e5e5;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.category_label {
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 2px;
     background-color: #f58220;
 }
 
@@ -119,6 +136,49 @@ label {
     color: #f58220;
 }
 
+.star_rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5em; /* 星と数字の間のスペース */
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.stars {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    width: 5em; /* 星5つ分くらいの幅（必要に応じて調整） */
+    height: 1em;   /* 高さを明示しておくと安定します */
+}
+
+.star_base, .star_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    font-size: inherit;
+    line-height: inherit;
+    pointer-events: none;
+}
+
+.star_base {
+    color: #ccc;
+    z-index: 0;
+}
+
+.star_overlay {
+    color: #f58220;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.score_text {
+    color: #555;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
 /* お気に入り */
 .favorite_btn {
     font-size: 14px;
@@ -133,4 +193,10 @@ label {
     font-size: 14px;
     font-weight: bold;
     background-color: #f58220;
+}
+
+/* 管理画面 */
+/* トップ */
+.faq_btn {
+    margin: 0 0 0 auto;
 }

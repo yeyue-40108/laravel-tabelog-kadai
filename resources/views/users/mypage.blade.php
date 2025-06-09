@@ -25,7 +25,7 @@
             </div>
             <hr>
             <div class="container">
-                <a href="#" class="link-dark link-opacity-50-hover text-decoration-none">
+                <a href="{{ route('mypage.edit_password') }}" class="link-dark link-opacity-50-hover text-decoration-none">
                     <div class="row justify-content-between align-items-center py-4">
                         <div class="col-1 ps-0 me-3">
                             <i class="fa-solid fa-lock fa-2x"></i>

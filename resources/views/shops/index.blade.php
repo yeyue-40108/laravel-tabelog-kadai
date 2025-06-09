@@ -4,19 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col-2">
-            <form action="{{ route('shops.index') }}" method="GET" class="row g-1 mb-3">
-                <div class="col-10">
-                    <input class="form-control search_input" name="keyword">
-                </div>
-                <div class="col-2">
-                    <button type="submit" class="btn search_btn">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </div>
-            </form>
-            @foreach ($categories as $c)
-                <label class="sidebar_label"><a href="{{ route('shops.index', ['category' => $c->id]) }}">{{ $c->name }}</a></label>
-            @endforeach
+            @component('components.sidebar', ['categories' => $categories])
+            @endcomponent
         </div>
         <div class="col-9">
             <div class="container">
@@ -75,9 +64,19 @@
                             <h3 class="col-3 category_label text-center">{{ $shop->category->name }}</h3>
                         </div>
                         <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail">
-                        <!-- レビュー -->
-                        <!-- 価格帯 -->
-                        <p>{{ $shop->postal_code }}</p>
+                        @php
+                            $score = $shop->average_score ?? 0;
+                            $percent = ($score / 5) * 100;
+                        @endphp
+
+                        <div class="star_rating">
+                            <div class="stars">
+                                <div class="star_base">★★★★★</div>
+                                <div class="star_overlay" style="width: {{ $percent }}%">★★★★★</div>
+                            </div>
+                            <span class="score_text">{{ number_format($score, 1) }}</span>
+                        </div>
+                        <p>{{ $shop->price }} <span>円</span></p>
                         <p>{{ $shop->address }}</p>
                         <div class="row">
                             <div class="col-4">

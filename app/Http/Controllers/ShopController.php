@@ -45,6 +45,12 @@ class ShopController extends Controller
             $total_count = $shops->total();
             $category = null;
         }
+
+        $shops->getCollection()->transform(function ($shop) {
+            $shop->average_score = round($shop->reviews->avg('score'), 1);
+            return $shop;
+        });
+
         $categories = Category::all();
         
         return view('shops.index', compact('shops', 'total_count', 'category', 'keyword', 'categories', 'sorts', 'sorted'));
@@ -112,8 +118,11 @@ class ShopController extends Controller
         ];
         $holidays = explode(',', $shop->holiday);
         $holidays = array_map(fn($h) => $holidayLabels[$h] ?? $h, $holidays);
+
+        $reviews = $shop->reviews()->get();
+        $averageScore = round($shop->reviews()->avg('score') ?? 0, 1);
         
-        return view('shops.show', compact('shop', 'reviews', 'holidays'));
+        return view('shops.show', compact('shop', 'reviews', 'holidays', 'averageScore'));
     }
 
     /**

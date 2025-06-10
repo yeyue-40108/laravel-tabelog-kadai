@@ -2,10 +2,12 @@
 
 @section('content')
 <div class="container">
-    <button class="btn btn-light faq_btn"></button>
+    <div class="d-flex flex-row-reverse">
+        <button class="btn btn-outline-secondary btn-lg">FAQ</button>
+    </div>
     <div class="row justify-content-around">
         <div class="col-md-5">
-            <a href="#" class="link-dark link-opacity-50-hover text-decoration-none">
+            <a href="{{ route('admin.shops.index') }}" class="link-dark link-opacity-50-hover text-decoration-none">
                 <div class="row justify-content-between align-items-center py-4">
                     <div class="col-1 ps-0 me-3">
                         <i class="fa-solid fa-shop fa-2x"></i>

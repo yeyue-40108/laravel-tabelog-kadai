@@ -48,6 +48,11 @@
                             <i class="fa-solid fa-heart"></i>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('reservations.index') }}">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </a>
+                    </li>
                 @endguest
             </ul>
         </div>

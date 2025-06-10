@@ -1,0 +1,69 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div>
+        <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('admin.web.index') }}">管理画面トップ</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.shops.index') }}">店舗一覧</a></li>
+                <li class="breadcrumb-item active" aria-current="page">店舗詳細</li>
+            </ol>
+        </nav>
+    </div>
+    <h1>店舗詳細</h1>
+    @if (session('flash_message'))
+        <p>{{ session('flash_message') }}</p>
+    @endif
+    <div>
+        <div class="d-flex justify-content-end">
+            <a href="{{ route('admin.shops.edit', $shop->id) }}" class="btn btn-warning my-2">編集</a>
+            <a href="#" class="btn btn-danger my-2">削除</a>
+        </div>
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th scope="row">店舗名</th>
+                    <td>{{ $shop->name }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">カテゴリ名</th>
+                    <td>{{ $shop->category->name }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">店舗説明</th>
+                    <td>{{ $shop->description }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">郵便番号</th>
+                    <td>{{ $shop->postal_code }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">住所</th>
+                    <td>{{ $shop->address }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">電話番号</th>
+                    <td>{{ $shop->phone }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">営業時間</th>
+                    <td>{{ $shop->open_time }} <span>～</span> {{ $shop->close_time }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">定休日</th>
+                    <td>
+                        @foreach ($holidays as $holiday)
+                            <span>{{ $holiday }}</span>
+                        @endforeach
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">価格帯</th>
+                    <td>{{ $shop->price }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@endsection

@@ -24,4 +24,9 @@ class Shop extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

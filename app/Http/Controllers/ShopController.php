@@ -57,44 +57,6 @@ class ShopController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $categories = Category::all();
-
-        return view('shops.create', compact('categories'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $holidays = $request->input('holiday', []);
-        
-        $shop = new Shop();
-        $shop->name = $request->input('name');
-        $shop->description = $request->input('description');
-        $shop->postal_code = $request->input('postal_code');
-        $shop->address = $request->input('address');
-        $shop->phone = $request->input('phone');
-        $shop->open_time = $request->input('open_time');
-        $shop->close_time = $request->input('close_time');
-        $shop->holiday = implode(',', $holidays);
-        $shop->category_id = $request->input('category_id');
-        $shop->price = $request->input('price');
-        $shop->save();
-
-        return to_route('shops.index');
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Shop  $shop
@@ -123,57 +85,5 @@ class ShopController extends Controller
         $averageScore = round($shop->reviews()->avg('score') ?? 0, 1);
         
         return view('shops.show', compact('shop', 'reviews', 'holidays', 'averageScore'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Shop  $shop
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Shop $shop)
-    {
-        $categories = Category::all();
-        
-        return view('shops.edit', compact('shop', 'categories'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Shop  $shop
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Shop $shop)
-    {
-        $holidays = $request->input('holiday', []);
-        
-        $shop->name = $request->input('name');
-        $shop->description = $request->input('description');
-        $shop->postal_code = $request->input('postal_code');
-        $shop->address = $request->input('address');
-        $shop->phone = $request->input('phone');
-        $shop->open_time = $request->input('open_time');
-        $shop->close_time = $request->input('close_time');
-        $shop->holiday = implode(',', $holidays);
-        $shop->category_id = $request->input('category_id');
-        $shop->price = $request->input('price');
-        $shop->update();
-
-        return to_route('shops.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Shop  $shop
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Shop $shop)
-    {
-        $shop->delete();
-
-        return to_route('shops.index');
     }
 }

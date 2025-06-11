@@ -3,14 +3,32 @@
 @section('content')
 <div class="container">
     <div>
-        <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.web.index') }}">管理画面トップ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
-            </ol>
-        </nav>
+        @if (isset($category))
+            <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.web.index') }}">管理画面トップ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
+                </ol>
+            </nav>
+            <h1>{{ $category->name }}の店舗一覧<span class="ms-3">{{ $total_count }}件</span></h1>
+        @elseif (!empty($keyword))
+            <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.web.index') }}">管理画面トップ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
+                </ol>
+            </nav>
+            <h1>{{ $keyword }}の検索結果<span class="ms-3">{{ $total_count }}件</span></h1>
+        @else
+            <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.web.index') }}">管理画面トップ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
+                </ol>
+            </nav>
+            <h1>店舗一覧<span class="ms-3">{{ $total_count }}件</span></h1>
+        @endif
     </div>
-    <h1>店舗一覧</h1>
     <div class="row justify-content-around">
         <form action="{{ route('admin.shops.index') }}" method="GET" class="col-6 g-1 mb-3">
             <div class="row">

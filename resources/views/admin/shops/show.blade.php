@@ -18,7 +18,11 @@
     <div>
         <div class="d-flex justify-content-end">
             <a href="{{ route('admin.shops.edit', $shop->id) }}" class="btn btn-warning my-2">編集</a>
-            <a href="#" class="btn btn-danger my-2">削除</a>
+            <form action="{{ route('admin.shops.destroy', $shop) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger my-2">削除</button>
+            </form>
         </div>
         <table class="table table-striped">
             <tbody>

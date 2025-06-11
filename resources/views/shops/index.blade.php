@@ -78,14 +78,11 @@
                         </div>
                         <p>{{ $shop->price }} <span>円</span></p>
                         <p>{{ $shop->address }}</p>
-                        <div class="row">
-                            <div class="col-4">
-                                <a class="btn btn-outline-warning" href="{{ route('shops.show', $shop) }}">詳細</a>
+                        <div class="row justify-content-around">
+                            <div class="col-6">
+                                <a class="btn btn-outline-warning" href="{{ route('shops.show', $shop->id) }}">詳細</a>
                             </div>
-                            <div class="col-4">
-                                <button class="btn reservation_btn text-white">予約</button>
-                            </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 @if (Auth::user()->favorite_shops()->where('shop_id', $shop->id)->exists())
                                     <a href="{{ route('favorites.destroy', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
                                         <i class="fa-solid fa-heart"></i>

@@ -41,7 +41,7 @@
                             お気に入り
                         </a>
                     @endif
-                    <button class="btn reservation_btn text-white">予約</button>
+                    <a href="{{ route('reservations.create', ['shop_id' => $shop->id]) }}" class="btn reservation_btn text-white">予約</a>
                 </div>
             </div>
             <form id="favorites-destroy-form" action="{{ route('favorites.destroy', $shop->id) }}" method="POST" class="d-none">

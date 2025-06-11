@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\Shop;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,9 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return view('reservations.index');
+        $reservations = Reservation::all();
+        
+        return view('reservations.index', compact('reservations'));
     }
 
     /**
@@ -23,11 +26,12 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $shops = Shop::all();
-
-        return view('reservations.index', compact());
+        $shopId = $request->input('shop_id');
+        $shop = Shop::find($shopId);
+        
+        return view('reservations.create', compact('shop'));
     }
 
     /**
@@ -41,7 +45,10 @@ class ReservationController extends Controller
         $reservation = new Reservation();
         $reservation->reservation_date = $request->input('reservation_date');
         $reservation->reservation_time = $request->input('reservation_time');
-        $shop->save();
+        $reservation->people = $request->input('people');
+        $reservation->shop_id = $request->input('shop_id');
+        $reservation->user_id = Auth::user()->id;
+        $reservation->save();
 
         return redirect()->route('reservations.index')->with('flash_message', '予約ができました。');
     }

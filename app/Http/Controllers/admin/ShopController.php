@@ -11,17 +11,24 @@ class ShopController extends Controller
 {
     public function index(Request $request)
     {
-        $keyword = $request->keyword;
+        $keyword = $request->query('keyword');
+        $category_id = $request->query('category');
+        $category = null;
 
-        if ($keyword !== null) {
-            $shops = Shop::where('name', 'like', "%{$keyword}%")->sortable()->paginate(15);
-            $total_count = $shops->total();
-        } else {
-            $shops = Shop::sortable()->paginate(15);
-            $total_count = $shops->total();
+        $query = Shop::query();
+
+        if (!empty($category_id)) {
+            $query->where('category_id', $category_id);
+            $category = Category::find($category_id);
+        } 
+        if (!empty($keyword)) {
+            $query->where('name', 'like', "%{$keyword}%");
         }
+
+        $shops = $query->sortable()->paginate(15);
+        $total_count = $shops->total();
         
-        return view('admin.shops.index', compact('shops', 'total_count', 'keyword'));
+        return view('admin.shops.index', compact('shops', 'total_count', 'keyword', 'category'));
     }
 
     /**

@@ -3,13 +3,7 @@
 @section('content')
 <div class="container">
     <div>
-        <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.web.index') }}">管理画面トップ</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.shops.index') }}">店舗一覧</a></li>
-                <li class="breadcrumb-item active" aria-current="page">店舗作成</li>
-            </ol>
-        </nav>
+        <a href="{{ route('admin.shops.index') }}">店舗一覧ページに戻る</a>
     </div>
     
     <h1>新しい店舗を作成</h1>
@@ -101,6 +95,5 @@
         </div>
         <button type="submit" class="btn btn-success">店舗を登録</button>
     </form>
-    <a href="{{ route('admin.shops.index') }}">店舗一覧に戻る</a>
 </div>
 @endsection

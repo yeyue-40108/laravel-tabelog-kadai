@@ -39,7 +39,7 @@
             </a>
         </div>
         <div class="col-md-5">
-            <a href="#" class="link-dark link-opacity-50-hover text-decoration-none">
+            <a href="{{ route('admin.reviews.index') }}" class="link-dark link-opacity-50-hover text-decoration-none">
                 <div class="row justify-content-between align-items-center py-4">
                     <div class="col-1 ps-0 me-3">
                         <i class="fa-solid fa-comment fa-2x"></i>
@@ -55,7 +55,7 @@
             </a>
         </div>
         <div class="col-md-5">
-            <a href="#" class="link-dark link-opacity-50-hover text-decoration-none">
+            <a href="{{ route('admin.users.index') }}" class="link-dark link-opacity-50-hover text-decoration-none">
                 <div class="row justify-content-between align-items-center py-4">
                     <div class="col-1 ps-0 me-3">
                         <i class="fa-solid fa-user fa-2x"></i>

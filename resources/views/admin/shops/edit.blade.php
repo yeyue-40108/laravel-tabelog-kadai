@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div>
-        <a href="{{ route('admin.shops.show', $shop->id) }}">店舗詳細ページに戻る</a>
+        <a href="{{ route('admin.shops.show', $shop->id) }}">< 店舗詳細ページに戻る</a>
     </div>
     
     <h1>店舗情報編集</h1>
@@ -21,6 +21,10 @@
                     <option value="{{ $category->id }}" {{ $category->id === $shop->category_id ? 'selected' : (old('category->id') == $category->id ? 'selected' : '')}}>{{ $category-> name }}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="shop-image" class="form-label">画像ファイル</label>
+            <input type="file" name="image" class="form-control" value="{{ $shop->image }}">
         </div>
         <div class="mb-3">
             <label for="shop-description" class="form-label">店舗説明</label>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\WebController as AdminWebController;
 use App\Http\Controllers\Admin\ShopController as AdminShopController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,7 +55,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
         Route::resource('categories', AdminCategoryController::class);
 
-        Route::get('reviews', [AdminReviewController::class, 'store'])->name('reviews.index');
-        Route::delete('reviews', [AdminReviewController::class, 'destroy'])->name('reviews.destroy');
+        Route::resource('reviews', AdminReviewController::class);
+        
+        Route::resource('users', AdminUserController::class);
     });
 });

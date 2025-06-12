@@ -64,6 +64,10 @@ class ShopController extends Controller
         $shop->holiday = implode(',', $holidays);
         $shop->category_id = $request->input('category_id');
         $shop->price = $request->input('price');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = Storage::disk('public')->putFile('img', $file);
+        }
         $shop->save();
 
         return redirect()->route('web.shops.index')->with('flash_message', '店舗の作成が完了しました。');
@@ -129,6 +133,10 @@ class ShopController extends Controller
         $shop->holiday = implode(',', $holidays);
         $shop->category_id = $request->input('category_id');
         $shop->price = $request->input('price');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = Storage::disk('public')->putFile('img', $file);
+        }
         $shop->update();
 
         return redirect()->route('admin.shops.show', $shop)->with('flash_message', '店舗情報を編集しました。');

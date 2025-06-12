@@ -35,6 +35,16 @@
                     <td>{{ $shop->category->name }}</td>
                 </tr>
                 <tr>
+                    <th scope="row">画像</th>
+                    <td>
+                        @if ($shop->image != null)
+                            <img src="{{ asset('$shop->image') }}" class="admin_shop_img">
+                        @else
+                            <img src="{{ asset('img/dummy-shop.jpg') }}" class="admin_shop_img">
+                        @endif
+                    </td>
+                </tr>
+                <tr>
                     <th scope="row">店舗説明</th>
                     <td>{{ $shop->description }}</td>
                 </tr>

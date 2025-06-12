@@ -97,11 +97,13 @@
                 <h3>カスタマーレビュー</h3>
                 <div class="col-md-6">
                     @foreach($reviews as $review)
-                        <div>
-                            <h3 class="review_star">{{ str_repeat('★', $review->score) }}</h3>
-                            <p>{{ $review->content }}</p>
-                            <p>{{ $review->created_at }} {{ $review->user->name }}</p>
-                        </div>
+                        @if ($review->display !== 0)
+                            <div>
+                                <h3 class="review_star">{{ str_repeat('★', $review->score) }}</h3>
+                                <p>{{ $review->content }}</p>
+                                <p>{{ $review->created_at }} {{ $review->user->name }}</p>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
                 <div class="col-md-6">

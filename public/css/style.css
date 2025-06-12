@@ -196,3 +196,8 @@ label {
 }
 
 /* 管理画面 */
+/* 店舗 */
+.admin_shop_img {
+    width: auto;
+    height: 200px;
+}

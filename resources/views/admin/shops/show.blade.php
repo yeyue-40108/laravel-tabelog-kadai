@@ -66,15 +66,20 @@
                 </tr>
                 <tr>
                     <th scope="row">定休日</th>
+                    @php
+                        $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+                    @endphp
                     <td>
-                        @foreach ($holidays as $holiday)
-                            <span>{{ $holiday }}</span>
-                        @endforeach
+                        @forelse ($shop->holidays as $holiday)
+                            <span>{{ $weekdays[$holiday->weekday] ?? '不明' }}</span>
+                        @empty
+                            <span>なし</span>
+                        @endforelse
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">価格帯</th>
-                    <td>{{ $shop->price }}</td>
+                    <td>{{ $shop->price->range }}</td>
                 </tr>
             </tbody>
         </table>

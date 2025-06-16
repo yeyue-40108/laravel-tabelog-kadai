@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Cashier;
 
 class UserController extends Controller
 {
@@ -13,48 +14,6 @@ class UserController extends Controller
         $user = Auth::user();
 
         return view('users.mypage', compact('user'));
-    }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
     }
 
     /**
@@ -130,5 +89,56 @@ class UserController extends Controller
     public function edit_password()
     {
         return view('users.edit_password');
+    }
+
+    public function update_paid(Request $request, User $user)
+    {
+        $validatedData = $request->validate([
+            'phone' => 'required|string|max:20',
+            'birthday' => 'required|date_format:Y/m/d',
+            'work' => 'required',
+        ]);
+        
+        $stripeCustomer = $user->createOrGetStripeCustomer();
+        $user->phone = $request->input('phone');
+        $user->birthday = $request->input('birthday');
+        $user->work = $request->input('work');
+        $user->role = $request->input('role');
+        $user->update();
+        
+        return redirect()->route('mypage')->with('flash_message', '有料会員登録が完了しました。');
+    }
+
+    public function edit_paid(User $user)
+    {
+        $user = Auth::user();
+
+        return view('users.edit_paid', ['intent' => $user->createSetupIntent()], compact('user'));
+    }
+
+    public function update_cash(Request $request, User $user)
+    {
+        $user->updateDefaultPaymentMethod($paymentMethod);
+        
+        return redirect()->route('mypage')->with('flash_message', 'カード情報の更新が完了しました。');
+    }
+
+    public function edit_cash()
+    {
+        return view('mypage.edit_cash');
+    }
+
+    public function update_cancel(Request $request, User $user)
+    {
+        $paymentMethod->delete();
+        $user->role = $request->input('role');
+        $user->update();
+        
+        return redirect()->route('mypage')->with('flash_message', '有料会員の解約が完了しました。');
+    }
+
+    public function edit_cancel()
+    {
+        return view('users.edit_cancel');
     }
 }

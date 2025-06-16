@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Models\Category;
+use App\Models\Price;
+use App\Models\ShopHoliday;
+use App\Http\Requests\ShopRequest;
 
 class ShopController extends Controller
 {
@@ -39,8 +42,9 @@ class ShopController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $prices = Price::all();
 
-        return view('admin.shops.create', compact('categories'));
+        return view('admin.shops.create', compact('categories', 'prices'));
     }
 
         /**
@@ -49,28 +53,28 @@ class ShopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShopRequest $request)
     {
-        $holidays = $request->input('holiday', []);
-        
-        $shop = new Shop();
-        $shop->name = $request->input('name');
-        $shop->description = $request->input('description');
-        $shop->postal_code = $request->input('postal_code');
-        $shop->address = $request->input('address');
-        $shop->phone = $request->input('phone');
-        $shop->open_time = $request->input('open_time');
-        $shop->close_time = $request->input('close_time');
-        $shop->holiday = implode(',', $holidays);
-        $shop->category_id = $request->input('category_id');
-        $shop->price = $request->input('price');
+        $validated = $request->validated();
+
+        $shop = Shop::create($validated);
+
+        foreach ($validated['weekdays'] ?? [] as $weekday) {
+            $shop->holidays()->create(['weekday' => $weekday]);
+        }
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $path = Storage::disk('public')->putFile('img', $file);
         }
-        $shop->save();
 
-        return redirect()->route('web.shops.index')->with('flash_message', '店舗の作成が完了しました。');
+        foreach ($validated['weekdays'] ?? [] as $weekday) {
+            $shop->holidays()->create([
+                'weekday' => $weekday,
+            ]);
+        }
+
+        return redirect()->route('admin.shops.index')->with('flash_message', '店舗の作成が完了しました。');
     }
 
     /**
@@ -81,22 +85,9 @@ class ShopController extends Controller
      */
     public function show(Shop $shop)
     {
-        $shop->load('category');
-
-        $holidayLabels = [
-            'monday' => '月',
-            'tuesday' => '火',
-            'wednesday' => '水',
-            'thursday' => '木',
-            'friday' => '金',
-            'saturday' => '土',
-            'sunday' => '日',
-            'none' => '定休日なし',
-        ];
-        $holidays = explode(',', $shop->holiday);
-        $holidays = array_map(fn($h) => $holidayLabels[$h] ?? $h, $holidays);
+        $shop->load(['category', 'holidays']);
         
-        return view('admin.shops.show', compact('shop', 'holidays'));
+        return view('admin.shops.show', compact('shop'));
     }
 
     /**
@@ -108,8 +99,9 @@ class ShopController extends Controller
     public function edit(Shop $shop)
     {
         $categories = Category::all();
+        $prices = Price::all();
         
-        return view('admin.shops.edit', compact('shop', 'categories'));
+        return view('admin.shops.edit', compact('shop', 'categories', 'prices'));
     }
 
     /**
@@ -119,25 +111,24 @@ class ShopController extends Controller
      * @param  \App\Models\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shop $shop)
+    public function update(ShopRequest $request, Shop $shop)
     {
-        $holidays = $request->input('holiday', []);
-        
-        $shop->name = $request->input('name');
-        $shop->description = $request->input('description');
-        $shop->postal_code = $request->input('postal_code');
-        $shop->address = $request->input('address');
-        $shop->phone = $request->input('phone');
-        $shop->open_time = $request->input('open_time');
-        $shop->close_time = $request->input('close_time');
-        $shop->holiday = implode(',', $holidays);
-        $shop->category_id = $request->input('category_id');
-        $shop->price = $request->input('price');
+        $validated = $request->validated();
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $path = Storage::disk('public')->putFile('img', $file);
         }
-        $shop->update();
+
+        $shop->holidays()->delete();
+
+        foreach ($validated['weekdays'] ?? [] as $weekday) {
+            if (is_numeric($weekday) && $weekday >= 0 && $weekday <= 6) {
+                $shop->holidays()->create(['weekday' => (int)$weekday]);
+            }
+        }
+
+        $shop->update($validated);
 
         return redirect()->route('admin.shops.show', $shop)->with('flash_message', '店舗情報を編集しました。');
     }

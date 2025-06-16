@@ -29,4 +29,26 @@ class Shop extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function price()
+    {
+        return $this->belongsTo(Price::class);
+    }
+
+    public function holidays()
+    {
+        return $this->hasMany(ShopHoliday::class);
+    }
+
+    protected $fillable = [
+        'name',
+        'description',
+        'postal_code',
+        'address',
+        'phone',
+        'open_time',
+        'close_time',
+        'category_id',
+        'price_id',
+    ];
 }

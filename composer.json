@@ -9,6 +9,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^3.11",
         "kyslik/column-sortable": "^7.0",
+        "laravel/cashier": "^14.14",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7"

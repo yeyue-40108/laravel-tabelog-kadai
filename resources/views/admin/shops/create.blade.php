@@ -53,48 +53,23 @@
         </div>
         <div class="mb-3">
             <label class="form-label">定休日</label><br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="monday" id="monday">
-                <label class="form-check-label" for="monday">月</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="tuesday" id="tuesday">
-                <label class="form-check-label" for="tuesday">火</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="wednesday" id="wednesday">
-                <label class="form-check-label" for="wednesday">水</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="thursday" id="thursday">
-                <label class="form-check-label" for="thursday">木</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="friday" id="friday">
-                <label class="form-check-label" for="friday">金</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="saturday" id="saturday">
-                <label class="form-check-label" for="saturday">土</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="sunday" id="sunday">
-                <label class="form-check-label" for="sunday">日</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="none" id="none">
-                <label class="form-check-label" for="none">定休日なし</label>
-            </div>
+            @php
+                $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+            @endphp
+            
+            @foreach ($weekdays as $index => $label)
+                <label class="mx-2">
+                    <input type="checkbox" name="weekdays[]" value="{{ $index }}">
+                    {{ $label }}
+                </label>
+            @endforeach
         </div>
         <div class="mb-3">
             <label for="shop-price" class="form-label">価格帯</label>
-            <select name="price" class="form-select" id="shop-price" aria-label="Default select example">
-                <option value="~1,000">～1,000円</option>
-                <option value="1,000~2,000">1,000～2,000円</option>
-                <option value="2,000~3,000">2,000～3,000円</option>
-                <option value="3,000~4,000">3,000～4,000円</option>
-                <option value="4,000~5,000">4,000～5,000円</option>
-                <option value="5,000~">5000円～</option>
+            <select name="price_id" class="form-select" id="shop-price" aria-label="Default select example">
+                @foreach ($prices as $price)
+                    <option value="{{ $price->id }}">{{ $price->range }}</option>
+                @endforeach
             </select>
         </div>
         <button type="submit" class="btn btn-success">店舗を登録</button>

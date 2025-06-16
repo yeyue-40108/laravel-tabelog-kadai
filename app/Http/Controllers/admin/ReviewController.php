@@ -12,23 +12,24 @@ class ReviewController extends Controller
 {
     public function index(Request $request, Review $review)
     {
-        $keyword = $request->query('keyword');
         $start_date = $request->query('start_date');
         $end_date = $request->query('end_date');
 
-        $query = Review::query()
-            ->with(['user', 'shop'])
-            ->join('users', 'reviews.user_id', '=', 'users.id')
-            ->join('shops', 'reviews.shop_id', '=', 'shops.id')
-            ->select('reviews.*');
+        $query = Review::with(['user', 'shop']);
 
-        if (!empty($keyword)) {
+        if ($keyword = request('keyword')) {
             $query->where(function ($q) use ($keyword) {
-                $q->where('users.name', 'like', "%{$keyword}%")
-                ->orWhere('shops.name', 'like', "%{$keyword}%")
-                ->orWhere('reviews.content', 'like', "%{$keyword}%");
+                $q->where('content', 'like', "%{$keyword}%")
+                ->orWhereHas('user', function ($q2) use ($keyword) {
+                    $q2->where('name', 'like', "%{$keyword}%");
+                })
+                ->orWhereHas('shop', function ($q3) use ($keyword) {
+                    $q3->where('name', 'like', "%{$keyword}%");
+                });
             });
         }
+
+        $results = $query->get();
 
         if (!empty($start_date)) {
             $query->whereDate('reviews.created_at', '>=', $start_date);

@@ -67,14 +67,20 @@
                     <div class="row">
                         <p class="col-2">定休日</p>
                         <div class="col-10">
-                            @foreach ($holidays as $holiday)
-                                <span>{{ $holiday }}</span>
-                            @endforeach
+                            @php
+                                $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+                            @endphp
+                            
+                            @forelse ($shop->holidays as $holiday)
+                                <span>{{ $weekdays[$holiday->weekday] }}</span>
+                            @empty
+                                <span>なし</span>
+                            @endforelse
                         </div>
                     </div>
                     <div class="row">
                         <p class="col-2">価格帯</p>
-                        <p class="col-10">{{ $shop->price }}<span>円</span></p>
+                        <p class="col-10">{{ $shop->price->range }}</p>
                     </div>
                     <div class="row">
                         <p class="col-2">住所</p>

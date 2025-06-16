@@ -56,14 +56,14 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row d-flex justify-content-around">
                 @foreach ($shops as $shop)
-                    <div class="col-md-4 shop_outline m-3">
+                    <div class="col-md-5 shop_outline mb-3">
                         <div class="row">
-                            <h2 class="col-9">{{ $shop->name }}</h2>
-                            <h3 class="col-3 category_label text-center">{{ $shop->category->name }}</h3>
+                            <h2 class="col-8">{{ $shop->name }}</h2>
+                            <h3 class="col-4 category_label text-center">{{ $shop->category->name }}</h3>
                         </div>
-                        <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail">
+                        <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail d-block mx-auto shop_index_img">
                         @php
                             $score = $shop->average_score ?? 0;
                             $percent = ($score / 5) * 100;
@@ -76,7 +76,7 @@
                             </div>
                             <span class="score_text">{{ number_format($score, 1) }}</span>
                         </div>
-                        <p>{{ $shop->price }} <span>円</span></p>
+                        <p>{{ $shop->price->range }}</p>
                         <p>{{ $shop->address }}</p>
                         <div class="row justify-content-around">
                             <div class="col-6">

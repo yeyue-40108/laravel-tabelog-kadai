@@ -122,6 +122,11 @@ label {
     background-color: #f58220;
 }
 
+.shop_index_img {
+    width: auto;
+    height: 200px;
+}
+
 /* 店舗詳細 */
 .shop_show_img {
     height: 50vh;

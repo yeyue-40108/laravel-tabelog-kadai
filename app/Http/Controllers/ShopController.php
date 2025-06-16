@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use App\Models\Category;
+use App\Models\Price;
+use App\Models\ShopHoliday;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller

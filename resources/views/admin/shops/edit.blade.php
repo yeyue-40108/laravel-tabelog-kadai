@@ -54,53 +54,24 @@
         </div>
         <div class="mb-3">
             <label class="form-label">定休日</label><br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="monday" id="monday">
-                <label class="form-check-label" for="monday">月</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="tuesday" id="tuesday">
-                <label class="form-check-label" for="tuesday">火</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="wednesday" id="wednesday">
-                <label class="form-check-label" for="wednesday">水</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="thursday" id="thursday">
-                <label class="form-check-label" for="thursday">木</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="friday" id="friday">
-                <label class="form-check-label" for="friday">金</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="saturday" id="saturday">
-                <label class="form-check-label" for="saturday">土</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="sunday" id="sunday">
-                <label class="form-check-label" for="sunday">日</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="holiday[]" value="none" id="none">
-                <label class="form-check-label" for="none">定休日なし</label>
-            </div>
+            @php
+                $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+                $selectedWeekdays = old('weekdays', $shop->holidays->pluck('weekday')->toArray());
+            @endphp
+
+            @foreach ($weekdays as $index => $label)
+                <label class="mx-2">
+                    <input type="checkbox" name="weekdays[]" value="{{ $index }}" {{ in_array($index, $selectedWeekdays) ? 'checked' : '' }}>
+                    {{ $label }}
+                </label>
+            @endforeach
         </div>
         <div class="mb-3">
             <label for="shop-price" class="form-label">価格帯</label>
-            @php
-                $selected = function ($value) use ($shop) {
-                    return old('price', $shop->price) === $value ? 'selected' : '';
-                };
-            @endphp
-            <select name="price" class="form-select" id="shop-price" aria-label="Default select example">
-                <option value="~1,000" {{ $selected('~1,000') }}>～1,000円</option>
-                <option value="1,000~2,000" {{ $selected('1,000~2,000') }}>1,000～2,000円</option>
-                <option value="2,000~3,000" {{ $selected('2,000~3,000') }}>2,000～3,000円</option>
-                <option value="3,000~4,000" {{ $selected('3,000~4,000') }}>3,000～4,000円</option>
-                <option value="4,000~5,000" {{ $selected('4,000~5,000') }}>4,000～5,000円</option>
-                <option value="5,000~" {{ $selected('5,000~') }}>5,000円～</option>
+            <select name="price_id" class="form-control" id="shop-price"  aria-label="Default select example">
+                @foreach ($prices as $price)
+                    <option value="{{ $price->id }}" {{ $price->id === $shop->price_id ? 'selected' : (old('price->id') == $price->id ? 'selected' : '')}}>{{ $price-> range }}</option>
+                @endforeach
             </select>
         </div>
         <button type="submit" class="btn btn-warning">編集</button>

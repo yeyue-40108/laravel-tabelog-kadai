@@ -77,7 +77,7 @@
                     <td>{{ $review->content }}</td>
                     <td>{{ $review->score }}</td>
                     <td>{{ $review->created_at }}</td>
-                    <td>{{ $review->display }}</td>
+                    <td>{{ $review->display ? '表示' : '非表示' }}</td>
                     <td>
                         <a href="{{ route('admin.reviews.show', $review) }}" class="btn btn-primary btn-sm">詳細</a>
                     </td>

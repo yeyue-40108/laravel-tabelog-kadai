@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ShopController as AdminShopController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,17 +47,25 @@ Route::middleware(['auth', 'verified'])->group(function() {
         Route::get('users/mypage/password/edit', 'edit_password')->name('mypage.edit_password');
         Route::put('users/mypage/password', 'update_password')->name('mypage.update_password');
         Route::get('users/mypage/favorite', 'favorite')->name('mypage.favorite');
+        Route::get('users/mypage/paid/edit', 'edit_paid')->name('mypage.edit_paid');
+        Route::put('users/mypage/paid', 'update_paid')->name('mypage.update_paid');
+        Route::get('users/mypage/cash/edit', 'edit_cash')->name('mypage.edit_cash');
+        Route::put('users/mypage/cash', 'update_cash')->name('mypage.update_cash');
+        Route::get('users/mypage/cancel/edit', 'edit_cancel')->name('mypage.edit_cancel');
+        Route::put('users/mypage/cancel', 'update_cancel')->name('mypage.update_cancel');
     });
+});
 
-    Route::prefix('admin')->name('admin.')->group(function() {
-        Route::get('web', [AdminWebController::class, 'index'])->name('web.index');
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin'],function() {
+    Route::get('web', [AdminWebController::class, 'index'])->name('web.index');
 
-        Route::resource('shops', AdminShopController::class);
+    Route::resource('shops', AdminShopController::class);
 
-        Route::resource('categories', AdminCategoryController::class);
+    Route::resource('categories', AdminCategoryController::class);
 
-        Route::resource('reviews', AdminReviewController::class);
-        
-        Route::resource('users', AdminUserController::class);
-    });
+    Route::resource('reviews', AdminReviewController::class);
+    
+    Route::resource('users', AdminUserController::class);
+
+    Route::get('reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
 });

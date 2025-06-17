@@ -28,35 +28,41 @@
         <tbody>
             <tr>
                 <th scope="row">ID</th>
-                <td scope="row">{{ $user->id }}</td>
+                <td>{{ $user->id }}</td>
             </tr>
             <tr>
                 <th scope="row">氏名</th>
-                <td scope="row">{{ $user->name }}</td>
+                <td>{{ $user->name }}</td>
             </tr>
             <tr>
                 <th scope="row">フリガナ</th>
-                <td scope="row">{{ $user->furigana }}</td>
+                <td>{{ $user->furigana }}</td>
             </tr>
             <tr>
                 <th scope="row">メールアドレス</th>
-                <td scope="row">{{ $user->email }}</td>
+                <td>{{ $user->email }}</td>
             </tr>
             <tr>
                 <th scope="row">会員種別</th>
-                <td scope="row">{{ $user->role }}</td>
+                <td>
+                    @if ($user->role === 'paid')
+                        <span>有料会員</span>
+                    @else
+                        <span>無料会員</span>
+                    @endif
+                </td>
             </tr>
             <tr>
                 <th scope="row">電話番号</th>
-                <td scope="row">{{ $user->phone }}</td>
+                <td>{{ $user->phone }}</td>
             </tr>
             <tr>
                 <th scope="row">生年月日</th>
-                <td scope="row">{{ $user->birthday }}</td>
+                <td>{{ $user->birthday }}</td>
             </tr>
             <tr>
                 <th scope="row">職業</th>
-                <td scope="row">{{ $user->work }}</td>
+                <td>{{ $user->work }}</td>
             </tr>
         </tbody>
     </table>

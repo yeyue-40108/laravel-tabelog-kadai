@@ -1,19 +1,5 @@
 @extends('layouts.app')
 
-@push('scripts')
-<script src="https://js.stripe.com/v3/"></script>
-
-<script>
-    const stripe = Stripe('stripe-public-key');
-
-    const elements = stripe.elements();
-    const cardElement = elements.create('card');
-
-    cardElement.mount('#card-element');
-</script>
-<script src={{ asset('/js/stripe/js') }}></script>
-@endpush
-
 @section('content')
 <div class="container pt-2">
     <div class="row justify-content-center">
@@ -25,9 +11,9 @@
                 </ol>
             </nav>
 
-            <h1 class="mb-3">有料会員登録</h1>
+            <h1 class="mb-3">有料会員登録フォーム</h1>
             <hr>
-            <form method="POST" action="{{ route('users.update_paid_users') }}">
+            <form method="POST" action="{{ route('mypage.update_paid') }}">
                 @csrf
                 @method('PUT')
                 <div class="row mb-3">
@@ -62,21 +48,9 @@
                         <option value="other">その他</option>
                     </select>
                 </div>
-                <hr>
-
-                <div>
-                    <!-- カード登録 -->
-                    <label for="card-holder-name">カード番号</label>
-                    <input id="card-holder-name" type="text">
-
-                    <!-- ストライプ要素のプレースホルダ -->
-                    <div id="card-element"></div>
-                </div>
-
-                <input type="hidden" name="role" id="role" value="paid">
 
                 <hr class="mb-4">
-                <button type="submit" id="card-button" data-secret="{{ $intent->client_secret }}" class="btn submit_btn w-100 text-white">有料会員登録</button>
+                <button type="submit" id="card-button" class="btn submit_btn w-100 text-white"><a href="{{ route('subscription.create') }}"></a>次へ（カード登録）</button>
             </form>
         </div>
     </div>

@@ -99,46 +99,18 @@ class UserController extends Controller
             'work' => 'required',
         ]);
         
-        $stripeCustomer = $user->createOrGetStripeCustomer();
         $user->phone = $request->input('phone');
         $user->birthday = $request->input('birthday');
         $user->work = $request->input('work');
-        $user->role = $request->input('role');
         $user->update();
         
-        return redirect()->route('mypage')->with('flash_message', '有料会員登録が完了しました。');
+        return to_route('subscription.create');
     }
 
     public function edit_paid(User $user)
     {
         $user = Auth::user();
 
-        return view('users.edit_paid', ['intent' => $user->createSetupIntent()], compact('user'));
-    }
-
-    public function update_cash(Request $request, User $user)
-    {
-        $user->updateDefaultPaymentMethod($paymentMethod);
-        
-        return redirect()->route('mypage')->with('flash_message', 'カード情報の更新が完了しました。');
-    }
-
-    public function edit_cash()
-    {
-        return view('mypage.edit_cash');
-    }
-
-    public function update_cancel(Request $request, User $user)
-    {
-        $paymentMethod->delete();
-        $user->role = $request->input('role');
-        $user->update();
-        
-        return redirect()->route('mypage')->with('flash_message', '有料会員の解約が完了しました。');
-    }
-
-    public function edit_cancel()
-    {
-        return view('users.edit_cancel');
+        return view('users.edit_paid', compact('user'));
     }
 }

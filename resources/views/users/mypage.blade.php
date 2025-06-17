@@ -41,95 +41,95 @@
                 </a>
             </div>
             <hr>
-            <!-- 無料会員のみ -->
-            <div class="container">
-                <a href="{{ route('mypage.edit_paid') }}" class="link-dark link-opacity-50-hover text-decoration-none">
-                    <div class="row justify-content-between align-items-center py-4">
-                        <div class="col-1 ps-0 me-3">
-                            <i class="fa-solid fa-arrow-trend-up fa-2x"></i>
+            @if (auth()->user()->role === 'free')
+                <div class="container">
+                    <a href="{{ route('mypage.edit_paid') }}" class="link-dark link-opacity-50-hover text-decoration-none">
+                        <div class="row justify-content-between align-items-center py-4">
+                            <div class="col-1 ps-0 me-3">
+                                <i class="fa-solid fa-arrow-trend-up fa-2x"></i>
+                            </div>
+                            <div class="col-9 d-flex flex-column">
+                                <h3>有料会員への移行</h3>
+                                <p class="mb-0">有料会員への移行ができます。</p>
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-chevron-right fa-2x"></i>
+                            </div>
                         </div>
-                        <div class="col-9 d-flex flex-column">
-                            <h3>有料会員への移行</h3>
-                            <p class="mb-0">有料会員への移行ができます。</p>
+                    </a>
+                </div>
+                <hr>
+            @endif
+            @if (auth()->user()->role === 'paid')
+                <div class="container">
+                    <a href="{{ route('mypage.edit_cash') }}" class="link-dark link-opacity-50-hover text-decoration-none">
+                        <div class="row justify-content-between align-items-center py-4">
+                            <div class="col-1 ps-0 me-3">
+                                <i class="fa-solid fa-credit-card fa-2x"></i>
+                            </div>
+                            <div class="col-9 d-flex flex-column">
+                                <h3>お支払い方法変更</h3>
+                                <p class="mb-0">有料会員プランのお支払いカード情報を変更します</p>
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-chevron-right fa-2x"></i>
+                            </div>
                         </div>
-                        <div class="col text-end">
-                            <i class="fa-solid fa-chevron-right fa-2x"></i>
+                    </a>
+                </div>
+                <hr>
+                <div class="container">
+                    <a href="{{ route('mypage.favorite') }}" class="link-dark link-opacity-50-hover text-decoration-none">
+                        <div class="row justify-content-between align-items-center py-4">
+                            <div class="col-1 ps-0 me-3">
+                                <i class="fa-solid fa-heart fa-2x"></i>
+                            </div>
+                            <div class="col-9 d-flex flex-column">
+                                <h3>お気に入り一覧</h3>
+                                <p class="mb-0">お気に入りに登録した店舗を確認できます</p>
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-chevron-right fa-2x"></i>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <hr>
-            <!-- 無料会員のみ終わり -->
-            <!-- 有料会員のみ -->
-            <div class="container">
-                <a href="{{ route('mypage.edit_cash') }}" class="link-dark link-opacity-50-hover text-decoration-none">
-                    <div class="row justify-content-between align-items-center py-4">
-                        <div class="col-1 ps-0 me-3">
-                            <i class="fa-solid fa-credit-card fa-2x"></i>
+                    </a>
+                </div>
+                <hr>
+                <div class="container">
+                    <a href="{{ route('reservations.index') }}" class="link-dark link-opacity-50-hover text-decoration-none">
+                        <div class="row justify-content-between align-items-center py-4">
+                            <div class="col-1 ps-0 me-3">
+                                <i class="fa-solid fa-calendar-days fa-2x"></i>
+                            </div>
+                            <div class="col-9 d-flex flex-column">
+                                <h3>予約一覧</h3>
+                                <p class="mb-0">予約状況を確認できます</p>
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-chevron-right fa-2x"></i>
+                            </div>
                         </div>
-                        <div class="col-9 d-flex flex-column">
-                            <h3>支払い情報変更</h3>
-                            <p class="mb-0">有料会員プランの支払いカード情報を変更します</p>
+                    </a>
+                </div>
+                <hr>
+                <div class="container">
+                    <a href="{{ route('mypage.edit_paid') }}" class="link-dark link-opacity-50-hover text-decoration-none">
+                        <div class="row justify-content-between align-items-center py-4">
+                            <div class="col-1 ps-0 me-3">
+                                <i class="fa-solid fa-triangle-exclamation fa-2x"></i>
+                            </div>
+                            <div class="col-9 d-flex flex-column">
+                                <h3>有料会員解約</h3>
+                                <p class="mb-0">有料会員を解約し無料会員に移行します。</p>
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa-solid fa-chevron-right fa-2x"></i>
+                            </div>
                         </div>
-                        <div class="col text-end">
-                            <i class="fa-solid fa-chevron-right fa-2x"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <hr>
-            <div class="container">
-                <a href="{{ route('mypage.favorite') }}" class="link-dark link-opacity-50-hover text-decoration-none">
-                    <div class="row justify-content-between align-items-center py-4">
-                        <div class="col-1 ps-0 me-3">
-                            <i class="fa-solid fa-heart fa-2x"></i>
-                        </div>
-                        <div class="col-9 d-flex flex-column">
-                            <h3>お気に入り一覧</h3>
-                            <p class="mb-0">お気に入りに登録した店舗を確認できます</p>
-                        </div>
-                        <div class="col text-end">
-                            <i class="fa-solid fa-chevron-right fa-2x"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <hr>
-            <div class="container">
-                <a href="{{ route('reservations.index') }}" class="link-dark link-opacity-50-hover text-decoration-none">
-                    <div class="row justify-content-between align-items-center py-4">
-                        <div class="col-1 ps-0 me-3">
-                            <i class="fa-solid fa-calendar-days fa-2x"></i>
-                        </div>
-                        <div class="col-9 d-flex flex-column">
-                            <h3>予約一覧</h3>
-                            <p class="mb-0">予約状況を確認できます</p>
-                        </div>
-                        <div class="col text-end">
-                            <i class="fa-solid fa-chevron-right fa-2x"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <hr>
-            <div class="container">
-                <a href="{{ route('mypage.edit_paid') }}" class="link-dark link-opacity-50-hover text-decoration-none">
-                    <div class="row justify-content-between align-items-center py-4">
-                        <div class="col-1 ps-0 me-3">
-                            <i class="fa-solid fa-triangle-exclamation fa-2x"></i>
-                        </div>
-                        <div class="col-9 d-flex flex-column">
-                            <h3>有料会員解約</h3>
-                            <p class="mb-0">有料会員を解約し無料会員に移行します。</p>
-                        </div>
-                        <div class="col text-end">
-                            <i class="fa-solid fa-chevron-right fa-2x"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <hr>
-            <!-- 有料会員のみ終わり -->
+                    </a>
+                </div>
+                <hr>
+            @endif
             <div class="container">
                 <a href="{{ route('logout') }}" class="link-dark link-opacity-50-hover text-decoration-none">
                     <div class="row justify-content-between align-items-center py-4">

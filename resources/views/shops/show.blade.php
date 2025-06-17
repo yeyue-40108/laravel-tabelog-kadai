@@ -30,18 +30,48 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    @if (Auth::user()->favorite_shops()->where('shop_id', $shop->id)->exists())
-                        <a href="{{ route('favorites.destroy', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
-                            <i class="fa-solid fa-heart"></i>
-                            お気に入り解除
-                        </a>
+                    @if (auth()->user()->role === 'paid')
+                        @if (Auth::user()->favorite_shops()->where('shop_id', $shop->id)->exists())
+                            <a href="{{ route('favorites.destroy', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
+                                <i class="fa-solid fa-heart"></i>
+                                お気に入り解除
+                            </a>
+                        @else
+                            <a href="{{ route('favorites.store', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
+                                <i class="fa-solid fa-heart"></i>
+                                お気に入り
+                            </a>
+                        @endif
+                        <a href="{{ route('reservations.create', ['shop_id' => $shop->id]) }}" class="btn reservation_btn text-white">予約</a>
                     @else
-                        <a href="{{ route('favorites.store', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
+                        <button type="button" class="btn favorite_btn" data-bs-toggle="modal" data-bs-target="#paidModal">
                             <i class="fa-solid fa-heart"></i>
                             お気に入り
-                        </a>
+                        </button>
+                        <button class="btn reservation_btn text-white" data-bs-toggle="modal" data-bs-target="#paidModal">予約</button>
+                        <div class="modal fade" id="paidModal" tabindex="-1" aria-labelledby="paidModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="paidModalLabel">有料会員向け機能</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        こちらは有料会員向けの機能になります。<br>
+                                        有料会員は月額300円で以下のことができるようになります。
+                                        <ul>
+                                            <li>お店の予約</li>
+                                            <li>お気に入りの追加</li>
+                                            <li>レビュー投稿</li>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{{ route('mypage.edit_paid') }}" class="btn btn-success">有料会員登録</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endif
-                    <a href="{{ route('reservations.create', ['shop_id' => $shop->id]) }}" class="btn reservation_btn text-white">予約</a>
                 </div>
             </div>
             <form id="favorites-destroy-form" action="{{ route('favorites.destroy', $shop->id) }}" method="POST" class="d-none">
@@ -114,24 +144,28 @@
                 </div>
                 <div class="col-md-6">
                     <h3>レビューを投稿する</h3>
-                    <form method="POST" action="{{ route('reviews.store') }}">
-                        @csrf
-                        <p>評価</p>
-                        <select name="score" class="form-control m-2 review_star">
-                            <option value="5" class="review_star">★★★★★</option>
-                            <option value="4" class="review_star">★★★★</option>
-                            <option value="3" class="review_star">★★★</option>
-                            <option value="2" class="review_star">★★</option>
-                            <option value="1" class="review_star">★</option>
-                        </select>
-                        <p>レビュー内容</p>
-                        @error ('content')
-                            <strong>レビュー内容を入力してください。</strong>
-                        @enderror
-                        <textarea name="content" class="form-control m-2"></textarea>
-                        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                        <button type="submit" class="btn submit_btn ml-2 text-white">レビューを投稿</button>
-                    </form>
+                    @if (auth()->user()->role === 'paid')
+                        <form method="POST" action="{{ route('reviews.store') }}">
+                            @csrf
+                            <p>評価</p>
+                            <select name="score" class="form-control m-2 review_star">
+                                <option value="5" class="review_star">★★★★★</option>
+                                <option value="4" class="review_star">★★★★</option>
+                                <option value="3" class="review_star">★★★</option>
+                                <option value="2" class="review_star">★★</option>
+                                <option value="1" class="review_star">★</option>
+                            </select>
+                            <p>レビュー内容</p>
+                            @error ('content')
+                                <strong>レビュー内容を入力してください。</strong>
+                            @enderror
+                            <textarea name="content" class="form-control m-2"></textarea>
+                            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                            <button type="submit" class="btn submit_btn ml-2 text-white">レビューを投稿</button>
+                        </form>
+                    @else
+                        <p>レビュー投稿は有料会員向けの機能です。</p>
+                    @endif
                 </div>
             </div>
         </div>

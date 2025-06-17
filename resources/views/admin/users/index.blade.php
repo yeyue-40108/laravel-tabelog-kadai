@@ -52,7 +52,13 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->furigana }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->role }}</td>
+                    <td>
+                        @if ($user->role === 'paid')
+                            <span>有料会員</span>
+                        @else
+                            <span>無料会員</span>
+                        @endif
+                    </td>
                     <td class="d-flex">
                         <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-primary btn-sm my-2">詳細</a>
                     </td>
@@ -63,6 +69,5 @@
     <div class="mb-4">
         {{ $users->appends(request()->query())->links() }}
     </div>
-    </table>
 </div>
 @endsection

@@ -6,7 +6,7 @@
 <script>
     const stripeKey = "{{ env('STRIPE_KEY') }}";
 </script>
-<script src={{ asset('/js/stripe.js') }}></script>
+<script src="{{ asset('/js/stripe.js') }}"></script>
 @endpush
 
 @section('content')
@@ -28,14 +28,14 @@
     @endif
     <hr class="mb-4">
 
-    <div class="alert alert-danger" id="card-error" role="alert">
+    <div class="alert alert-danger card_error" id="card-error" role="alert">
         <ul class="mb-0" id="error-list"></ul>
     </div>
 
     <form action="{{ route('subscription.store') }}" id="card-form" method="POST">
         @csrf
-        <input type="text" class="mb-3 form-control" id="card-holder-name" placeholder="カード名義人" required>
-        <div class="mb-4" id="card-element"></div>
+        <input type="text" class="mb-3 card_name" id="card-holder-name" placeholder="カード名義人" required>
+        <div class="card_element mb-4" id="card-element"></div>
     </form>
     <button class="btn submit_btn text-white w-50" id="card-button" data-secret="{{ $intent->client_secret }}">登録</button>
 </div>

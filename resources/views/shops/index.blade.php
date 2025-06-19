@@ -4,34 +4,24 @@
 <div class="container">
     <div class="row">
         <div class="col-2">
-            @component('components.sidebar', ['categories' => $categories])
+            @component('components.sidebar', ['categories' => $categories, 'prices' => $prices])
             @endcomponent
         </div>
         <div class="col-9">
             <div class="container">
+                <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('top') }}">トップ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
+                    </ol>
+                </nav>
                 @if ($category !== null)
-                    <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('top') }}">トップ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
-                        </ol>
-                    </nav>
                     <h1>{{ $category->name }}の店舗一覧<span class="ms-3">{{ $total_count }}件</span></h1>
+                @elseif ($price !== null)
+                    <h1>{{ $price->range }}の店舗一覧<span class="ms-3">{{ $total_count }}件</span></h1>
                 @elseif ($keyword !== null)
-                    <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('top') }}">トップ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
-                        </ol>
-                    </nav>
                     <h1>{{ $keyword }}の検索結果<span class="ms-3">{{ $total_count }}件</span></h1>
                 @else
-                    <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('top') }}">トップ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
-                        </ol>
-                    </nav>
                     <h1>店舗一覧<span class="ms-3">{{ $total_count }}件</span></h1>
                 @endif
                 <div class="d-flex align-items-center mb-4">
@@ -39,6 +29,9 @@
                     <form method="GET" action="{{ route('shops.index') }}">
                         @if ($category)
                             <input type="hidden" name="category" value="{{ $category->id }}">
+                        @endif
+                        @if ($price)
+                            <input type="hidden" name="price" value="{{ $price->id }}">
                         @endif
                         @if ($keyword)
                             <input type="hidden" name="keyword" value="{{ $keyword }}">

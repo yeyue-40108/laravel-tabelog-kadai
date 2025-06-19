@@ -61,7 +61,10 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
         Route::get('users/mypage/favorite', [UserController::class,'favorite'])->name('mypage.favorite');
 
-        Route::resource('reservations', ReservationController::class);
+        Route::get('reservations', [ReservationController::class, 'index'])->name('reservations.index');
+        Route::get('/shops/{shop}/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
+        Route::post('/shops/{shop}/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+        Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 
         Route::controller(SubscriptionController::class)->group(function() {
             Route::get('subscription/edit', 'edit')->name('subscription.edit');
@@ -84,12 +87,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::resource('users', AdminUserController::class);
 
     Route::get('reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
+    Route::get('reservations/show', [AdminReservationController::class, 'show'])->name('reservations.show');
 
     Route::controller(AdminMasterController::class)->group(function() {
-        Route::get('masters/mypage', 'mypage')->name('mypage');
-        Route::get('masters/mypage/edit', 'edit')->name('mypage.edit');
-        Route::put('masters/mypage', 'update')->name('mypage.update');
-        Route::get('masters/mypage/password/edit', 'edit_password')->name('mypage.edit_password');
-        Route::put('masters/mypage/password', 'update_password')->name('mypage.update_password');
+        Route::get('masters', 'index')->name('masters.index');
+        Route::get('masters/create', 'create')->name('masters.create');
+        Route::post('masters', 'store')->name('masters.store');
+        Route::put('masters', 'update')->name('masters.update');
+        Route::delete('masters', 'destroy')->name('masters.destroy');
+        Route::get('masters/email/edit', 'edit_email')->name('masters.edit_email');
+        Route::put('masters/email', 'update_email')->name('masters.update_email');
+        Route::get('masters/password/edit', 'edit_password')->name('masters.edit_password');
+        Route::put('masters/password', 'update_password')->name('masters.update_password');
     });
 });

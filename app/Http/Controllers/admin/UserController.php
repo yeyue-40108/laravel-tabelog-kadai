@@ -54,7 +54,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $shop->delete();
+        $user->delete();
 
         return redirect()->route('admin.users.index')->with('flash_message', '会員の退会が完了しました。');
     }

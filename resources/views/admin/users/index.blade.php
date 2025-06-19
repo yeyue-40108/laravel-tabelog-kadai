@@ -16,7 +16,7 @@
         @endif
     </div>
     <div class="row">
-        <form action="{{ route('admin.shops.index') }}" method="GET" class="col-6 g-1 mb-3">
+        <form action="{{ route('admin.users.index') }}" method="GET" class="col-6 g-1 mb-3">
             <div class="row">
                 <div class="col-10">
                     <input class="form-control search_input" name="keyword" placeholder="氏名・フリガナ・メールアドレスで検索">

@@ -5,6 +5,9 @@
     <div class="d-flex flex-row-reverse">
         <button class="btn btn-outline-secondary btn-lg">FAQ</button>
     </div>
+    @if (session('flash_message'))
+        <p>{{ session('flash_message') }}</p>
+    @endif
     <div class="row justify-content-around">
         <div class="col-md-5">
             <a href="{{ route('admin.shops.index') }}" class="link-dark link-opacity-50-hover text-decoration-none">
@@ -119,14 +122,14 @@
             </a>
         </div>
         <div class="col-md-5">
-            <a href="#" class="link-dark link-opacity-50-hover text-decoration-none">
+            <a href="{{ route('admin.masters.index') }}" class="link-dark link-opacity-50-hover text-decoration-none">
                 <div class="row justify-content-between align-items-center py-4">
                     <div class="col-1 ps-0 me-3">
                         <i class="fa-solid fa-pen fa-2x"></i>
                     </div>
                     <div class="col-9 d-flex flex-column">
                         <h3>管理者について</h3>
-                        <p class="mb-0">ログイン情報の変更、管理者登録、管理者権限の変更ができます</p>
+                        <p class="mb-0">管理者の登録や削除、管理者権限の変更ができます</p>
                     </div>
                     <div class="col text-end">
                         <i class="fa-solid fa-chevron-right fa-2x"></i>

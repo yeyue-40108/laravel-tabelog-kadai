@@ -20,33 +20,41 @@ class ShopController extends Controller
         $keyword = $request->keyword;
 
         $sorts = [
-            '新着順' => 'created_at desc'
+            '新着順' => 'created_at desc',
+            '高評価順' => 'reviews_avg_score desc',
         ];
 
-        $sort_query = [];
-        $sorted = "created_at desc";
-
-        if ($request->has('select_sort')) {
-            $slices = explode(' ', $request->input('select_sort'));
-            $sort_query[$slices[0]] = $slices[1];
-            $sorted = $request->input('select_sort');
-        }
+        $sorted = $request->input('select_sort', 'created_at desc');
+        $slices = explode(' ', $sorted);
+        $column = $slices[0];
+        $direction = $slices[1] ?? 'desc';
         
         $category_id = $request->category;
+        $price_id = $request->price;
+
+        $query = Shop::withAvg('reviews', 'score');
 
         if ($category_id !== null) {
-            $shops = Shop::where('category_id', $category_id)->sortable($sort_query)->orderBy('created_at', 'desc')->paginate(15);
-            $total_count = Shop::where('category_id', $request->category)->count();
+            $query->where('category_id', $category_id);
             $category = Category::find($category_id);
-        } elseif ($keyword !== null) {
-            $shops = Shop::where('name', 'like', "%{$keyword}%")->sortable($sort_query)->orderBy('created_at', 'desc')->paginate(15);
-            $total_count = $shops->total();
+            $price = null;
+            $total_count = Shop::where('category_id', $category_id)->count();
+        } elseif ($price_id !== null) {
+            $query->where('price_id', $price_id);
             $category = null;
+            $price = Price::find($price_id);
+            $total_count = Shop::where('price_id', $price_id)->count();
+        }elseif ($keyword !== null) {
+            $query->where('name', 'like', "%{$keyword}%");
+            $category = null;
+            $price = null;
         } else {
-            $shops = Shop::sortable($sort_query)->orderBy('created_at', 'desc')->paginate(15);
-            $total_count = $shops->total();
             $category = null;
+            $price = null;
         }
+
+        $shops = $query->orderBy($column, $direction)->paginate(15);
+        $total_count = $total_count ?? $shops->total();
 
         $shops->getCollection()->transform(function ($shop) {
             $shop->average_score = round($shop->reviews->avg('score'), 1);
@@ -54,8 +62,9 @@ class ShopController extends Controller
         });
 
         $categories = Category::all();
+        $prices = Price::all();
         
-        return view('shops.index', compact('shops', 'total_count', 'category', 'keyword', 'categories', 'sorts', 'sorted'));
+        return view('shops.index', compact('shops', 'total_count', 'category', 'keyword', 'categories', 'sorts', 'sorted', 'price', 'prices'));
     }
 
     /**

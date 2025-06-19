@@ -1,4 +1,4 @@
-const stripe = Stripe(stripeLey);
+const stripe = Stripe(stripeKey);
 
 const elements = stripe.elements();
 const cardElement = elements.create('card');

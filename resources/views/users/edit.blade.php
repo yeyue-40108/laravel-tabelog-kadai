@@ -88,7 +88,7 @@
                 @endif
 
                 <hr class="mb-4">
-                <button type="submit" class="btn submit_btn w-100 text-white">保存</button>
+                <button type="submit" class="btn submit_btn w-100 text-white">更新</button>
             </form>
         </div>
     </div>

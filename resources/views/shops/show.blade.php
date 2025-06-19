@@ -42,7 +42,7 @@
                                 お気に入り
                             </a>
                         @endif
-                        <a href="{{ route('reservations.create', ['shop_id' => $shop->id]) }}" class="btn reservation_btn text-white">予約</a>
+                        <a href="{{ route('reservations.create', ['shop' => $shop->id]) }}" class="btn reservation_btn text-white">予約</a>
                     @else
                         <button type="button" class="btn favorite_btn" data-bs-toggle="modal" data-bs-target="#paidModal">
                             <i class="fa-solid fa-heart"></i>

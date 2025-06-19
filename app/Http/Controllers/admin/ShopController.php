@@ -64,8 +64,10 @@ class ShopController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = Storage::disk('public')->putFile('img', $file);
+            $image = $request->file('image')->store('public/shops');
+            $shops->image = basename($image);
+        } else {
+            $shops->image = '';
         }
 
         foreach ($validated['weekdays'] ?? [] as $weekday) {
@@ -116,8 +118,8 @@ class ShopController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = Storage::disk('public')->putFile('img', $file);
+            $image = $request->file('image')->store('public/shops');
+            $shops->image = basename($image);
         }
 
         $shop->holidays()->delete();

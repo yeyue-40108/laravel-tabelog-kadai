@@ -32,10 +32,16 @@
 <section id="features">
     <h1 class="text-center section_title">特集</h1>
     <!-- カルーセル？で特集を３つほど表示 -->
+    <div>
+        <!-- 有料会員募集 -->
+    </div>
 </section>
 <section id="search" class="container">
     <h1 class="text-center section_title">条件を指定して店舗を探す</h1>
-    <div class="row">
+    <div class="d-flex justify-content-end mb-1">
+        <a href="{{ route('shops.index') }}" class="link-dark link-opacity-50-hover text-decoration-none fs-5">店舗一覧へ ></a>
+    </div>
+    <div class="row d-flex justify-content-around">
         <div class="card col-md-4">
             <div class="card-body">
                 <h3 class="card-title">カテゴリから探す</h3>
@@ -44,7 +50,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="card col-md-4">
+        <div class="card col-md-3">
             <div class="card-body">
                 <h3 class="card-title">キーワードから探す</h3>
                 <form action="{{ route('shops.index') }}" method="GET" class="row g-1">

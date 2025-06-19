@@ -34,6 +34,17 @@ label {
     color: #191919;
 }
 
+/* TOPに戻るボタン */
+#back_button {
+    display: none;
+    color: #191919;
+    font-weight: bold;
+    text-decoration: none;
+    position: fixed;
+    bottom: 10px;
+    right: 30px;
+}
+
 /* チェックボックス */
 .checkbox {
     font-size: 12px;
@@ -198,6 +209,20 @@ label {
     font-size: 14px;
     font-weight: bold;
     background-color: #f58220;
+}
+
+/* カード */
+.card_error {
+    display: none;
+}
+
+.card_name, .card_element {
+    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    height: 44px;
+    width: 100%;
+    background: white;
 }
 
 /* 管理画面 */

@@ -5,6 +5,9 @@
     <div class="row justify-content-center mb-4">
         <div class="col-lg-5">
             <h1 class="mb-4">マイページ</h1>
+            @if (session('flash_message'))
+                <p>{{ session('flash_message') }}</p>
+            @endif
 
             <hr>
             <div class="container">
@@ -62,7 +65,7 @@
             @endif
             @if (auth()->user()->role === 'paid')
                 <div class="container">
-                    <a href="{{ route('mypage.edit_cash') }}" class="link-dark link-opacity-50-hover text-decoration-none">
+                    <a href="{{ route('subscription.edit') }}" class="link-dark link-opacity-50-hover text-decoration-none">
                         <div class="row justify-content-between align-items-center py-4">
                             <div class="col-1 ps-0 me-3">
                                 <i class="fa-solid fa-credit-card fa-2x"></i>
@@ -113,7 +116,7 @@
                 </div>
                 <hr>
                 <div class="container">
-                    <a href="{{ route('mypage.edit_paid') }}" class="link-dark link-opacity-50-hover text-decoration-none">
+                    <a href="{{ route('subscription.cancel') }}" class="link-dark link-opacity-50-hover text-decoration-none">
                         <div class="row justify-content-between align-items-center py-4">
                             <div class="col-1 ps-0 me-3">
                                 <i class="fa-solid fa-triangle-exclamation fa-2x"></i>

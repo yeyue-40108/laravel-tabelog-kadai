@@ -45,7 +45,7 @@ class UserController extends Controller
         $user->email = $request->input('email') ? $request->input('email') : $user->email;
         $user->update();
 
-        return to_route('mypage');
+        return redirect()->route('mypage')->with('flash_message', '登録情報を編集しました。');
     }
 
     /**
@@ -83,7 +83,7 @@ class UserController extends Controller
             return to_route('mypage.edit_password');
         }
 
-        return to_route('mypage');
+        return redirect()->route('mypage')->with('flash_message', 'パスワードを変更しました。');
     }
 
     public function edit_password()
@@ -95,9 +95,11 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'phone' => 'required|string|max:20',
-            'birthday' => 'required|date_format:Y/m/d',
+            'birthday' => 'required',
             'work' => 'required',
         ]);
+
+        $user = Auth::user();
         
         $user->phone = $request->input('phone');
         $user->birthday = $request->input('birthday');

@@ -25,12 +25,29 @@
 
             <main class="py-4 mb-5">
                 @yield('content')
+                <a id="back_button" class="text-center" href="#">
+                    <i class="fa-solid fa-angles-up fa-2x"></i>
+                    <p>TOP</p>
+                </a>
+                <script>
+                    const backBtn = document.getElementById('back_button');
+                    window.addEventListener('scroll', () => {
+                        const scrollValue = document.scrollingElement.scrollTop;
+
+                        if (scrollValue >= 300) {
+                            backBtn.style.display = 'inline';
+                        } else {
+                            backBtn.style.display = 'none';
+                        }
+                    });
+                </script>
             </main>
 
             @component('components.footer')
             @endcomponent
         </div>
-
+        
+        @stack('scripts')
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     </body>

@@ -15,4 +15,10 @@
             <label class="sidebar_label"><a href="{{ route('shops.index', ['category' => $c->id]) }}">{{ $c->name }}</a></label>
         @endforeach
     </div>
+    <div class="mb-3">
+        <p class="sidebar_title">価格帯から探す</p>
+        @foreach ($prices as $p)
+            <label class="sidebar_label"><a href="{{ route('shops.index', ['price' => $p->id]) }}">{{ $p->range }}</a></label>
+        @endforeach
+    </div>
 </div>

@@ -12,4 +12,9 @@ class ReservationController extends Controller
     {
         return view('admin.reservations.index');
     }
+
+    public function show()
+    {
+        return view('admin.reservations.show');
+    }
 }

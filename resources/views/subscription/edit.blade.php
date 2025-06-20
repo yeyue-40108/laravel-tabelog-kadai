@@ -24,13 +24,14 @@
 
     <div class="mb-4">
         <div class="row">
+            <p class="fs-5">【現在のお支払情報】</p>
             <div>
                 <label class="col-3 text-left fw-medium">カード種別</label>
                 <span class="col-2">{{ $user->pm_type }}</span>
             </div>
             <div>
                 <label class="col-3 text-left fw-medium">カード名義人</label>
-                <span>{{ $user->updateDefaultPaymentMethod()->billing_details->name }}</span>
+                <span>{{ $user->DefaultPaymentMethod()->billing_details->name }}</span>
             </div>
             <div>
                 <label class="col-3 text-left fw-medium">カード番号</label>
@@ -38,15 +39,15 @@
             </div>
         </div>
     </div>
-    <div class="alert alert-danger" id="card-error" role="alert">
+    <div class="alert alert-danger card_error" id="card-error" role="alert">
         <ul class="mb-0" id="error-list"></ul>
     </div>
 
     <form action="{{ route('subscription.update') }}" id="card-form" method="POST">
         @csrf
         @method('PUT')
-        <input type="text" class="mb-3 form-control" id="card-holder-name" placeholder="カード名義人" required>
-        <div class="mb-4" id="card-element"></div>
+        <input type="text" class="card_name mb-3" id="card-holder-name" placeholder="カード名義人" required>
+        <div class="card_element mb-4" id="card-element"></div>
     </form>
     <button class="btn submit_btn text-white w-50" id="card-button" data-secret="{{ $intent->client_secret }}">変更</button>
 </div>

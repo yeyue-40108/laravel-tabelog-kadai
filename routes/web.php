@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\MasterController as AdminMasterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Paid;
 use App\Http\Middleware\Free;
+use App\Http\Middleware\ShopManager;
+use App\Http\Middleware\Manager;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +57,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::middleware('paid')->group(function() {
         Route::post('reviews', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::put('reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+        Route::delete('reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
         Route::post('favorites/{shop_id}', [FavoriteController::class, 'store'])->name('favorites.store');
         Route::delete('favorites/{shop_id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
@@ -80,24 +84,29 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
 
     Route::resource('shops', AdminShopController::class);
 
-    Route::resource('categories', AdminCategoryController::class);
-
     Route::resource('reviews', AdminReviewController::class);
-    
-    Route::resource('users', AdminUserController::class);
 
     Route::get('reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
-    Route::get('reservations/show', [AdminReservationController::class, 'show'])->name('reservations.show');
+    Route::get('reservations/{reservation}', [AdminReservationController::class, 'show'])->name('reservations.show');
 
     Route::controller(AdminMasterController::class)->group(function() {
-        Route::get('masters', 'index')->name('masters.index');
-        Route::get('masters/create', 'create')->name('masters.create');
-        Route::post('masters', 'store')->name('masters.store');
-        Route::put('masters', 'update')->name('masters.update');
-        Route::delete('masters', 'destroy')->name('masters.destroy');
         Route::get('masters/email/edit', 'edit_email')->name('masters.edit_email');
         Route::put('masters/email', 'update_email')->name('masters.update_email');
         Route::get('masters/password/edit', 'edit_password')->name('masters.edit_password');
         Route::put('masters/password', 'update_password')->name('masters.update_password');
+    });
+
+    Route::middleware('manager')->group(function() {
+        Route::resource('categories', AdminCategoryController::class);
+
+        Route::resource('users', AdminUserController::class);
+
+        Route::controller(AdminMasterController::class)->group(function() {
+            Route::get('masters', 'index')->name('masters.index');
+            Route::get('masters/create', 'create')->name('masters.create');
+            Route::post('masters', 'store')->name('masters.store');
+            Route::put('masters', 'update')->name('masters.update');
+            Route::delete('masters', 'destroy')->name('masters.destroy');
+        });
     });
 });

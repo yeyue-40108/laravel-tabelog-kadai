@@ -43,6 +43,9 @@ class UserController extends Controller
         $user->name = $request->input('name') ? $request->input('name') : $user->name;
         $user->furigana = $request->input('furigana') ? $request->input('furigana') : $user->furigana;
         $user->email = $request->input('email') ? $request->input('email') : $user->email;
+        $user->phone = $request->input('phone') ? $request->input('phone') : $user->phone;
+        $user->birthday = $request->input('birthday') ? $request->input('birthday') : $user->birthday;
+        $user->work = $request->input('work') ? $request->input('work') : $user->work;
         $user->update();
 
         return redirect()->route('mypage')->with('flash_message', '登録情報を編集しました。');

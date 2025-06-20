@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container pt-5">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <div class="mb-4">
+                <a href="{{ route('mypage') }}">< マイページへ</a>
+            </div>
             <h1>お気に入り</h1>
 
             <hr class="my-4">
@@ -21,13 +24,14 @@
                             </a>
                         </div>
                         <div class="col-md-7">
-                            <h5><a href="{{ route('shops.show', $favorite_shop->id) }}" class="link-dark">{{ $favorite_shop->name }}</a></h5>
+                            <h5>{{ $favorite_shop->name }}</a></h5>
+                            <a href="{{ route('shops.show', $favorite_shop->id) }}" class="link-dark link-opacity-50-hover fs-6">店舗詳細ページへ ></a>
                         </div>
                         <div class="col-md-2">
                             <form id="favorites-destroy-form" action="{{ route('favorites.destroy', $favorite_shop->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-link link-dark text-decoration-none">削除</button>
+                                <button type="submit" class="btn btn-danger btn-sm">削除</button>
                             </form>
                         </div>
                     </div>

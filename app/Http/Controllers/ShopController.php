@@ -34,6 +34,20 @@ class ShopController extends Controller
 
         $query = Shop::withAvg('reviews', 'score');
 
+        $weekday = null;
+        if ($request->filled('weekday')) {
+            $weekday = (int)$request->input('weekday');
+            $query->whereDoesntHave('holidays', function($q) use ($weekday) {
+                $q->where('weekday', $weekday);
+            });
+        }
+
+        $inputTime = null;
+        if ($request->filled('time')) {
+            $inputTime = $request->input('time');
+            $query->where('open_time', '<=', $inputTime)->where('close_time', '>', $inputTime);
+        }
+
         if ($category_id !== null) {
             $query->where('category_id', $category_id);
             $category = Category::find($category_id);
@@ -64,7 +78,7 @@ class ShopController extends Controller
         $categories = Category::all();
         $prices = Price::all();
         
-        return view('shops.index', compact('shops', 'total_count', 'category', 'keyword', 'categories', 'sorts', 'sorted', 'price', 'prices'));
+        return view('shops.index', compact('shops', 'total_count', 'category', 'keyword', 'categories', 'sorts', 'sorted', 'price', 'prices', 'weekday', 'inputTime'));
     }
 
     /**

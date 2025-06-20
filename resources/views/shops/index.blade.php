@@ -24,6 +24,20 @@
                 @else
                     <h1>店舗一覧<span class="ms-3">{{ $total_count }}件</span></h1>
                 @endif
+                @php
+                    $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+                @endphp
+                @if (filled($weekday) || filled($inputTime))
+                    <label>検索条件</label>
+                    <ul>
+                        @if ($weekday)
+                            <li>曜日：{{ $weekdays[$weekday] ?? 'なし' }}</li>
+                        @endif
+                        @if ($inputTime)
+                            <li>時間：{{ $inputTime ?? 'なし' }}</li>
+                        @endif
+                    </ul>
+                @endif
                 <div class="d-flex align-items-center mb-4">
                     <span class="small me-2">並び替え</span>
                     <form method="GET" action="{{ route('shops.index') }}">
@@ -51,78 +65,106 @@
 
             <div class="row d-flex justify-content-around">
                 @foreach ($shops as $shop)
-                    <div class="col-md-5 shop_outline mb-3">
-                        <div class="row">
-                            <h2 class="col-8">{{ $shop->name }}</h2>
-                            <h3 class="col-4 category_label text-center">{{ $shop->category->name }}</h3>
-                        </div>
-                        <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail d-block mx-auto shop_index_img">
-                        @php
-                            $score = $shop->average_score ?? 0;
-                            $percent = ($score / 5) * 100;
-                        @endphp
+                    <div class="col-md-5 mb-3">
+                        <div class="card">
+                            @if ($shop->image !== "")
+                                <img src="{{ asset($shop->image) }}" class="card-img-top">
+                            @else
+                                <img src="{{ asset('img/dummy-shop.jpg') }}" class="card-img-top">
+                            @endif
+                            <div class="card-body">
+                                <div class="row">
+                                    <h2 class="card-title col-8">{{ $shop->name }}</h2>
+                                    <h3 class="col-4 category_label text-center">{{ $shop->category->name }}</h3>
+                                </div>
+                                @php
+                                    $score = $shop->average_score ?? 0;
+                                    $percent = ($score / 5) * 100;
+                                @endphp
 
-                        <div class="star_rating">
-                            <div class="stars">
-                                <div class="star_base">★★★★★</div>
-                                <div class="star_overlay" style="width: {{ $percent }}%">★★★★★</div>
-                            </div>
-                            <span class="score_text">{{ number_format($score, 1) }}</span>
-                        </div>
-                        <p>{{ $shop->price->range }}</p>
-                        <p>{{ $shop->address }}</p>
-                        <div class="row justify-content-around">
-                            <div class="col-6">
-                                <a class="btn btn-outline-warning" href="{{ route('shops.show', $shop->id) }}">詳細</a>
-                            </div>
-                            <div class="col-6">
-                                @if (auth()->user()->role === 'paid')
-                                    @if (Auth::user()->favorite_shops()->where('shop_id', $shop->id)->exists())
-                                        <a href="{{ route('favorites.destroy', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
-                                            <i class="fa-solid fa-heart"></i>
-                                            お気に入り解除
-                                        </a>
-                                        <form id="favorites-destroy-form" action="{{ route('favorites.destroy', $shop->id) }}" method="POST" class="d-none">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    @else
-                                        <a href="{{ route('favorites.store', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
-                                            <i class="fa-solid fa-heart"></i>
-                                            お気に入り
-                                        </a>
-                                        <form id="favorites-store-form" action="{{ route('favorites.store', $shop->id) }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    @endif
-                                @else
-                                    <button type="button" class="btn favorite_btn" data-bs-toggle="modal" data-bs-target="#favoriteModal">
-                                        <i class="fa-solid fa-heart"></i>
-                                        お気に入り
-                                    </button>
-                                    <div class="modal fade" id="favoriteModal" tabindex="-1" aria-labelledby="favoriteModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="favoriteModalLabel">有料会員向け機能</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    お気に入り登録機能は有料会員向けの機能になります。<br>
-                                                    有料会員は月額300円で以下のことができるようになります。
-                                                    <ul>
-                                                        <li>お店の予約</li>
-                                                        <li>お気に入りの追加</li>
-                                                        <li>レビュー投稿</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="{{ route('mypage.edit_paid') }}" class="btn btn-success">有料会員登録</a>
+                                <div class="star_rating">
+                                    <div class="stars">
+                                        <div class="star_base">★★★★★</div>
+                                        <div class="star_overlay" style="width: {{ $percent }}%">★★★★★</div>
+                                    </div>
+                                    <span class="score_text">{{ number_format($score, 1) }}</span>
+                                </div>
+                                <div class="card-text mt-3">
+                                    <p class="mb-1">
+                                        <i class="fa-solid fa-bowl-food"></i>
+                                        {{ $shop->price->range }}
+                                    </p>
+                                    <p class="mb-1">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        {{ $shop->address }}
+                                    </p>
+                                    <p class="mb-1">
+                                        <i class="fa-solid fa-clock"></i>
+                                        {{ $shop->open_time }} ~ {{ $shop->close_time }}
+                                    </p>
+                                    <p>
+                                        <i class="fa-solid fa-calendar-xmark"></i>
+                                        @forelse ($shop->holidays as $holiday)
+                                            <span>{{ $weekdays[$holiday->weekday] }}</span>
+                                        @empty
+                                            <span>なし</span>
+                                        @endforelse
+                                    </p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a class="btn btn-outline-warning" href="{{ route('shops.show', $shop->id) }}">店舗詳細</a>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        @if (auth()->user()->role === 'paid')
+                                            @if (Auth::user()->favorite_shops()->where('shop_id', $shop->id)->exists())
+                                                <a href="{{ route('favorites.destroy', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
+                                                    <i class="fa-solid fa-heart"></i>
+                                                    お気に入り解除
+                                                </a>
+                                                <form id="favorites-destroy-form" action="{{ route('favorites.destroy', $shop->id) }}" method="POST" class="d-none">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            @else
+                                                <a href="{{ route('favorites.store', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
+                                                    <i class="fa-solid fa-heart"></i>
+                                                    お気に入り
+                                                </a>
+                                                <form id="favorites-store-form" action="{{ route('favorites.store', $shop->id) }}" method="POST" class="d-none">
+                                                    @csrf
+                                                </form>
+                                            @endif
+                                        @else
+                                            <button type="button" class="btn favorite_btn" data-bs-toggle="modal" data-bs-target="#favoriteModal">
+                                                <i class="fa-solid fa-heart"></i>
+                                                お気に入り
+                                            </button>
+                                            <div class="modal fade" id="favoriteModal" tabindex="-1" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="favoriteModalLabel">有料会員向け機能</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            お気に入り登録機能は有料会員向けの機能になります。<br>
+                                                            有料会員は月額300円で以下のことができるようになります。
+                                                            <ul>
+                                                                <li>お店の予約</li>
+                                                                <li>お気に入りの追加</li>
+                                                                <li>レビュー投稿</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a href="{{ route('mypage.edit_paid') }}" class="btn btn-success">有料会員登録</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
-                                @endif
+                                </div>
                             </div>
                         </div>
                     </div>

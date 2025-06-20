@@ -9,15 +9,30 @@
         <h1>{{ $shop->name }}の予約</h1>
         <hr class="mt-4">
         <h2 class="mb-3">{{ $shop->name }}</h2>
+        <div class="mx-3 mb-3">
+            <div class="d-flex">
+                ※定休日：
+                @php
+                    $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+                @endphp
+                
+                @forelse ($shop->holidays as $holiday)
+                    <span class="mx-1">{{ $weekdays[$holiday->weekday] }}</span>
+                @empty
+                    <span>なし</span>
+                @endforelse
+            </div>
+            <div>※営業時間：{{ $shop->open_time }} ~ {{ $shop->close_time }}</div>
+        </div>
         <form action="{{ route('reservations.store', $shop->id) }}" method="POST">
             @csrf
             <div class="mb-3">
-                <label for="reservation_date" class="form-label">予約日</label>
+                <label for="reservation_date" class="form-label">予約日（予約可能日：翌日～2か月先まで）</label>
                 <input type="date" name="reservation_date" id="reservation_date" class="form-control" min="{{ now()->addDay()->toDateString() }}" max="{{ now()->addMonth(2)->toDateString() }}" value="{{ old('reservation_date') }}" required>
                 @error('reservation_date') <div class="text-danger">{{ $message }}</div> @enderror
             </div>
             <div class="mb-3">
-                <label for="reservation_time" class="form-label">予約時間</label>
+                <label for="reservation_time" class="form-label">予約時間（予約可能時間：開店時間～閉店2時間前まで）</label>
                 <select name="reservation_time" id="reservation_time" class="form-control" required>
                     @php
                         $start = \Carbon\Carbon::createFromTimeString($shop->open_time);

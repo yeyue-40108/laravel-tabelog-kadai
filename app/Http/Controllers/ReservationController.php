@@ -116,6 +116,6 @@ class ReservationController extends Controller
     {
         $reservation->delete();
 
-        return redirect()->route('reservations.index')->with('flash_message', '予約を削除しました。');
+        return redirect()->route('reservations.index')->with('flash_message', '予約をキャンセルしました。');
     }
 }

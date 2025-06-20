@@ -4,11 +4,14 @@
 <div class="container pt-5">
     <div class="row justify-content-center mb-4">
         <div class="col-lg-5">
-            <h1 class="mb-4">マイページ</h1>
+            <h1>マイページ</h1>
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
 
+            <div class="d-flex flex-row-reverse">
+                <a href="#" class="btn btn-outline-secondary btn-lg">FAQはこちら</a>
+            </div>
             <hr>
             <div class="container">
                 <a href="{{ route('mypage.edit') }}" class="link-dark link-opacity-50-hover text-decoration-none">

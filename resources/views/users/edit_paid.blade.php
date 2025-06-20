@@ -19,7 +19,7 @@
                 <div class="row mb-3">
                     <label for="phone" class="col-md-5 col-form-label text-md-left fw-medium">電話番号<span class="ms-1 require_label"><span class="require_label_text">必須</span></span></label>
                     <div class="col-md-7">
-                        <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" required autocomplete="phone" autofocus placeholder="0123-45-6789">
+                        <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone }}" required autocomplete="phone" autofocus placeholder="0123-45-6789">
                         @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>電話番号を入力してください</strong>
@@ -30,7 +30,7 @@
                 <div class="row mb-3">
                     <label for="birthday" class="col-md-5 col-form-label text-md-left fw-medium">生年月日<span class="ms-1 require_label"><span class="require_label_text">必須</span></span></label>
                     <div class="col-md-7">
-                        <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" required autocomplete="birthday">
+                        <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ $user->birthday }}" required autocomplete="birthday">
                         @error ('birthday')
                             <span class="invalid-feedback" role="alert">
                                 <strong>生年月日を入力してください</strong>
@@ -40,12 +40,17 @@
                 </div>
                 <div class="row mb-3">
                     <label for="work" class="col-md-5 col-form-label text-md-left fw-medium">職業<span class="ms-1 require_label"><span class="require_label_text">必須</span></span></label>
+                    @php
+                        $selected = function ($value) use ($user) {
+                            return old('work', $user->work) === $value ? 'selected' : '';
+                        };
+                    @endphp
                     <select name="work" class="form-select" id="work" aria-label="Default select example">
-                        <option value="company">会社員</option>
-                        <option value="government">公務員</option>
-                        <option value="student">学生</option>
-                        <option value="house">主夫・主婦</option>
-                        <option value="other">その他</option>
+                        <option value="company" {{ $selected('company') }}>会社員</option>
+                        <option value="government" {{ $selected('government') }}>公務員</option>
+                        <option value="student" {{ $selected('student') }}>学生</option>
+                        <option value="house" {{ $selected('house') }}>主夫・主婦</option>
+                        <option value="other" {{ $selected('other') }}>その他</option>
                     </select>
                 </div>
 

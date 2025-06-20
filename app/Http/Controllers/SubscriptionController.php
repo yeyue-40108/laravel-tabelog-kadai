@@ -29,7 +29,7 @@ class SubscriptionController extends Controller
 
     public function edit()
     {
-        $user->Auth::user();
+        $user = Auth::user();
         $intent = $user->createSetupIntent();
         
         return view('subscription.edit', compact('user', 'intent'));
@@ -49,7 +49,9 @@ class SubscriptionController extends Controller
 
     public function destroy(Request $request)
     {
-        $request->user()->subscription('paid')->cancelNow();
+        $user = $request->user();
+        
+        $user->subscription('paid')->cancelNow();
 
         $user->role = 'free';
         $user->save();

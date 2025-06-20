@@ -9,26 +9,6 @@ use Illuminate\Http\Request;
 class ReviewController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -51,28 +31,6 @@ class ReviewController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Review  $review
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Review $review)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Review  $review
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Review $review)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -81,7 +39,17 @@ class ReviewController extends Controller
      */
     public function update(Request $request, Review $review)
     {
-        //
+        $request->validate([
+            'content' => 'required'
+        ]);
+
+        $review->content = $request->input('content');
+        $review->score = $request->input('score');
+        $review->shop_id = $request->input('shop_id');
+        $review->user_id = Auth::user()->id;
+        $review->update();
+
+        return back()->with('flash_message', 'レビューを編集しました。');
     }
 
     /**
@@ -92,6 +60,8 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $review->delete();
+
+        return back()->with('flash_message', 'レビューを削除しました。');
     }
 }

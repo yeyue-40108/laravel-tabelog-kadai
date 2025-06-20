@@ -12,17 +12,20 @@
     </div>
     <h1 class="mb-3">有料会員の解約</h1>
     <hr class="mb-4">
-    <input type="checkbox" id="cancel-confirm">有料会員を解約すると有料会員限定の機能を使用できなくなります。本当によろしいですか？</input>
+    <label class="mb-3">
+        <input type="checkbox" id="cancel_confirm">
+        有料会員を解約すると有料会員限定の機能を使用できなくなります。本当によろしいですか？
+    </label>
     <form action="{{ route('subscription.destroy') }}" id="card-form" method="POST">
         @csrf
         @method('DELETE')
-        <button class="btn btn-danger w-50 cancel-button" disabled>解約</button>
+        <button class="btn btn-danger w-50" id="cancel_button" disabled>解約</button>
     </form>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const checkbox = document.getElementById('cancel-confirm');
-            const button = document.getElementById('cancel-button');
+            const checkbox = document.getElementById('cancel_confirm');
+            const button = document.getElementById('cancel_button');
 
             checkbox.addEventListener('change', function() {
                 button.disabled = !this.checked;

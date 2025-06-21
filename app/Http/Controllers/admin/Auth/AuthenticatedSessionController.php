@@ -43,7 +43,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('admin.auth.login');
+        return redirect('/admin/login');
     }
 }
 

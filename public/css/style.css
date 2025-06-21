@@ -88,16 +88,14 @@ label {
 }
 
 /* トップ */
-/* .main_visual {
-    height: 80vh;
-    margin: 0 auto;
+.container_img {
+    height: 400px;
 }
 
 .top_img {
-    height: 100%;
-    object-fit: contain;
-    margin: 0 auto;
-} */
+    width: 100%;
+    object-fit: cover;
+}
 
 /* カテゴリサイドバー */
 .sidebar_title {
@@ -125,6 +123,12 @@ label {
     font-weight: normal;
     border-radius: 2px;
     background-color: #f58220;
+}
+
+.shop_index_img {
+    height: 300px;
+    width: auto;
+    object-fit: cover;
 }
 
 /* 店舗詳細 */

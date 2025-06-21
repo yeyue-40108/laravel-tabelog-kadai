@@ -28,7 +28,7 @@ class ShopController extends Controller
             $query->where('name', 'like', "%{$keyword}%");
         }
 
-        $shops = $query->sortable()->paginate(15);
+        $shops = $query->sortable()->paginate(10);
         $total_count = $shops->total();
         
         return view('admin.shops.index', compact('shops', 'total_count', 'keyword', 'category'));
@@ -64,17 +64,15 @@ class ShopController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('public/shops');
-            $shops->image = basename($image);
+            $image = $request->file('image');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs('public/shops', $filename);
+            $shop->image = 'shops/' . $filename;
         } else {
-            $shops->image = '';
+            $shop->image = '';
         }
 
-        foreach ($validated['weekdays'] ?? [] as $weekday) {
-            $shop->holidays()->create([
-                'weekday' => $weekday,
-            ]);
-        }
+        $shop->save();
 
         return redirect()->route('admin.shops.index')->with('flash_message', '店舗の作成が完了しました。');
     }
@@ -117,11 +115,6 @@ class ShopController extends Controller
     {
         $validated = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('public/shops');
-            $shops->image = basename($image);
-        }
-
         $shop->holidays()->delete();
 
         foreach ($validated['weekdays'] ?? [] as $weekday) {
@@ -130,7 +123,16 @@ class ShopController extends Controller
             }
         }
 
-        $shop->update($validated);
+        $shop->fill($validated);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs('public/shops', $filename);
+            $shop->image = 'shops/' . $filename;
+        }
+
+        $shop->update();
 
         return redirect()->route('admin.shops.show', $shop)->with('flash_message', '店舗情報を編集しました。');
     }

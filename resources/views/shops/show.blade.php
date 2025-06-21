@@ -84,7 +84,11 @@
                         @csrf
                     </form>
                     <div>
-                        <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail shop_show_img">
+                        @if ($shop->image)
+                            <img src="{{ asset('storage/' . $shop->image) }}" class="img-thumbnail shop_show_img">
+                        @else
+                            <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail shop_show_img">
+                        @endif
                     </div>
                     <div>
                         <p>{{ $shop->description }}</p>

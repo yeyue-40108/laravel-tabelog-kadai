@@ -51,16 +51,16 @@ class MasterController extends Controller
     
     public function edit_email()
     {
-        $master = Auth::admin();
+        $master = Auth::guard('admin')->user();
 
         return view('admin.masters.edit_email', compact('master'));
     }
 
     public function update_email(Request $request, Master $master)
     {
-        $master = Auth::admin();
+        $master = Auth::guard('admin')->user();
 
-        $master->email = $request->input('email') ? $request->input('email') : $master->email;
+        $master->email = $request->input('email');
         $master->update();
 
         return redirect()->route('admin.web.index')->with('flash_message', '登録情報を編集しました。');
@@ -77,7 +77,7 @@ class MasterController extends Controller
             'password' => 'required|confirmed',
         ]);
 
-        $master = Auth::admin();
+        $master = Auth::guard('admin')->user();
 
         if ($request->input('password') == $request->input('password_confirmation')) {
             $master->password = bcrypt($request->input('password'));

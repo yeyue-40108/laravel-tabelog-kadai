@@ -16,7 +16,7 @@ class ShopManager
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->master()->role === 'shop_manager') {
+        if (auth()->check() && auth('admin')->user()->role === 'shop_manager') {
             return $next($request);
         }
         

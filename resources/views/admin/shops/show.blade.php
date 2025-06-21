@@ -39,8 +39,8 @@
                         <tr>
                             <th scope="row">画像</th>
                             <td>
-                                @if ($shop->image != "")
-                                    <img src="{{ asset($shop->image) }}" class="admin_shop_img">
+                                @if ($shop->image)
+                                    <img src="{{ asset('storage/' . $shop->image) }}" class="admin_shop_img">
                                 @else
                                     <img src="{{ asset('img/dummy-shop.jpg') }}" class="admin_shop_img">
                                 @endif

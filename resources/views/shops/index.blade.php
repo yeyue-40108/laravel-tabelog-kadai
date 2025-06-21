@@ -7,7 +7,7 @@
             @component('components.sidebar', ['categories' => $categories, 'prices' => $prices])
             @endcomponent
         </div>
-        <div class="col-9">
+        <div class="col-8">
             <div class="container">
                 <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -63,14 +63,14 @@
                 </div>
             </div>
 
-            <div class="row d-flex justify-content-around">
+            <div class="row d-flex justify-content-between">
                 @foreach ($shops as $shop)
-                    <div class="col-md-5 mb-3">
+                    <div class="col-md-6 mb-3">
                         <div class="card">
-                            @if ($shop->image !== "")
-                                <img src="{{ asset($shop->image) }}" class="card-img-top">
+                            @if ($shop->image)
+                                <img src="{{ asset('storage/' . $shop->image) }}" class="card-img-top shop_index_img">
                             @else
-                                <img src="{{ asset('img/dummy-shop.jpg') }}" class="card-img-top">
+                                <img src="{{ asset('img/dummy-shop.jpg') }}" class="card-img-top shop_index_img">
                             @endif
                             <div class="card-body">
                                 <div class="row">
@@ -172,7 +172,7 @@
             </div>
         </div>
     </div>
-    <div class="mb-4">
+    <div class="d-flex justify-content-center mb-4">
         {{ $shops->appends(request()->query())->links() }}
     </div>
 </div>

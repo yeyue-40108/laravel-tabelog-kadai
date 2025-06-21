@@ -25,7 +25,7 @@ class ShopRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'image' => 'image|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string',
             'postal_code' => 'required|string|max:10',
             'address' => 'required|string|max:255',

@@ -67,7 +67,7 @@ class ShopController extends Controller
             $price = null;
         }
 
-        $shops = $query->orderBy($column, $direction)->paginate(15);
+        $shops = $query->orderBy($column, $direction)->paginate(10);
         $total_count = $total_count ?? $shops->total();
 
         $shops->getCollection()->transform(function ($shop) {

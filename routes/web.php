@@ -50,6 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::middleware('free')->group(function() {
         Route::get('users/mypage/paid/edit', [UserController::class, 'edit_paid'])->name('mypage.edit_paid');
         Route::put('users/mypage/paid', [UserController::class, 'update_paid'])->name('mypage.update_paid');
+        Route::delete('users/mypage/delete', [UserController::class, 'destroy'])->name('mypage.destroy');
 
         Route::get('subscription/create', [SubscriptionController::class, 'create'])->name('subscription.create');
         Route::post('subscription', [SubscriptionController::class, 'store'])->name('subscription.store');
@@ -89,13 +90,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::get('reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
     Route::get('reservations/{reservation}', [AdminReservationController::class, 'show'])->name('reservations.show');
 
-    Route::controller(AdminMasterController::class)->group(function() {
-        Route::get('masters/email/edit', 'edit_email')->name('masters.edit_email');
-        Route::put('masters/email', 'update_email')->name('masters.update_email');
-        Route::get('masters/password/edit', 'edit_password')->name('masters.edit_password');
-        Route::put('masters/password', 'update_password')->name('masters.update_password');
-    });
-
     Route::middleware('manager')->group(function() {
         Route::resource('categories', AdminCategoryController::class);
 
@@ -103,8 +97,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
 
         Route::controller(AdminMasterController::class)->group(function() {
             Route::get('masters', 'index')->name('masters.index');
-            Route::get('masters/create', 'create')->name('masters.create');
-            Route::post('masters', 'store')->name('masters.store');
             Route::put('masters', 'update')->name('masters.update');
             Route::delete('masters', 'destroy')->name('masters.destroy');
         });

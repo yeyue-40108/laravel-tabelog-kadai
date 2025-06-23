@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -59,7 +60,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        Auth::user()->delete();
+        return redirect()->route('top')->with('flash_message', '退会しました。');
     }
 
     public function favorite()
@@ -98,15 +100,17 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'phone' => 'required|string|max:20',
-            'birthday' => 'required',
+            'birthday' => 'required|date|before_or_equal:today',
             'work' => 'required',
+        ], [
+            'birthday.before_or_equal' => '生年月日には今日以前の日付を入力してください。',
         ]);
 
         $user = Auth::user();
         
-        $user->phone = $request->input('phone');
-        $user->birthday = $request->input('birthday');
-        $user->work = $request->input('work');
+        $user->phone = $validatedData['phone'];
+        $user->birthday = $validatedData['birthday'];
+        $user->work = $validatedData['work'];
         $user->update();
         
         return to_route('subscription.create');

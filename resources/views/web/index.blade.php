@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
+            @if (session('flash_message'))
+                <p>{{ session('flash_message') }}</p>
+            @endif
             <section>
                 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
@@ -38,7 +41,7 @@
                     <a href="{{ route('shops.index') }}" class="link-dark link-opacity-50-hover text-decoration-none fs-5">店舗一覧へ ></a>
                 </div>
                 <div class="row d-flex justify-content-around">
-                    <div class="card col-md-4">
+                    <div class="card col-lg-4">
                         <div class="card-body">
                             <h3 class="card-title mb-3">カテゴリから探す</h3>
                             @foreach ($categories as $category)
@@ -46,7 +49,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="card col-md-3">
+                    <div class="card col-lg-3">
                         <div class="card-body">
                             <h3 class="card-title mb-3">キーワードから探す</h3>
                             <form action="{{ route('shops.index') }}" method="GET" class="row g-1">
@@ -61,7 +64,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="card col-md-4">
+                    <div class="card col-lg-4">
                         <div class="card-body">
                             <h3 class="card-title mb-2">時間・曜日から探す</h3>
                             <form action="{{ route('shops.index') }}">
@@ -105,6 +108,31 @@
                     <!-- 有料会員募集 -->
                 </div>
             </section>
+            @if (Auth::user() && auth()->user()->role == 'free')
+                <button type="button" class="recommend_button" data-bs-toggle="modal" data-bs-target="#recommendModal">有料会員登録は<br>こちらから！</button>
+                <div class="modal fade" id="recommendModal" tabindex="-1" aria-labelledby="recommendModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="recommendModalLabel">有料会員登録募集中！</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                NAGOYAMESHIをもっとご活用いただくには有料会員登録がおすすめです！<br>
+                                有料会員は月額300円で以下のことができるようになります。
+                                <ul>
+                                    <li>お店の予約</li>
+                                    <li>お気に入りの追加</li>
+                                    <li>レビュー投稿</li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="{{ route('mypage.edit_paid') }}" class="btn btn-success">有料会員登録へ ></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>

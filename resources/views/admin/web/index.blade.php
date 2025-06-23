@@ -4,9 +4,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="d-flex flex-row-reverse">
-                <button class="btn btn-outline-secondary btn-lg">FAQ</button>
-            </div>
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
@@ -59,7 +56,7 @@
                         </div>
                     </a>
                 </div>
-                @if (auth('admin')->user()?->role === 'manager')
+                @if (auth('admin')->user()?->role == 'manager')
                     <div class="col-md-5">
                         <a href="{{ route('admin.users.index') }}" class="link-dark link-opacity-50-hover text-decoration-none">
                             <div class="row justify-content-between align-items-center py-4">

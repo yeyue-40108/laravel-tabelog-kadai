@@ -9,11 +9,14 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Kyslik\ColumnSortable\Sortable;
 use Laravel\Cashier\Billable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, Sortable, Billable;
+    use HasApiTokens, HasFactory, Notifiable, Sortable, Billable, SoftDeletes;
 
+    protected $dates = ['deleted_at'];
+    
     /**
      * The attributes that are mass assignable.
      *

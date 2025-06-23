@@ -2,12 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-2">
-            @component('components.sidebar', ['categories' => $categories, 'prices' => $prices])
-            @endcomponent
-        </div>
-        <div class="col-8">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
             <div class="container">
                 <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -61,6 +57,11 @@
                         </select>
                     </form>
                 </div>
+            </div>
+
+            <div>
+                @component('components.sidebar', ['categories' => $categories, 'prices' => $prices])
+                @endcomponent
             </div>
 
             <div class="row d-flex justify-content-between">

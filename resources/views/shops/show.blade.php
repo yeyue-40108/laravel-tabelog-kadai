@@ -148,11 +148,11 @@
                                         <p>{{ $review->content }}</p>
                                         @if ($review->user->name == auth()->user()->name)
                                             <div class="d-flex mx-2">
-                                                <button type="button" class="btn btn-warning btn-sm my-2" data-bs-toggle="modal" data-bs-target="#editReview{{ $review->id }}">編集</button>
+                                                <button type="button" class="btn btn-warning btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#editReview{{ $review->id }}">編集</button>
                                                 <form action="{{ route('reviews.destroy', $review) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm my-2">削除</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm mx-1">削除</button>
                                                 </form>
                                             </div>
                                             <div class="modal" id="editReview{{ $review->id }}" aria-labelledby="exampleModalLabel{{ $review->id }}" aria-hidden="true">

@@ -61,7 +61,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-warning">編集</button>
-            </form>]
+            </form>
         </div>
     </div>
 </div>

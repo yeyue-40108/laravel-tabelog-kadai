@@ -17,23 +17,26 @@
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
-            <div class="d-flex justify-content-end">
-                @if ($review->display === 0)
-                    <form action="{{ route('admin.reviews.update', $review) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="display" id="display" value="1">
-                        <button type="submit" class="btn btn-danger">表示する</button>
-                    </form>
-                @else
-                    <form action="{{ route('admin.reviews.update', $review) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="display" id="display" value="0">
-                        <button type="submit" class="btn btn-danger">非表示にする</button>
-                    </form>
-                @endif
-            </div>
+            <hr>
+            @if ($master->role === 'manager')
+                <div class="d-flex justify-content-end">
+                    @if ($review->display === 0)
+                        <form action="{{ route('admin.reviews.update', $review) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="display" id="display" value="1">
+                            <button type="submit" class="btn btn-danger">表示する</button>
+                        </form>
+                    @else
+                        <form action="{{ route('admin.reviews.update', $review) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="display" id="display" value="0">
+                            <button type="submit" class="btn btn-danger">非表示にする</button>
+                        </form>
+                    @endif
+                </div>
+            @endif
             <table class="table table-striped">
                 <tbody>
                     <tr>

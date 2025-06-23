@@ -72,9 +72,27 @@ class ReservationController extends Controller
         }
 
         $open = Carbon::createFromTimeString($shop->open_time);
-        $close = Carbon::createFromTimeString($shop->close_time)->subHours(2);
+        $close = Carbon::createFromTimeString($shop->close_time);
 
-        if ($time->lt($open) || $time->gt($close)) {
+        $spansNextDay = $close->lte($open);
+        if ($spansNextDay) {
+            $close->addDay();
+        }
+
+        $openDateTime = $date->copy()->setTimeFrom($open);
+        $lastTime = $close->copy()->subHours(2);
+        $lastDateTime = $date->copy()->setTimeFrom($lastTime);
+
+        if ($spansNextDay || $lastDateTime->lt($openDateTime)) {
+            $lastDateTime->addDay();
+        }
+
+        $reservationDateTime = $date->copy()->setTimeFrom($time);
+        if ($spansNextDay && $time->lt($open)) {
+            $reservationDateTime->addDay();
+        }
+
+        if ($reservationDateTime->lt($openDateTime) || $reservationDateTime->gt($lastDateTime)) {
             return back()->withErrors(['reservation_time' => '営業時間内で、閉店2時間前までに予約してください。'])->withInput();
         }
 
@@ -82,13 +100,12 @@ class ReservationController extends Controller
             return back()->withErrors(['reservation_time' => '予約時間は30分単位で指定してください（例：12:00, 12:30）。'])->withInput();
         }
         
-        $endTime = $time->copy()->addHours(2);
+        $startTime = $reservationDateTime;
+        $endTime = $startTime->copy()->addHours(2);
         $conflict = Reservation::where('shop_id', $shopId)
             ->where('reservation_date', $date->toDateString())
-            ->where(function($query) use ($time, $endTime) {
-                $query->whereTime('reservation_time', '<', $endTime->toTimeString())
-                    ->whereTime('reservation_time', '>=', $time->toTimeString());
-            })
+            ->whereTime('reservation_time', '>=', $startTime->format('H:i'))
+            ->whereTime('reservation_time', '<', $endTime->format('H:i'))
             ->exists();
         
         if ($conflict) {

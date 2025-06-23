@@ -83,6 +83,10 @@
                             <th scope="row">価格帯</th>
                             <td>{{ $shop->price->range }}</td>
                         </tr>
+                        <tr>
+                            <th scope="row">店舗管理者（メールアドレス）</th>
+                            <td>{{ $shop->master->email }}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

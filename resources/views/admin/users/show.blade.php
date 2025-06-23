@@ -17,12 +17,12 @@
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
-            <div class="d-flex justify-content-end">
-                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm my-2">編集</a>
+            <div class="d-flex justify-content-end my-1">
+                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm mx-1">編集</a>
                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('本当に退会させてもよろしいですか？')">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm my-2">退会</button>
+                    <button type="submit" class="btn btn-danger btn-sm mx-1">退会</button>
                 </form>
                 <!-- パスワード再設定メール送信 -->
             </div>
@@ -56,15 +56,18 @@
                     </tr>
                     <tr>
                         <th scope="row">電話番号</th>
-                        <td>{{ $user->phone }}</td>
+                        <td>{{ $user->phone ?? '未登録' }}</td>
                     </tr>
                     <tr>
                         <th scope="row">生年月日</th>
-                        <td>{{ $user->birthday }}</td>
+                        <td>{{ $user->birthday ?? '未登録' }}</td>
                     </tr>
                     <tr>
                         <th scope="row">職業</th>
-                        <td>{{ $user->work }}</td>
+                        @php
+                            $workLabel = ['company' => '会社員', 'government' => '公務員', 'house' => '主婦・主夫', 'other' => 'その他'];
+                        @endphp
+                        <td>{{ $workLabel[$user->work] ?? '未登録' }}</td>
                     </tr>
                 </tbody>
             </table>

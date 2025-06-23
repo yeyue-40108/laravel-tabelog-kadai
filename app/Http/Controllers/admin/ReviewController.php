@@ -12,6 +12,7 @@ class ReviewController extends Controller
 {
     public function index(Request $request, Review $review)
     {
+        $master = auth('admin')->user();
         $start_date = $request->query('start_date');
         $end_date = $request->query('end_date');
 
@@ -39,15 +40,22 @@ class ReviewController extends Controller
             $query->whereDate('reviews.created_at', '<=', $end_date);
         }
 
-        $reviews = $query->sortable()->paginate(15);
+        if ($master->role === 'shop_manager') {
+            $shop_ids = Shop::where('master_id', $master->id)->pluck('id');
+            $query->whereIn('shop_id', $shop_ids);
+        }
+
+        $reviews = $query->sortable()->paginate(10);
         $total_count = $reviews->total();
 
-        return view('admin.reviews.index', compact('reviews', 'total_count', 'keyword', 'start_date', 'end_date'));
+        return view('admin.reviews.index', compact('reviews', 'total_count', 'keyword', 'start_date', 'end_date', 'master'));
     }
 
     public function show(Review $review)
     {
-        return view('admin.reviews.show', compact('review'));
+        $master = auth('admin')->user();
+        
+        return view('admin.reviews.show', compact('review', 'master'));
     }
 
     public function update(Request $request, Review $review)

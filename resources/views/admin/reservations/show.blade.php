@@ -15,7 +15,7 @@
             </div>
             <h1>予約詳細</h1>
             <div class="d-flex justify-content-end">
-                <a href="{{ route('admin.shops.show', $reservation->shop->id) }}" class="btn btn-primary my-2">店舗詳細ページ</a>
+                <a href="{{ route('admin.shops.show', $reservation->shop->id) }}" class="link-dark link-opacity-50-hover text-decoration-none fs-6">店舗詳細ページ ></a>
             </div>
             <table class="table table-striped">
                 <tbody>

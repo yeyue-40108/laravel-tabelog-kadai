@@ -8,10 +8,6 @@
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
-
-            <div class="d-flex flex-row-reverse">
-                <a href="#" class="btn btn-outline-secondary btn-lg">FAQはこちら</a>
-            </div>
             <hr>
             <div class="container">
                 <a href="{{ route('mypage.edit') }}" class="link-dark link-opacity-50-hover text-decoration-none">
@@ -137,7 +133,10 @@
                 <hr>
             @endif
             <div class="container">
-                <a href="{{ route('logout') }}" class="link-dark link-opacity-50-hover text-decoration-none">
+                <a href="{{ route('logout') }}" class="link-dark link-opacity-50-hover text-decoration-none" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
                     <div class="row justify-content-between align-items-center py-4">
                         <div class="col-1 ps-0 me-3">
                             <i class="fa-solid fa-right-from-bracket fa-2x"></i>
@@ -152,6 +151,33 @@
                     </div>
                 </a>
             </div>
+            <hr>
+            @if (auth()->user()->role === 'free')
+                <div class="d-flex flex-row-reverse">
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#destroyModal">退会する</button>
+                </div>
+                <div class="modal fade" id="destroyModal" tabindex="-1" aria-labelledby="destroyModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="destroyModalLabel">退会フォーム</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                一度退会すると、データはすべて削除され復旧はできません。<br>本当に退会しますか？
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                                <form action="{{ route('mypage.destroy') }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">退会する</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>

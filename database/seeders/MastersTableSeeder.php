@@ -16,9 +16,12 @@ class MastersTableSeeder extends Seeder
      */
     public function run()
     {
-        $master = new Master();
-        $master->email = 'master@example.com';
-        $master->password = Hash::make('password');
-        $master->save();
+        Master::create([
+            'email' => 'master@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'manager',
+        ]);
+        
+        Master::factory()->count(10)->create();
     }
 }

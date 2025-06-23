@@ -19,7 +19,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Noto+Sans+JP&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div id="app">
+        <div id="app" class="wrapper">
             @component('components.header')
             @endcomponent
 

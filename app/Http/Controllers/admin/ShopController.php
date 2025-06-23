@@ -8,12 +8,15 @@ use App\Models\Shop;
 use App\Models\Category;
 use App\Models\Price;
 use App\Models\ShopHoliday;
+use App\Models\Master;
 use App\Http\Requests\ShopRequest;
 
 class ShopController extends Controller
 {
     public function index(Request $request)
     {
+        $master = auth('admin')->user();
+        $filter_master_id = $request->query('master');
         $keyword = $request->query('keyword');
         $category_id = $request->query('category');
         $category = null;
@@ -28,10 +31,20 @@ class ShopController extends Controller
             $query->where('name', 'like', "%{$keyword}%");
         }
 
+        if ($master->role === 'shop_manager') {
+            $query->where('master_id', $master->id);
+        }
+
+        if ($master->role === 'manager') {
+            if (!empty($filter_master_id)) {
+                $query->where('master_id', $filter_master_id);
+            }
+        }
+
         $shops = $query->sortable()->paginate(10);
-        $total_count = $shops->total();
+        $total_count = $query->count();
         
-        return view('admin.shops.index', compact('shops', 'total_count', 'keyword', 'category'));
+        return view('admin.shops.index', compact('shops', 'total_count', 'keyword', 'category', 'master', 'filter_master_id'));
     }
 
     /**

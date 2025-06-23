@@ -11,17 +11,18 @@
                         <li class="breadcrumb-item active" aria-current="page">レビュー一覧</li>
                     </ol>
                 </nav>
-                @if (!empty($keyword))
-                    <h1>{{ $keyword }}の検索結果<span class="ms-3">{{ $total_count }}件</span></h1>
-                @elseif (!empty($start_date) || !empty($end_date))
-                    <h1>{{ $start_date }} ～ {{ $end_date }}の検索結果<span class="ms-3">{{ $total_count }}件</span></h1>
-                @else
-                    <h1>レビュー一覧<span class="ms-3">{{ $total_count }}件</span></h1>
-                @endif
             </div>
+            @if (!empty($keyword))
+                <h1>{{ $keyword }}の検索結果<span class="ms-3">{{ $total_count }}件</span></h1>
+            @elseif (!empty($start_date) || !empty($end_date))
+                <h1>{{ $start_date }} ～ {{ $end_date }}の検索結果<span class="ms-3">{{ $total_count }}件</span></h1>
+            @else
+                <h1>レビュー一覧<span class="ms-3">{{ $total_count }}件</span></h1>
+            @endif
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
+            <hr>
             <div class="row">
                 <form action="{{ route('admin.reviews.index') }}" method="GET" class="col-7 g-1 mb-3">
                     <div class="row">
@@ -72,18 +73,33 @@
                 </thead>
                 <tbody>
                     @foreach ($reviews as $review)
-                        <tr>
-                            <th>{{ $review->id }}</th>
-                            <td>{{ $review->user->name }}</td>
-                            <td>{{ $review->shop->name }}</td>
-                            <td>{{ $review->content }}</td>
-                            <td>{{ $review->score }}</td>
-                            <td>{{ $review->created_at }}</td>
-                            <td>{{ $review->display ? '表示' : '非表示' }}</td>
-                            <td>
-                                <a href="{{ route('admin.reviews.show', $review) }}" class="btn btn-primary btn-sm">詳細</a>
-                            </td>
-                        </tr>
+                        @if ($master->role === 'manager')
+                            <tr>
+                                <th>{{ $review->id }}</th>
+                                <td>{{ $review->user->name }}</td>
+                                <td>{{ $review->shop->name }}</td>
+                                <td>{{ $review->content }}</td>
+                                <td>{{ $review->score }}</td>
+                                <td>{{ $review->created_at }}</td>
+                                <td>{{ $review->display ? '表示' : '非表示' }}</td>
+                                <td>
+                                    <a href="{{ route('admin.reviews.show', $review) }}" class="btn btn-primary btn-sm">詳細</a>
+                                </td>
+                            </tr>
+                        @elseif ($master->role === 'shop_manager' && auth('admin')->user()->id === $review->shop->master_id)
+                            <tr>
+                                <th>{{ $review->id }}</th>
+                                <td>{{ $review->user->name }}</td>
+                                <td>{{ $review->shop->name }}</td>
+                                <td>{{ $review->content }}</td>
+                                <td>{{ $review->score }}</td>
+                                <td>{{ $review->created_at }}</td>
+                                <td>{{ $review->display ? '表示' : '非表示' }}</td>
+                                <td>
+                                    <a href="{{ route('admin.reviews.show', $review) }}" class="btn btn-primary btn-sm">詳細</a>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

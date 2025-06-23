@@ -60,12 +60,16 @@
                                 @endif
                             </td>
                             <td class="d-flex">
-                                <a href="#" class="btn btn-primary btn-sm my-2">管理店舗一覧</a>
-                                <button type="button" class="btn btn-warning btn-sm my-2" data-bs-toggle="modal" data-bs-target="#roleChange{{ $master->id }}">管理者権限変更</button>
+                                @if ($master->role === 'shop_manager')
+                                    <a href="{{ route('admin.shops.index', ['master' => $master->id]) }}" class="btn btn-primary btn-sm mx-1">管理店舗一覧</a>
+                                @else
+                                    <button href="#" class="btn btn-primary btn-sm mx-1" disabled>管理店舗一覧</button>
+                                @endif
+                                <button type="button" class="btn btn-warning btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#roleChange{{ $master->id }}">管理者権限変更</button>
                                 <form action="{{ route('admin.masters.destroy', $master) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm my-2">削除</button>
+                                    <button type="submit" class="btn btn-danger btn-sm mx-1">削除</button>
                                 </form>
                             </td>
                         </tr>

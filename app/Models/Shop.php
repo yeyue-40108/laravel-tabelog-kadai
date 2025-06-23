@@ -40,6 +40,11 @@ class Shop extends Model
         return $this->hasMany(ShopHoliday::class);
     }
 
+    public function master()
+    {
+        return $this->belongsTo(Master::class);
+    }
+
     protected $fillable = [
         'name',
         'image',

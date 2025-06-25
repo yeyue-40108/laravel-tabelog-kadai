@@ -93,6 +93,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::middleware('manager')->group(function() {
         Route::resource('categories', AdminCategoryController::class);
 
+        Route::get('users/sales', [AdminUserController::class, 'sales'])->name('users.sales');
         Route::resource('users', AdminUserController::class);
 
         Route::controller(AdminMasterController::class)->group(function() {

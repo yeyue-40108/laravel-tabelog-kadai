@@ -27,7 +27,7 @@
                             <input class="form-control search_input" name="keyword" placeholder="会員名・店舗名で検索">
                         </div>
                         <div class="col-2">
-                            <button type="submit" class="btn search_btn">
+                            <button type="submit" class="search_button">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
@@ -44,7 +44,7 @@
                             <input type="date" class="form-control" name="end_date" value="{{ request('end_date') }}">
                         </div>
                         <div class="col-1">
-                            <button type="submit" class="btn search_btn">
+                            <button type="submit" class="search_button">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>

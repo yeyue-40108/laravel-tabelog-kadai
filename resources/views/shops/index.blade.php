@@ -119,7 +119,7 @@
                                     <div class="col-6 text-end">
                                         @if (auth()->user()->role === 'paid')
                                             @if (Auth::user()->favorite_shops()->where('shop_id', $shop->id)->exists())
-                                                <a href="{{ route('favorites.destroy', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
+                                                <a href="{{ route('favorites.destroy', $shop->id) }}" class="favorite_button" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
                                                     <i class="fa-solid fa-heart"></i>
                                                     お気に入り解除
                                                 </a>
@@ -128,7 +128,7 @@
                                                     @method('DELETE')
                                                 </form>
                                             @else
-                                                <a href="{{ route('favorites.store', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
+                                                <a href="{{ route('favorites.store', $shop->id) }}" class="favorite_button" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
                                                     <i class="fa-solid fa-heart"></i>
                                                     お気に入り
                                                 </a>
@@ -137,7 +137,7 @@
                                                 </form>
                                             @endif
                                         @else
-                                            <button type="button" class="btn favorite_btn" data-bs-toggle="modal" data-bs-target="#favoriteModal">
+                                            <button type="button" class="favorite_button" data-bs-toggle="modal" data-bs-target="#favoriteModal">
                                                 <i class="fa-solid fa-heart"></i>
                                                 お気に入り
                                             </button>

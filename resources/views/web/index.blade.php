@@ -101,13 +101,6 @@
                     </div>
                 </div>
             </section>
-            <section id="features" class="mt-4">
-                <h1 class="text-center section_title">特集</h1>
-                <!-- カルーセル？で特集を2つ表示 -->
-                <div>
-                    <!-- 有料会員募集 -->
-                </div>
-            </section>
             @if (Auth::user() && auth()->user()->role == 'free')
                 <button type="button" class="recommend_button" data-bs-toggle="modal" data-bs-target="#recommendModal">有料会員登録は<br>こちらから！</button>
                 <div class="modal fade" id="recommendModal" tabindex="-1" aria-labelledby="recommendModalLabel" aria-hidden="true">

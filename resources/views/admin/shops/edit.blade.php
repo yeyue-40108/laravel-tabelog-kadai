@@ -3,13 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="mb-4">
                 <a href="{{ route('admin.shops.show', $shop->id) }}">< 店舗詳細ページに戻る</a>
             </div>
             
             <h1>店舗情報編集</h1>
-            <hr>
             @if ($errors->any())
                 <div>
                     <ul>
@@ -19,6 +18,7 @@
                     </ul>
                 </div>
             @endif
+            <hr>
             <form action="{{ route('admin.shops.update', $shop->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -86,7 +86,9 @@
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn btn-warning">編集</button>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-warning w-50">編集</button>
+                </div>
             </form>
         </div>
     </div>

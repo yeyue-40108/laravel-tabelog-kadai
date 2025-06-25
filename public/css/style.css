@@ -55,11 +55,18 @@ label {
 }
 
 /* submitボタン */
-.submit_btn {
+.submit_button {
     font-size: 14px;
     font-weight: bold;
     letter-spacing: normal;
     background-color: #f58220;
+    border-radius: 5px;
+    height: 2rem;
+    border: none;
+}
+
+.submit_button:hover {
+    opacity: 0.5;
 }
 
 /* layouts.app */
@@ -126,7 +133,7 @@ footer {
 }
 
 .recommend_button:hover {
-    opacity: 80%;
+    opacity: 0.8;
 }
 
 /* カテゴリサイドバー */
@@ -145,8 +152,24 @@ footer {
     border: solid 1px #e5e5e5;
 }
 
-.search_btn {
+.search_button {
     background-color: #f58220;
+    border: none;
+    border-radius: 5px;
+    height: 2rem;
+    width: 2rem;
+}
+
+.search_letter_button {
+    background-color: #f58220;
+    border: none;
+    border-radius: 5px;
+    height: 2rem;
+    width: 4rem;
+}
+
+.search_button:hover, .search_letter_button:hover {
+    opacity: 0.5;
 }
 
 /* 店舗一覧 */
@@ -180,7 +203,7 @@ footer {
 .star_rating {
     display: flex;
     align-items: center;
-    gap: 0.5em; /* 星と数字の間のスペース */
+    gap: 0.5em;
     font-size: 1.2rem;
     line-height: 1;
 }
@@ -189,8 +212,8 @@ footer {
     position: relative;
     display: inline-block;
     line-height: 1;
-    width: 5em; /* 星5つ分くらいの幅（必要に応じて調整） */
-    height: 1em;   /* 高さを明示しておくと安定します */
+    width: 5em;
+    height: 1em;
 }
 
 .star_base, .star_overlay {
@@ -221,19 +244,32 @@ footer {
 }
 
 /* お気に入り */
-.favorite_btn {
+.favorite_button {
     font-size: 14px;
     font-weight: bold;
     border: solid 1px #f58220;
     background-color: #ffffff;
     color: #f58220;
+    border-radius: 5px;
+    height: 2rem;
+}
+
+.favorite_button:hover {
+    opacity: 0.5;
 }
 
 /* 予約 */
-.reservation_btn {
+.reservation_button {
     font-size: 14px;
     font-weight: bold;
     background-color: #f58220;
+    border: none;
+    border-radius: 5px;
+    height: 2rem;
+}
+
+.reservation_button:hover {
+    opacity: 0.5;
 }
 
 /* カード */
@@ -255,8 +291,4 @@ footer {
 .admin_shop_img {
     width: auto;
     height: 200px;
-}
-
-@media screen and (max-width: 767px) {
-    
 }

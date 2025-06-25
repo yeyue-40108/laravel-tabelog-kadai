@@ -28,7 +28,7 @@
                     @enderror
                 </div>
                 <div>
-                    <button type="submit" class="btn submit_btn w-100 text-white">送信</button>
+                    <button type="submit" class="submit_button w-100 text-white">送信</button>
                 </div>
             </form>
         </div>

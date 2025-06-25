@@ -24,7 +24,6 @@
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-sm mx-1">退会</button>
                 </form>
-                <!-- パスワード再設定メール送信 -->
             </div>
             <table class="table table-striped">
                 <tbody>
@@ -68,6 +67,10 @@
                             $workLabel = ['company' => '会社員', 'government' => '公務員', 'house' => '主婦・主夫', 'other' => 'その他'];
                         @endphp
                         <td>{{ $workLabel[$user->work] ?? '未登録' }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">登録日時</th>
+                        <td>{{ $user->created_at }}</td>
                     </tr>
                 </tbody>
             </table>

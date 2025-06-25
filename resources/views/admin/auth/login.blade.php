@@ -40,7 +40,9 @@
                         </label>
                     </div>
                 </div>
-                <button type="submit" class="btn submit_btn w-100 text-white mb-4">ログイン</button>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="submit_button w-100 text-white mb-4">ログイン</button>
+                </div>
             </form>
             <div class="text-center">
                 <a class="fw-bold text-dark" href="{{ route('password.request') }}">パスワードをお忘れの場合</a>

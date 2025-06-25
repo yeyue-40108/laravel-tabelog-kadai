@@ -37,10 +37,8 @@
                     </div>
                 @endforeach
             @endif
-
-            <hr class="my-4">
             <div class="mb-4">
-                <!-- ページネーション -->
+                {{ $favorite_shops->links() }}
             </div>
         </div>
     </div>

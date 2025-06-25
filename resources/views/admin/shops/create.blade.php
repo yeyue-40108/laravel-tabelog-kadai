@@ -3,13 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="mb-4">
                 <a href="{{ route('admin.shops.index') }}">< 店舗一覧ページに戻る</a>
             </div>
             
             <h1>新しい店舗を作成</h1>
-            <hr>
             @if ($errors->any())
                 <div>
                     <ul>
@@ -19,6 +18,7 @@
                     </ul>
                 </div>
             @endif
+            <hr>
             <form action="{{ route('admin.shops.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
@@ -84,7 +84,9 @@
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">店舗を登録</button>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success w-50">店舗を登録</button>
+                </div>
             </form>
         </div>
     </div>

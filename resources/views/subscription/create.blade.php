@@ -39,7 +39,7 @@
                 <input type="text" class="mb-3 card_name" id="card-holder-name" placeholder="カード名義人" required>
                 <div class="card_element mb-4" id="card-element"></div>
             </form>
-            <button class="btn submit_btn text-white w-100" id="card-button" data-secret="{{ $intent->client_secret }}">登録</button>
+            <button class="submit_button text-white w-100" id="card-button" data-secret="{{ $intent->client_secret }}">登録</button>
         </div>
     </div>
 </div>

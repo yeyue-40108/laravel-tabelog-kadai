@@ -81,7 +81,9 @@
                         ご登録いただいているお名前と電話番号を予約店舗へ共有させていただきます。同意いただける場合はチェックをしてください。
                     </label>
                     <br>
-                    <button type="submit" class="btn btn-success" id="submit_button" disabled>予約する</button>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success w-50" id="submit_button" disabled>予約する</button>
+                    </div>
                 </form>
 
                 <script>

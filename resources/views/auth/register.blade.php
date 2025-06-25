@@ -66,7 +66,7 @@
 
                 <hr class="mb-4">
 
-                <button type="submit" class="btn submit_btn w-100 text-white">会員登録</button>
+                <button type="submit" class="submit_button w-100 text-white">会員登録</button>
             </form>
         </div>
     </div>

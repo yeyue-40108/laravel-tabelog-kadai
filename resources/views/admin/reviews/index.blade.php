@@ -30,7 +30,7 @@
                             <input class="form-control search_input" name="keyword" placeholder="会員名・店舗名・内容で検索">
                         </div>
                         <div class="col-2">
-                            <button type="submit" class="btn search_btn">
+                            <button type="submit" class="search_button">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
@@ -47,7 +47,7 @@
                             <input type="date" class="form-control" name="end_date" value="{{ request('end_date') }}">
                         </div>
                         <div class="col-1">
-                            <button type="submit" class="btn search_btn">
+                            <button type="submit" class="search_button">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
@@ -64,9 +64,7 @@
                         <th scope="col">
                             @sortablelink('score', 'スコア')
                         </th>
-                        <th scope="col">
-                            @sortablelink('created_at', '作成日時')
-                        </th>
+                        <th scope="col">作成日時</th>
                         <th scope>レビューの表示状況</th>
                         <th scope="col">操作</th>
                     </tr>
@@ -103,6 +101,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="mb-4">
+                {{ $reviews->appends(request()->query())->links() }}
+            </div>
         </div>
     </div>
 </div>

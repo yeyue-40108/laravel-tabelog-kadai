@@ -55,7 +55,7 @@
                 </div>
 
                 <hr class="mb-4">
-                <button type="submit" id="card-button" class="btn submit_btn w-100 text-white"><a href="{{ route('subscription.create') }}"></a>次へ（カード登録）</button>
+                <button type="submit" id="card-button" class="submit_button w-100 text-white"><a href="{{ route('subscription.create') }}"></a>次へ（カード登録）</button>
             </form>
         </div>
     </div>

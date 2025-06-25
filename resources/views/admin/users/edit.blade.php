@@ -3,11 +3,21 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="mb-4">
                 <a href="{{ route('admin.users.show', $user->id) }}">< 会員情報詳細ページに戻る</a>
             </div>
             <h1>会員情報編集</h1>
+            @if ($errors->any())
+                <div>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <hr>
             <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -25,17 +35,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="role" class="form-label">会員種別</label>
-                    @php
-                        $selected = function ($value) use ($user) {
-                            return old('role', $user->role) === $value ? 'selected' : '';
-                        };
-                    @endphp
-                    <select name="role" class="form-select" id="role" aria-label="Default select example">
-                        <option value="free" {{ $selected('free') }}>無料会員</option>
-                        <option value="paid" {{ $selected('paid') }}>有料会員</option>
-                        <option value="shop_manager" {{ $selected('shop_manager') }}>店舗管理者</option>
-                        <option value="manager" {{ $selected('manager') }}>トップ管理者</option>
-                    </select>
+                    @if ($user->role === 'paid')
+                        <button type="button" class="btn w-100" disabled>有料会員</button>
+                    @else
+                        <button type="button" class="btn w-100" disabled>無料会員</button>
+                    @endif
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label">電話番号</label>
@@ -60,7 +64,9 @@
                         <option value="other" {{ $selected('other') }}>その他</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-warning">編集</button>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-warning w-50">編集</button>
+                </div>
             </form>
         </div>
     </div>

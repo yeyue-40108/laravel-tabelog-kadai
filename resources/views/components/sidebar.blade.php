@@ -14,7 +14,7 @@
                     <input class="form-control search_input" name="keyword">
                 </div>
                 <div class="col-2">
-                    <button type="submit" class="btn search_btn">
+                    <button type="submit" class="search_button">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>

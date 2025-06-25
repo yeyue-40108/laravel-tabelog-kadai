@@ -34,23 +34,23 @@
                         <div class="col-4">
                             @if (auth()->user()->role === 'paid')
                                 @if (Auth::user()->favorite_shops()->where('shop_id', $shop->id)->exists())
-                                    <a href="{{ route('favorites.destroy', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
+                                    <a href="{{ route('favorites.destroy', $shop->id) }}" class="favorite_button" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
                                         <i class="fa-solid fa-heart"></i>
                                         お気に入り解除
                                     </a>
                                 @else
-                                    <a href="{{ route('favorites.store', $shop->id) }}" class="btn favorite_btn" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
+                                    <a href="{{ route('favorites.store', $shop->id) }}" class="favorite_button" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
                                         <i class="fa-solid fa-heart"></i>
                                         お気に入り
                                     </a>
                                 @endif
-                                <a href="{{ route('reservations.create', ['shop' => $shop->id]) }}" class="btn reservation_btn text-white">予約</a>
+                                <a href="{{ route('reservations.create', ['shop' => $shop->id]) }}" class="reservation_button text-white">予約</a>
                             @else
-                                <button type="button" class="btn favorite_btn" data-bs-toggle="modal" data-bs-target="#paidModal">
+                                <button type="button" class="favorite_button" data-bs-toggle="modal" data-bs-target="#paidModal">
                                     <i class="fa-solid fa-heart"></i>
                                     お気に入り
                                 </button>
-                                <button class="btn reservation_btn text-white" data-bs-toggle="modal" data-bs-target="#paidModal">予約</button>
+                                <button class="reservation_button text-white" data-bs-toggle="modal" data-bs-target="#paidModal">予約</button>
                                 <div class="modal fade" id="paidModal" tabindex="-1" aria-labelledby="paidModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -219,7 +219,7 @@
                                     @enderror
                                     <textarea name="content" class="form-control m-2"></textarea>
                                     <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                                    <button type="submit" class="btn submit_btn ml-2 text-white">レビューを投稿</button>
+                                    <button type="submit" class="submit_button ml-2 text-white">レビューを投稿</button>
                                 </form>
                             @else
                                 <p>レビュー投稿は有料会員向けの機能です。</p>

@@ -9,6 +9,7 @@
             </div>
             
             <h1>新しい店舗を作成</h1>
+            <hr>
             @if ($errors->any())
                 <div>
                     <ul>
@@ -18,7 +19,6 @@
                     </ul>
                 </div>
             @endif
-            <hr>
             <form action="{{ route('admin.shops.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
@@ -84,6 +84,7 @@
                         @endforeach
                     </select>
                 </div>
+                <hr>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-success w-50">店舗を登録</button>
                 </div>

@@ -191,6 +191,10 @@ footer {
     height: 50vh;
 }
 
+.shop_show_button {
+    display: inline-block;
+}
+
 /* レビュー */
 .review_star {
     color: #f58220;
@@ -245,27 +249,39 @@ footer {
 
 /* お気に入り */
 .favorite_button {
+    display: inline-block;
+    white-space: nowrap;
     font-size: 14px;
     font-weight: bold;
     border: solid 1px #f58220;
     background-color: #ffffff;
     color: #f58220;
+    text-decoration: none;
     border-radius: 5px;
-    height: 2rem;
+    padding: 7px;
 }
 
 .favorite_button:hover {
     opacity: 0.5;
 }
 
+.favorite_img {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+}
+
 /* 予約 */
 .reservation_button {
+    display: inline-block;
+    white-space: nowrap;
     font-size: 14px;
     font-weight: bold;
     background-color: #f58220;
     border: none;
+    text-decoration: none;
     border-radius: 5px;
-    height: 2rem;
+    padding: 7px;
 }
 
 .reservation_button:hover {
@@ -291,4 +307,10 @@ footer {
 .admin_shop_img {
     width: auto;
     height: 200px;
+}
+
+@media screen and (max-width: 767px) {
+    .shop_show_button {
+        display: block;
+    }
 }

@@ -1,5 +1,5 @@
 <div class="container">
-    <a class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+    <a class="btn btn-outline-primary mb-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
         <span>条件で検索</span>
         <i class="fa-solid fa-angles-right"></i>
     </a>
@@ -11,7 +11,7 @@
         <div class="offcanvas-body">
             <form action="{{ route('shops.index') }}" method="GET" class="row g-1 mb-3">
                 <div class="col-10">
-                    <input class="form-control search_input" name="keyword">
+                    <input class="form-control search_input" name="keyword" placeholder="店舗名で検索">
                 </div>
                 <div class="col-2">
                     <button type="submit" class="search_button">

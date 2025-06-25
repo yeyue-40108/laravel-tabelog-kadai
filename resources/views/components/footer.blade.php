@@ -16,11 +16,6 @@
             <i class="fa-solid fa-envelope"></i>
             <p class="mx-2">nagoyameshi@example.com</p>
         </div>
-        @if (Auth::guard('admin')->check())
-            <a href="{{ route('login') }}" class="d-flex justify-content-center link-dark link-opacity-50-hover">会員ログインはこちら→</a>
-        @else
-            <a href="{{ route('admin.login') }}" class="d-flex justify-content-center link-dark link-opacity-50-hover">管理者ログインはこちら→</a>
-        @endif
     </div>
     <p class="text-center copyright">&copy;NAGOYAMESHI All right reserved.</p>
 </div>

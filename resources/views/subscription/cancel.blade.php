@@ -18,6 +18,7 @@
                 <input type="checkbox" id="cancel_confirm">
                 有料会員を解約すると有料会員限定の機能を使用できなくなります。本当によろしいですか？
             </label>
+            <hr>
             <form action="{{ route('subscription.destroy') }}" id="card-form" method="POST">
                 @csrf
                 @method('DELETE')

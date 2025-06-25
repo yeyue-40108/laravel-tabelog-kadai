@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-8 col-md-10">
             <div class="container">
                 <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -20,6 +20,7 @@
                 @else
                     <h1>店舗一覧<span class="ms-3">{{ $total_count }}件</span></h1>
                 @endif
+                <hr>
                 @php
                     $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
                 @endphp

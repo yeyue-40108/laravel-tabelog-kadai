@@ -3,7 +3,7 @@
 @section('content')
 <div class="container pt-5">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <h1 class="mb-3">管理者ログイン</h1>
 
             @if (session('warning'))
@@ -44,9 +44,6 @@
                     <button type="submit" class="submit_button w-100 text-white mb-4">ログイン</button>
                 </div>
             </form>
-            <div class="text-center">
-                <a class="fw-bold text-dark" href="{{ route('password.request') }}">パスワードをお忘れの場合</a>
-            </div>
         </div>
     </div>
 </div>

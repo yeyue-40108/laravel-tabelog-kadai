@@ -9,6 +9,7 @@
             </div>
             
             <h1>店舗情報編集</h1>
+            <hr>
             @if ($errors->any())
                 <div>
                     <ul>
@@ -18,7 +19,6 @@
                     </ul>
                 </div>
             @endif
-            <hr>
             <form action="{{ route('admin.shops.update', $shop->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -86,6 +86,7 @@
                         @endforeach
                     </select>
                 </div>
+                <hr>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-warning w-50">編集</button>
                 </div>

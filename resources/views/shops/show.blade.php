@@ -15,7 +15,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="row d-flex justify-content-between">
+                    <div class="row d-flex justify-content-between mb-3">
                         <div class="col-4">
                             <h2>{{ $shop->category->name }}</h2>
                             <h1>{{ $shop->name }}</h1>
@@ -31,26 +31,26 @@
                                 <span class="score_text">{{ number_format($averageScore, 1) }}</span>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-4 shop_show_button">
                             @if (auth()->user()->role === 'paid')
                                 @if (Auth::user()->favorite_shops()->where('shop_id', $shop->id)->exists())
-                                    <a href="{{ route('favorites.destroy', $shop->id) }}" class="favorite_button" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
+                                    <a href="{{ route('favorites.destroy', $shop->id) }}" class="favorite_button mx-1" onclick="event.preventDefault(); document.getElementById('favorites-destroy-form').submit();">
                                         <i class="fa-solid fa-heart"></i>
                                         お気に入り解除
                                     </a>
                                 @else
-                                    <a href="{{ route('favorites.store', $shop->id) }}" class="favorite_button" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
+                                    <a href="{{ route('favorites.store', $shop->id) }}" class="favorite_button mx-1" onclick="event.preventDefault(); document.getElementById('favorites-store-form').submit();">
                                         <i class="fa-solid fa-heart"></i>
                                         お気に入り
                                     </a>
                                 @endif
-                                <a href="{{ route('reservations.create', ['shop' => $shop->id]) }}" class="reservation_button text-white">予約</a>
+                                <a href="{{ route('reservations.create', ['shop' => $shop->id]) }}" class="reservation_button text-white mx-1">予約</a>
                             @else
-                                <button type="button" class="favorite_button" data-bs-toggle="modal" data-bs-target="#paidModal">
+                                <button type="button" class="favorite_button mx-1" data-bs-toggle="modal" data-bs-target="#paidModal">
                                     <i class="fa-solid fa-heart"></i>
                                     お気に入り
                                 </button>
-                                <button class="reservation_button text-white" data-bs-toggle="modal" data-bs-target="#paidModal">予約</button>
+                                <button class="reservation_button text-white mx-1" data-bs-toggle="modal" data-bs-target="#paidModal">予約</button>
                                 <div class="modal fade" id="paidModal" tabindex="-1" aria-labelledby="paidModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -85,24 +85,24 @@
                     </form>
                     <div>
                         @if ($shop->image)
-                            <img src="{{ asset('storage/' . $shop->image) }}" class="img-thumbnail shop_show_img">
+                            <img src="{{ asset('storage/' . $shop->image) }}" class="img-thumbnail shop_show_img mb-2">
                         @else
-                            <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail shop_show_img">
+                            <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail shop_show_img mb-2">
                         @endif
                     </div>
                     <div>
                         <p>{{ $shop->description }}</p>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-7">
-                            <div class="row">
-                                <p class="col-3">営業時間</p>
-                                <p class="col-9">{{ $shop->open_time }}<span>～</span>{{ $shop->close_time }}</p>
-                            </div>
-                            <div class="row">
-                                <p class="col-3">定休日</p>
-                                <div class="col-9">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th scope="row">営業時間</th>
+                                <td>{{ $shop->open_time }}<span>～</span>{{ $shop->close_time }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">定休日</th>
+                                <td>
                                     @php
                                         $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
                                     @endphp
@@ -112,28 +112,25 @@
                                     @empty
                                         <span>なし</span>
                                     @endforelse
-                                </div>
-                            </div>
-                            <div class="row">
-                                <p class="col-3">価格帯</p>
-                                <p class="col-9">{{ $shop->price->range }}</p>
-                            </div>
-                            <div class="row">
-                                <p class="col-3">住所</p>
-                                <div class="col-9">
-                                    <p class="mb-0">{{ $shop->postal_code }}</p>
-                                    <p>{{ $shop->address }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <p class="col-3">電話番号</p>
-                                <p class="col-9">{{ $shop->phone }}</p>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <!-- マップ -->
-                        </div>
-                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">価格帯</th>
+                                <td>{{ $shop->price->range }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">住所</th>
+                                <td>
+                                    {{ $shop->postal_code }} <br>
+                                    {{ $shop->address }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">電話番号</th>
+                                <td>{{ $shop->phone }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <hr>
                     <div class="row">
                         <h3>カスタマーレビュー</h3>
@@ -141,8 +138,10 @@
                             <p>{{ session('flash_message') }}</p>
                         @endif
                         <div class="col-md-6">
-                            @foreach($reviews as $review)
-                                @if ($review->display !== 0)
+                            @if ($reviews->isEmpty())
+                                <p>レビューはまだありません。</p>
+                            @else
+                                @foreach($reviews as $review)
                                     <div>
                                         <h3 class="review_star">{{ str_repeat('★', $review->score) }}</h3>
                                         <p>{{ $review->content }}</p>
@@ -197,8 +196,11 @@
                                         @endif
                                         <p>{{ $review->created_at }} {{ $review->user->name }}</p>
                                     </div>
-                                @endif
-                            @endforeach
+                                @endforeach
+                                <div class="mb-4">
+                                    {{ $reviews->links() }}
+                                </div>
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <h3>レビューを投稿する</h3>

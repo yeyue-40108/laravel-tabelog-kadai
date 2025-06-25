@@ -14,12 +14,12 @@
                 </nav>
             </div>
             <h1>レビュー詳細</h1>
+            <hr>
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
-            <hr>
             @if ($master->role === 'manager')
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end mb-2">
                     @if ($review->display === 0)
                         <form action="{{ route('admin.reviews.update', $review) }}" method="POST">
                             @csrf

@@ -17,6 +17,10 @@
                     <h1>会員情報一覧<span class="ms-3">{{ $total_count }}件</span></h1>
                 @endif
             </div>
+            <hr>
+            @if (session('flash_message'))
+                <p>{{ session('flash_message') }}</p>
+            @endif
             <div class="row">
                 <form action="{{ route('admin.users.index') }}" method="GET" class="col-6 g-1 mb-3">
                     <div class="row">
@@ -31,19 +35,22 @@
                     </div>
                 </form>
             </div>
-            @if (session('flash_message'))
-                <p>{{ session('flash_message') }}</p>
-            @endif
+            <div class="d-flex justify-content-end mb-2">
+                <form action="{{ route('admin.users.export') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-light">CSV出力</button>
+                </form>
+            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">
-                            @sortablelink('id', 'ID')
-                        </th>
+                        <th scope="col">ID</th>
                         <th scope="col">氏名</th>
                         <th scope="col">フリガナ</th>
                         <th scope="col">メールアドレス</th>
-                        <th scope="col">会員種別</th>
+                        <th scope="col">
+                            @sortablelink('role', '会員種別')
+                        </th>
                         <th scope="col">操作</th>
                     </tr>
                 </thead>

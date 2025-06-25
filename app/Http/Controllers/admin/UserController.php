@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
@@ -58,6 +59,33 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users.index')->with('flash_message', '会員の退会が完了しました。');
+    }
+
+    public function export()
+    {
+        $users = User::all(['id', 'name', 'furigana', 'email', 'phone', 'birthday', 'work', 'role'])->toArray();
+
+        $csvContent = fopen('php://temp', 'r+');
+        fputcsv($csvContent, ['ID', '名前', 'フリガナ', 'メールアドレス', '電話番号', '誕生日', '職業', '会員種別']);
+
+        $workLabels = ['company' => '会社員', 'government' => '公務員', 'student' => '学生', 'house' => '主婦・主夫', 'other' => 'その他'];
+        $roleLabels = ['free' => '無料会員', 'paid' => '有料会員'];
+        foreach ($users as $user) {
+            $user['work'] = $workLabels[$user['work']] ?? $user['work'];
+            $user['role'] = $roleLabels[$user['role']] ?? $user['role'];
+            fputcsv($csvContent, $user);
+        }
+        rewind($csvContent);
+
+        $csvData = stream_get_contents($csvContent);
+        fclose($csvContent);
+
+        $sjisData = mb_convert_encoding($csvData, 'SJIS-win', 'UTF-8');
+
+        return response()->make($sjisData, 200, [
+            'Content-Type' => 'text/csv; charset=Shift_JIS',
+            'Content-Disposition' => 'attachment; filename="users.csv"',
+        ]);
     }
 
     public function sales(Request $request)
@@ -123,7 +151,10 @@ class UserController extends Controller
             $limit_query->where('work', $work);
         }
 
-        $limit_count = $limit_query->count();
+        $limit_count = $limit_query->whereHas('subscriptions', function ($q) {
+            $q->where('stripe_status', 'active');
+        }) 
+        ->count();;
         $limit_sales = $limit_count * 300;
 
         return view('admin.users.sales', compact('total_count', 'sales', 'limit_count', 'limit_sales', 'age', 'work', 'start_year', 'start_month', 'end_year', 'end_month'));

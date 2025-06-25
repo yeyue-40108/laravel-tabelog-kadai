@@ -8,6 +8,7 @@
                 <a href="{{ route('admin.users.show', $user->id) }}">< 会員情報詳細ページに戻る</a>
             </div>
             <h1>会員情報編集</h1>
+            <hr>
             @if ($errors->any())
                 <div>
                     <ul>
@@ -17,7 +18,6 @@
                     </ul>
                 </div>
             @endif
-            <hr>
             <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -64,6 +64,7 @@
                         <option value="other" {{ $selected('other') }}>その他</option>
                     </select>
                 </div>
+                <hr>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-warning w-50">編集</button>
                 </div>

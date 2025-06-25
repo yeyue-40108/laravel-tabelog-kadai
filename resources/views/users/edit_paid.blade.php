@@ -53,8 +53,7 @@
                         <option value="other" {{ $selected('other') }}>その他</option>
                     </select>
                 </div>
-
-                <hr class="mb-4">
+                <hr>
                 <button type="submit" id="card-button" class="submit_button w-100 text-white"><a href="{{ route('subscription.create') }}"></a>次へ（カード登録）</button>
             </form>
         </div>

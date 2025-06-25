@@ -27,7 +27,7 @@
                 <form action="{{ route('admin.reviews.index') }}" method="GET" class="col-7 g-1 mb-3">
                     <div class="row">
                         <div class="col-10">
-                            <input class="form-control search_input" name="keyword" placeholder="会員名・店舗名・内容で検索">
+                            <input class="form-control search_input" name="keyword" placeholder="ユーザー名・店舗名・内容で検索">
                         </div>
                         <div class="col-2">
                             <button type="submit" class="search_button">
@@ -71,33 +71,18 @@
                 </thead>
                 <tbody>
                     @foreach ($reviews as $review)
-                        @if ($master->role === 'manager')
-                            <tr>
-                                <th>{{ $review->id }}</th>
-                                <td>{{ $review->user->name }}</td>
-                                <td>{{ $review->shop->name }}</td>
-                                <td>{{ $review->content }}</td>
-                                <td>{{ $review->score }}</td>
-                                <td>{{ $review->created_at }}</td>
-                                <td>{{ $review->display ? '表示' : '非表示' }}</td>
-                                <td>
-                                    <a href="{{ route('admin.reviews.show', $review) }}" class="btn btn-primary btn-sm">詳細</a>
-                                </td>
-                            </tr>
-                        @elseif ($master->role === 'shop_manager' && auth('admin')->user()->id === $review->shop->master_id)
-                            <tr>
-                                <th>{{ $review->id }}</th>
-                                <td>{{ $review->user->name }}</td>
-                                <td>{{ $review->shop->name }}</td>
-                                <td>{{ $review->content }}</td>
-                                <td>{{ $review->score }}</td>
-                                <td>{{ $review->created_at }}</td>
-                                <td>{{ $review->display ? '表示' : '非表示' }}</td>
-                                <td>
-                                    <a href="{{ route('admin.reviews.show', $review) }}" class="btn btn-primary btn-sm">詳細</a>
-                                </td>
-                            </tr>
-                        @endif
+                        <tr>
+                            <th>{{ $review->id }}</th>
+                            <td>{{ $review->user->name }}</td>
+                            <td>{{ $review->shop->name }}</td>
+                            <td>{{ $review->content }}</td>
+                            <td>{{ $review->score }}</td>
+                            <td>{{ $review->created_at }}</td>
+                            <td>{{ $review->display ? '表示' : '非表示' }}</td>
+                            <td>
+                                <a href="{{ route('admin.reviews.show', $review) }}" class="btn btn-primary btn-sm">詳細</a>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

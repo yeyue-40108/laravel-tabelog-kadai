@@ -38,7 +38,7 @@
                         @enderror
                     </div>
                 </div>
-                <hr class="mb-4">
+                <hr>
                 <button type="submit" class="submit_button w-100 text-white">更新</button>
             </form>
         </div>

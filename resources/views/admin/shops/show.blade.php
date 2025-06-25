@@ -14,16 +14,17 @@
                 </nav>
             </div>
             <h1>店舗詳細</h1>
+            <hr>
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
             <div>
-                <div class="d-flex justify-content-end">
-                    <a href="{{ route('admin.shops.edit', $shop->id) }}" class="btn btn-warning my-2">編集</a>
+                <div class="d-flex justify-content-end mb-2">
+                    <a href="{{ route('admin.shops.edit', $shop->id) }}" class="btn btn-warning mx-1">編集</a>
                     <form action="{{ route('admin.shops.destroy', $shop) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？')">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger my-2">削除</button>
+                        <button type="submit" class="btn btn-danger mx-1">削除</button>
                     </form>
                 </div>
                 <table class="table table-striped">

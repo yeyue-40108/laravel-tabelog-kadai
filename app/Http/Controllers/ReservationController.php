@@ -16,15 +16,27 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $reservations = Reservation::where('user_id', auth()->id())
+        $now = Carbon::now();
+        $type = $request->query('type', 'future');
+
+        $query = Reservation::where('user_id', auth()->id())
             ->with('shop')
             ->orderBy('reservation_date')
-            ->orderBy('reservation_time')
-            ->get();
+            ->orderBy('reservation_time');
+
+        if ($type === 'past') {
+            $query->whereRaw("STR_TO_DATE(CONCAT(reservation_date, ' ' , reservation_time), '%Y-%m-%d %H:%i') < ?", [$now])
+            ->orderBy('reservation_date')
+            ->orderBy('reservation_time');
+        } else {
+            $query->whereRaw("STR_TO_DATE(CONCAT(reservation_date, ' ' , reservation_time), '%Y-%m-%d %H:%i') >= ?", [$now]);
+        }
+
+        $reservations = $query->paginate(10)->withQueryString();
         
-        return view('reservations.index', compact('reservations'));
+        return view('reservations.index', compact('reservations', 'type'));
     }
 
     /**

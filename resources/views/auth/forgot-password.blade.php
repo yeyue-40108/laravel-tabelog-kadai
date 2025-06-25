@@ -27,6 +27,7 @@
                         </span>
                     @enderror
                 </div>
+                <hr>
                 <div>
                     <button type="submit" class="submit_button w-100 text-white">送信</button>
                 </div>

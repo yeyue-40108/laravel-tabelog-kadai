@@ -12,12 +12,13 @@
                         <li class="breadcrumb-item active" aria-current="page">会員情報詳細</li>
                     </ol>
                 </nav>
-                <h1>会員情報詳細</h1>
             </div>
+            <h1>会員情報詳細</h1>
+            <hr>
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
-            <div class="d-flex justify-content-end my-1">
+            <div class="d-flex justify-content-end mb-2">
                 <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm mx-1">編集</a>
                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('本当に退会させてもよろしいですか？')">
                     @csrf
@@ -64,7 +65,7 @@
                     <tr>
                         <th scope="row">職業</th>
                         @php
-                            $workLabel = ['company' => '会社員', 'government' => '公務員', 'house' => '主婦・主夫', 'other' => 'その他'];
+                            $workLabel = ['company' => '会社員', 'government' => '公務員', 'student' => '学生', 'house' => '主婦・主夫', 'other' => 'その他'];
                         @endphp
                         <td>{{ $workLabel[$user->work] ?? '未登録' }}</td>
                     </tr>

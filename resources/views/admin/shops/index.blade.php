@@ -26,11 +26,11 @@
             @else
                 <h1>店舗一覧<span class="ms-3">{{ $total_count }}件</span></h1>
             @endif
+            <hr>
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
-            <hr>
-            <div class="row justify-content-around">
+            <div class="row">
                 <form action="{{ route('admin.shops.index') }}" method="GET" class="col-6 g-1 mb-3">
                     <div class="row">
                         <div class="col-10">
@@ -43,9 +43,9 @@
                         </div>
                     </div>
                 </form>
-                <div class="col-4">
-                    <a href="{{ route('admin.shops.create') }}" class="btn btn-success">店舗作成</a>
-                </div>
+            </div>
+            <div class="d-flex justify-content-end mb-2">
+                <a href="{{ route('admin.shops.create') }}" class="btn btn-success">店舗作成</a>
             </div>
             <table class="table table-striped">
                 <thead>

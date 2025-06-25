@@ -51,6 +51,7 @@
                 <input type="text" class="card_name mb-3" id="card-holder-name" placeholder="カード名義人" required>
                 <div class="card_element mb-4" id="card-element"></div>
             </form>
+            <hr>
             <button class="submit_button text-white w-100" id="card-button" data-secret="{{ $intent->client_secret }}">変更</button>
         </div>
     </div>

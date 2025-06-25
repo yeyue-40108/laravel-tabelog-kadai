@@ -20,7 +20,11 @@
                     <div class="row align-items-center mb-2">
                         <div class="col-md-3">
                             <a href="{{ route('shops.show', $favorite_shop->id) }}">
-                                <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail">
+                                @if ($favorite_shop->image)
+                                    <img src="{{ asset('storage/' . $favorite_shop->image) }}" class="img-thumbnail favorite_img">
+                                @else
+                                    <img src="{{ asset('img/dummy-shop.jpg') }}" class="img-thumbnail favorite_img">
+                                @endif
                             </a>
                         </div>
                         <div class="col-md-7">

@@ -13,6 +13,9 @@
 
             <h1 class="mb-3">会員情報の編集</h1>
             <hr>
+            @if (session('flash_message'))
+                <p>{{ session('flash_message') }}</p>
+            @endif
             <form method="POST" action="{{ route('mypage') }}">
                 @csrf
                 @method('PUT')
@@ -87,7 +90,7 @@
                     </div>
                 @endif
 
-                <hr class="mb-4">
+                <hr>
                 <button type="submit" class="submit_button w-100 text-white">更新</button>
             </form>
         </div>

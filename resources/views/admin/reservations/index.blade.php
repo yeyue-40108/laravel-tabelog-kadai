@@ -72,7 +72,7 @@
                     </thead>
                     <tbody>
                         @foreach ($reservations as $reservation)
-                            @if ($master->role === 'manager')
+                            <tr>
                                 <td>{{ $reservation->shop->name }}</td>
                                 <td>{{ $reservation->reservation_date }}</td>
                                 <td>{{ $reservation->reservation_time }}</td>
@@ -84,23 +84,14 @@
                                         <a href="{{ route('admin.shops.show', $reservation->shop->id) }}" class="link-dark link-opacity-50-hover text-decoration-none">店舗詳細ページへ ></a>
                                     </div>
                                 </td>
-                            @elseif ($master->role === 'shop_manager' && auth('admin')->user()->id === $reservation->shop->master_id)
-                                <td>{{ $reservation->shop->name }}</td>
-                                <td>{{ $reservation->reservation_date }}</td>
-                                <td>{{ $reservation->reservation_time }}</td>
-                                <td>{{ $reservation->people }}</td>
-                                <td>{{ $reservation->user->name }}</td>
-                                <td class="d-flex">
-                                    <a href="{{ route('admin.reservations.show', $reservation->id) }}" class="btn btn-primary btn-sm my-2">予約詳細</a>
-                                    <div class="d-flex align-items-center mx-3">
-                                        <a href="{{ route('admin.shops.show', $reservation->shop->id) }}" class="link-dark link-opacity-50-hover text-decoration-none">店舗詳細ページへ ></a>
-                                    </div>
-                                </td>
-                            @endif
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
             @endif
+            <div class="mb-4">
+                {{ $reservations->appends(request()->query())->links() }}
+            </div>
         </div>
     </div>
 </div>

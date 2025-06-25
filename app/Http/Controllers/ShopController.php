@@ -91,7 +91,7 @@ class ShopController extends Controller
     {
         $shop->load('category');
         
-        $reviews = $shop->reviews()->paginate(5);
+        $reviews = $shop->reviews()->where('display', '!=', 0)->latest()->paginate(5);
 
         $holidayLabels = [
             'monday' => '月',
@@ -106,7 +106,6 @@ class ShopController extends Controller
         $holidays = explode(',', $shop->holiday);
         $holidays = array_map(fn($h) => $holidayLabels[$h] ?? $h, $holidays);
 
-        $reviews = $shop->reviews()->get();
         $averageScore = round($shop->reviews()->avg('score') ?? 0, 1);
         
         return view('shops.show', compact('shop', 'reviews', 'holidays', 'averageScore'));

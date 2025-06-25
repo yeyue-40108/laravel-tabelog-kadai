@@ -13,12 +13,13 @@
                 </nav>
             </div>
             <h1>カテゴリ一覧</h1>
-            <div class="d-flex flex-row-reverse">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCategory">新しいカテゴリを作成</button>
-            </div>
+            <hr>
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
+            <div class="d-flex flex-row-reverse mb-2">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCategory">新しいカテゴリを作成</button>
+            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -35,12 +36,12 @@
                             <th>{{ $category->id }}</th>
                             <td>{{ $category->name }}</td>
                             <td class="d-flex">
-                                <a href="{{ route('admin.shops.index', ['category' => $category->id]) }}" class="btn btn-primary btn-sm my-2">店舗一覧</a>
-                                <button type="button" class="btn btn-warning btn-sm my-2" data-bs-toggle="modal" data-bs-target="#editCategory{{ $category->id }}">編集</button>
+                                <a href="{{ route('admin.shops.index', ['category' => $category->id]) }}" class="btn btn-primary btn-sm mx-1">店舗一覧</a>
+                                <button type="button" class="btn btn-warning btn-sm mx-1" data-bs-toggle="modal" data-bs-target="#editCategory{{ $category->id }}">編集</button>
                                 <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm my-2">削除</button>
+                                    <button type="submit" class="btn btn-danger btn-sm mx-1">削除</button>
                                 </form>
                             </td>
                         </tr>
@@ -67,26 +68,29 @@
                         </div>
                     @endforeach
                 </tbody>
-            </table>
-            <div class="modal" id="createCategory" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title">新しいカテゴリを作成</h2>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('admin.categories.store') }}" method="POST">
-                                @csrf
-                                <label for="category-name" class="form-label">カテゴリ名</label>
-                                <input type="text" name="name" id="category-name" class="form-control">
-                                <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-success mt-3">カテゴリを作成</button>
-                                </div>
-                            </form>
+                <div class="modal" id="createCategory" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title">新しいカテゴリを作成</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('admin.categories.store') }}" method="POST">
+                                    @csrf
+                                    <label for="category-name" class="form-label">カテゴリ名</label>
+                                    <input type="text" name="name" id="category-name" class="form-control">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-success mt-3">カテゴリを作成</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </table>
+            <div class="mb-4">
+                {{ $categories->links() }}
             </div>
         </div>
     </div>

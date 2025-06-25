@@ -17,6 +17,10 @@
                     <h1>管理者情報一覧<span class="ms-3">{{ $total_count }}件</span></h1>
                 @endif
             </div>
+            <hr>
+            @if (session('flash_message'))
+                <p>{{ session('flash_message') }}</p>
+            @endif
             <div class="row">
                 <form action="{{ route('admin.masters.index') }}" method="GET" class="col-6 g-1 mb-3">
                     <div class="row">
@@ -31,9 +35,6 @@
                     </div>
                 </form>
             </div>
-            @if (session('flash_message'))
-                <p>{{ session('flash_message') }}</p>
-            @endif
             <table class="table table-striped">
                 <thead>
                     <tr>

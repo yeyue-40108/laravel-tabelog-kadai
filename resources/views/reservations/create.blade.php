@@ -9,6 +9,7 @@
             </div>
             <div>
                 <h1>{{ $shop->name }}の予約</h1>
+                <hr>
                 @if ($errors->any())
                     <div>
                         <ul>
@@ -18,7 +19,6 @@
                         </ul>
                     </div>
                 @endif
-                <hr class="mt-4">
                 <h2 class="mb-3">{{ $shop->name }}</h2>
                 <div class="mx-3 mb-3">
                     <div class="d-flex">
@@ -80,7 +80,7 @@
                         <input type="checkbox" id="reservation_confirm">
                         ご登録いただいているお名前と電話番号を予約店舗へ共有させていただきます。同意いただける場合はチェックをしてください。
                     </label>
-                    <br>
+                    <hr>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-success w-50" id="submit_button" disabled>予約する</button>
                     </div>

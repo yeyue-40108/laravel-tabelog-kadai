@@ -8,45 +8,33 @@
                 <a href="{{ route('mypage') }}">< マイページへ</a>
             </div>
             <h1>予約一覧</h1>
+            <hr>
+            <p>予約のキャンセル期限は前日の23:59までです。</p>
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
-            <hr>
-            @php
-                use Carbon\Carbon;
-                $now = Carbon::now();
-                $hasFuture = false;
-                $hasPast = false;
-            @endphp
-
+            <ul class="nav nav-tabs mb-3">
+                <li class="nav-item">
+                    <a class="nav-link {{ $type === 'future' ? 'active' : '' }}" href="{{ route('reservations.index', ['type' => 'future']) }}">現在の予約</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ $type === 'past' ? 'active' : '' }}" href="{{ route('reservations.index', ['type' => 'past']) }}">過去の予約</a>
+                </li>
+            </ul>
             @if ($reservations->isEmpty())
                 <p class="fs-6">予約はありません。</p>
             @else
                 @foreach ($reservations as $reservation)
                     @php
-                        $reservationDateTime = Carbon::parse($reservation->reservation_date . ' ' . $reservation->reservation_time);
+                        $now = \Carbon\Carbon::now();
+                        $reservationDateTime = \Carbon\Carbon::parse($reservation->reservation_date . ' ' . $reservation->reservation_time);
                     @endphp
-
-                    @if ($reservationDateTime->isFuture() && !$hasFuture)
-                        <h2 class="mt-4">現在の予約</h2>
-                        <p>予約のキャンセル期限は前日の23:59までです。</p>
-                        @php $hasFuture = true; @endphp
-                    @endif
-
-                    @if ($reservationDateTime->isPast() && !$hasPast && $hasFuture)
-                        <h2 class="mt-4">過去の予約</h2>
-                        @php $hasPast = true; @endphp
-                    @endif
-
-                    <div class="card mb-3" {{ $reservationDateTime->isPast() ? 'text-muted' : '' }}>
+                    <div class="card mb-3">
                         <div class="card-body">
                             <h3>店舗名：{{ $reservation->shop->name }}</h3>
                             <p class="fs-6">予約日時：{{ $reservation->reservation_date }} {{ $reservation->reservation_time }} </p>
                             <p class="fs-6">予約人数：{{ $reservation->people }} 名</p>
-                            @php
-                                $tomorrow = Carbon::tomorrow();
-                            @endphp
-                            @if ($reservationDateTime->gte($tomorrow))
+                            @if ($reservationDateTime->gte(\Carbon\Carbon::tomorrow()))
                                 <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" onsubmit="return confirm('本当にキャンセルしてもよろしいですか？')">
                                     @csrf
                                     @method('DELETE')
@@ -59,6 +47,9 @@
                         </div>
                     </div>
                 @endforeach
+                <div class="mb-4">
+                    {{ $reservations->links() }}
+                </div>
             @endif
         </div>
     </div>

@@ -45,7 +45,7 @@
                         <div class="card-body">
                             <h3 class="card-title mb-3">カテゴリから探す</h3>
                             @foreach ($categories as $category)
-                                <a href="{{ route('shops.index', ['category' => $category->id]) }}" class="btn btn-light btn-sm"> {{ $category->name }} </a>
+                                <a href="{{ route('shops.index', ['category' => $category->id]) }}" class="btn btn-light btn-sm m-1"> {{ $category->name }} </a>
                             @endforeach
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                     <input class="form-control search_input" name="keyword">
                                 </div>
                                 <div class="col-2">
-                                    <button type="submit" class="btn search_btn">
+                                    <button type="submit" class="search_button">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
                                 </div>
@@ -68,7 +68,7 @@
                         <div class="card-body">
                             <h3 class="card-title mb-2">時間・曜日から探す</h3>
                             <form action="{{ route('shops.index') }}">
-                                <div class="mb-1">
+                                <div class="mb-2">
                                     <label>【曜日】</label><br>
                                     @php
                                         $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
@@ -80,7 +80,7 @@
                                         </label>
                                     @endforeach
                                 </div>
-                                <div class="mb-1">
+                                <div class="mb-2">
                                     <label>【時間】</label><br>
                                     <select name="time" class="form-select">
                                         @for ($i = 0; $i < 24; $i++)
@@ -94,7 +94,7 @@
                                     </select>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-sm search_btn">検索</button>
+                                    <button type="submit" class="search_letter_button">検索</button>
                                 </div>
                             </form>
                         </div>

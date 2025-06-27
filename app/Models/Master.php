@@ -20,6 +20,7 @@ class Master extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        'role',
     ];
 
     /**

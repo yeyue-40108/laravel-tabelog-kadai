@@ -98,7 +98,7 @@ class ShopController extends Controller
      */
     public function show(Shop $shop)
     {
-        $shop->load(['category', 'holidays']);
+        $shop->load(['category', 'price', 'holidays']);
         
         return view('admin.shops.show', compact('shop'));
     }

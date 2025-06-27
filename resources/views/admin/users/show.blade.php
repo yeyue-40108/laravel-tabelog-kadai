@@ -73,6 +73,10 @@
                         <th scope="row">登録日時</th>
                         <td>{{ $user->created_at }}</td>
                     </tr>
+                    <tr>
+                        <th scope="row">退会日時</th>
+                        <td>{{ $user->deleted_at }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

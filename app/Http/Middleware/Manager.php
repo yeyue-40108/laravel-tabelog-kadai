@@ -16,7 +16,7 @@ class Manager
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth('admin')->user()->role == 'manager') {
+        if (auth('admin')->check() && auth('admin')->user()->role == 'manager') {
             return $next($request);
         }
         

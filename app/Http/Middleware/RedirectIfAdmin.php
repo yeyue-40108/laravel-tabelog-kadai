@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class ShopManager
+class RedirectIfAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,9 @@ class ShopManager
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth('admin')->check() && auth('admin')->user()->role === 'shop_manager') {
-            return $next($request);
+        if (auth('admin')->check()) {
+            return redirect('/admin/web');
         }
-        
-        abort(403, 'このページは店舗管理者専用です。');
+        return $next($request);
     }
 }

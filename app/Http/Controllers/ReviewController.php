@@ -40,14 +40,14 @@ class ReviewController extends Controller
     public function update(Request $request, Review $review)
     {
         $request->validate([
-            'content' => 'required'
+            'content' => 'required',
+            'score' => 'required',
         ]);
 
-        $review->content = $request->input('content');
-        $review->score = $request->input('score');
-        $review->shop_id = $request->input('shop_id');
-        $review->user_id = Auth::user()->id;
-        $review->update();
+        $review->update([
+            'content' => $request->input('content'),
+            'score' => $request->input('score'),
+        ]);
 
         return back()->with('flash_message', 'レビューを編集しました。');
     }

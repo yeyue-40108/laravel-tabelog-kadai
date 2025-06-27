@@ -56,5 +56,6 @@ class Shop extends Model
         'close_time',
         'category_id',
         'price_id',
+        'master_id',
     ];
 }

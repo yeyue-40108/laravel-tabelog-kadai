@@ -183,7 +183,6 @@
                                                                     <strong>レビュー内容を入力してください。</strong>
                                                                 @enderror
                                                                 <textarea name="content" class="form-control m-2">{{ $review->content }}</textarea>
-                                                                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
 
                                                                 <div class="d-flex justify-content-end">
                                                                     <button type="submit" class="btn btn-warning mt-3">レビューを編集</button>

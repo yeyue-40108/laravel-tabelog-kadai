@@ -20,6 +20,7 @@ use App\Http\Middleware\Paid;
 use App\Http\Middleware\Free;
 use App\Http\Middleware\ShopManager;
 use App\Http\Middleware\Manager;
+use App\Http\Middleware\RedirectIfAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,11 +33,13 @@ use App\Http\Middleware\Manager;
 |
 */
 
-Route::get('/', [WebController::class, 'index'])->name('top');
+route::group(['middleware' => 'guest:admin'], function() {
+    Route::get('/', [WebController::class, 'index'])->name('top');
+});
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'verified'])->group(function() {
+Route::middleware(['auth', 'verified', 'admin.deny'])->group(function() {
     Route::resource('shops', ShopController::class);
 
     Route::controller(UserController::class)->group(function() {
@@ -85,7 +88,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
 
     Route::resource('shops', AdminShopController::class);
 
-    Route::resource('reviews', AdminReviewController::class);
+    Route::get('reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
+    Route::get('reviews/{review}', [AdminReviewController::class, 'show'])->name('reviews.show');
 
     Route::get('reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
     Route::get('reservations/{reservation}', [AdminReservationController::class, 'show'])->name('reservations.show');
@@ -93,14 +97,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::middleware('manager')->group(function() {
         Route::resource('categories', AdminCategoryController::class);
 
+        Route::put('reviews/{review}', [AdminReviewController::class, 'update'])->name('reviews.update');
+
         Route::post('users/export', [AdminUserController::class, 'export'])->name('users.export');
         Route::get('users/sales', [AdminUserController::class, 'sales'])->name('users.sales');
         Route::resource('users', AdminUserController::class);
 
-        Route::controller(AdminMasterController::class)->group(function() {
-            Route::get('masters', 'index')->name('masters.index');
-            Route::put('masters', 'update')->name('masters.update');
-            Route::delete('masters', 'destroy')->name('masters.destroy');
-        });
+        Route::resource('masters', AdminMasterController::class)->only(['index', 'update', 'destroy']);
     });
 });

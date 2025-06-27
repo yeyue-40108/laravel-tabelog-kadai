@@ -60,8 +60,9 @@ class ReviewController extends Controller
 
     public function update(Request $request, Review $review)
     {
-        $review->display = $request->input('display');
-        $review->update();
+        $review->update([
+            'display' => $request->input('display'),
+        ]);
 
         return redirect()->route('admin.reviews.show', $review)->with('flash_message', 'レビューの表示許可を変更しました。');
     }

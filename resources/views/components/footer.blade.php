@@ -3,7 +3,7 @@
         <a href="{{ url('/') }}"></a>
         NAGOYAMESHI
     </h2>
-    <div class="py-2">
+    <div class="py-1">
         <div class="d-flex justify-content-center">
             <i class="fa-solid fa-location-dot"></i>
             <p class="mx-2">東京都渋谷区道玄坂2丁目11-1Gスクエア渋谷道玄坂4F</p>

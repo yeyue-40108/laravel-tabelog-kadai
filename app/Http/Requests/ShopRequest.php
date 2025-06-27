@@ -36,6 +36,7 @@ class ShopRequest extends FormRequest
             'price_id' => 'required|exists:prices,id',
             'weekdays' => 'nullable|array',
             'weekdays.*' => 'integer|between:0,6',
+            'master_id' => 'nullable|exists:masters,id',
         ];
     }
 }

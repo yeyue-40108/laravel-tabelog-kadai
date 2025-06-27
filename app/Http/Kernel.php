@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'free' => \App\Http\Middleware\Free::class,
         'shop_manager' =>\App\Http\Middleware\ShopManager::class,
         'manager' => \App\Http\Middleware\Manager::class,
+        'admin.deny' => \App\Http\Middleware\RedirectIfAdmin::class,
     ];
 }

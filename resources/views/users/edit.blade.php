@@ -16,7 +16,7 @@
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
-            <form method="POST" action="{{ route('mypage') }}">
+            <form method="POST" action="{{ route('mypage.update') }}">
                 @csrf
                 @method('PUT')
                 <div class="row mb-3">

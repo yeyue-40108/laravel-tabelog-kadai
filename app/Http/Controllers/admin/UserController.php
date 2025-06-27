@@ -45,13 +45,12 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->furigana = $request->input('furigana');
         $user->email = $request->input('email');
-        $user->role = $request->input('role');
         $user->phone = $request->input('phone');
         $user->birthday = $request->input('birthday');
         $user->work = $request->input('work');
         $user->update();
 
-        return redirect()->route('admin.users.show')->with('flash_message', '会員情報の編集が完了しました。');
+        return redirect()->route('admin.users.show', $user)->with('flash_message', '会員情報の編集が完了しました。');
     }
 
     public function destroy(User $user)

@@ -11,7 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController as AdminAuthenticatedSessionController;
 use App\Http\Controllers\Admin;
-use Illuminate\Support\Facades\Roteu;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest', 'guest:admin'])->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

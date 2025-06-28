@@ -9,8 +9,9 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController as AdminAuthenticatedSessionController;
 use App\Http\Controllers\Admin;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Roteu;
 
 Route::middleware(['guest', 'guest:admin'])->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -37,9 +38,9 @@ Route::middleware(['guest', 'guest:admin'])->group(function () {
 });
 
 Route::middleware('guest:admin')->group(function () {
-    Route::get('admin/login', [Admin\Auth\AuthenticatedSessionController::class, 'create'])->name('admin.login');
+    Route::get('admin/login', [AdminAuthenticatedSessionController::class, 'create'])->name('admin.login');
 
-    Route::post('admin/login', [Admin\Auth\AuthenticatedSessionController::class, 'store']);
+    Route::post('admin/login', [AdminAuthenticatedSessionController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -66,5 +67,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth:admin')->group(function() {
-    Route::post('admin/logout', [Admin\Auth\AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
+    Route::post('admin/logout', [AdminAuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
 });

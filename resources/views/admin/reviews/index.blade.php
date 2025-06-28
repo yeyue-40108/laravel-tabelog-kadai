@@ -19,10 +19,10 @@
             @else
                 <h1>レビュー一覧<span class="ms-3">{{ $total_count }}件</span></h1>
             @endif
+            <hr>
             @if (session('flash_message'))
                 <p>{{ session('flash_message') }}</p>
             @endif
-            <hr>
             <div class="row">
                 <form action="{{ route('admin.reviews.index') }}" method="GET" class="col-7 g-1 mb-3">
                     <div class="row">

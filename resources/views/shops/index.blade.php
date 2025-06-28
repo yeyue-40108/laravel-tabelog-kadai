@@ -77,7 +77,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <h2 class="card-title col-8">{{ $shop->name }}</h2>
-                                    <h3 class="col-4 category_label text-center">{{ $shop->category->name }}</h3>
+                                    <h3 class="col-4 category_label text-center">{{ $shop->category?->name }}</h3>
                                 </div>
                                 @php
                                     $score = $shop->average_score ?? 0;

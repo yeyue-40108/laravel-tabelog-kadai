@@ -122,6 +122,15 @@ class UserController extends Controller
                 $q->where('created_at', '<=', $end_date);
             });
         }
+
+        $start_date = Carbon::createFromDate($start_year, $start_month, 1)->startOfMonth();
+        $end_date = Carbon::createFromDate($end_year, $end_month, 1)->endOfMonth();
+        $start = $start_date ? Carbon::parse($start_date) : null;
+        $end = $end_date ? Carbon::parse($end_date) : null;
+
+        if ($start && $end && $end->lt($start)) {
+            return redirect()->route('admin.users.sales')->with('flash_message', '終了日は開始日より後の日付を指定してください。');
+        }
         
         if (!empty($age)) {
             $now = Carbon::now();

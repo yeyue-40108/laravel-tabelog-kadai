@@ -32,7 +32,7 @@ class ShopRequest extends FormRequest
             'phone' => 'required|string|max:20',
             'open_time' => 'required|date_format:H:i',
             'close_time' => 'required|date_format:H:i',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
             'price_id' => 'required|exists:prices,id',
             'weekdays' => 'nullable|array',
             'weekdays.*' => 'integer|between:0,6',

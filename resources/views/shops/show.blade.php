@@ -17,7 +17,7 @@
                 <div class="col">
                     <div class="row d-flex justify-content-between mb-3">
                         <div class="col-4">
-                            <h2>{{ $shop->category->name }}</h2>
+                            <h2>{{ $shop->category?->name }}</h2>
                             <h1>{{ $shop->name }}</h1>
                             @php
                                 $percent = ($averageScore / 5) * 100;

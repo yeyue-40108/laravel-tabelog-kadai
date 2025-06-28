@@ -14,6 +14,9 @@
             </div>
             <h1>売上一覧</h1>
             <hr>
+            @if (session('flash_message'))
+                <p>{{ session('flash_message') }}</p>
+            @endif
             <div class="card mb-4">
                 <h2 class="card-header">今月の状況</h2>
                 <div class="card-body">

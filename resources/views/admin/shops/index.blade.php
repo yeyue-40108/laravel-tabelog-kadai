@@ -64,7 +64,7 @@
                             <tr>
                                 <th scope="row">{{ $shop->id }}</th>
                                 <td>{{ $shop->name }}</td>
-                                <td>{{ $shop->category->name }}</td>
+                                <td>{{ $shop->category?->name }}</td>
                                 <td class="d-flex">
                                     <a href="{{ route('admin.shops.show', $shop->id) }}" class="btn btn-primary btn-sm mx-1">詳細</a>
                                     <a href="{{ route('admin.shops.edit', $shop->id) }}" class="btn btn-warning btn-sm mx-1">編集</a>
@@ -79,7 +79,7 @@
                             <tr>
                                 <th scope="row">{{ $shop->id }}</th>
                                 <td>{{ $shop->name }}</td>
-                                <td>{{ $shop->category->name }}</td>
+                                <td>{{ $shop->category?->name }}</td>
                                 <td class="d-flex">
                                     <a href="{{ route('admin.shops.show', $shop->id) }}" class="btn btn-primary btn-sm mx-1">詳細</a>
                                     <a href="{{ route('admin.shops.edit', $shop->id) }}" class="btn btn-warning btn-sm mx-1">編集</a>

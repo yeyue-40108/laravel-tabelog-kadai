@@ -35,7 +35,7 @@
                         </tr>
                         <tr>
                             <th scope="row">カテゴリ名</th>
-                            <td>{{ $shop->category->name }}</td>
+                            <td>{{ $shop->category?->name }}</td>
                         </tr>
                         <tr>
                             <th scope="row">画像</th>
@@ -86,7 +86,7 @@
                         </tr>
                         <tr>
                             <th scope="row">店舗管理者（メールアドレス）</th>
-                            <td>{{ $shop->master->email }}</td>
+                            <td>{{ $shop->master?->email }}</td>
                         </tr>
                     </tbody>
                 </table>

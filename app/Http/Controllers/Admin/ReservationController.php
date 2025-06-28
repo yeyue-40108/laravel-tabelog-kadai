@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use App\Models\Shop;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 
 class ReservationController extends Controller
 {
@@ -36,6 +37,13 @@ class ReservationController extends Controller
         
         if (!empty($end_date)) {
             $query->whereDate('reservation_date', '<=', $end_date);
+        }
+
+        $start = $start_date ? Carbon::parse($start_date) : null;
+        $end = $end_date ? Carbon::parse($end_date) : null;
+
+        if ($start && $end && $end->lt($start)) {
+            return redirect()->route('admin.reservations.index')->with('flash_message', '終了日は開始日より後の日付を指定してください。');
         }
 
         if ($master->role === 'shop_manager') {

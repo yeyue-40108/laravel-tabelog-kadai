@@ -7,6 +7,7 @@ use App\Models\Review;
 use App\Models\User;
 use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ReviewController extends Controller
 {
@@ -15,6 +16,13 @@ class ReviewController extends Controller
         $master = auth('admin')->user();
         $start_date = $request->query('start_date');
         $end_date = $request->query('end_date');
+
+        $start = $start_date ? Carbon::parse($start_date) : null;
+        $end = $end_date ? Carbon::parse($end_date) : null;
+
+        if ($start && $end && $end->lt($start)) {
+            return redirect()->route('admin.reviews.index')->with('flash_message', '終了日は開始日より後の日付を指定してください。');
+        }
 
         $query = Review::with(['user', 'shop']);
 

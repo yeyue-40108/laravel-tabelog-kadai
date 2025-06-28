@@ -20,6 +20,9 @@
                 <h1>予約一覧<span class="ms-3">{{ $total_count }}件</span></h1>
             @endif
             <hr>
+            @if (session('flash_message'))
+                <p>{{ session('flash_message') }}</p>
+            @endif
             <div class="row">
                 <form action="{{ route('admin.reservations.index') }}" method="GET" class="col-7 g-1 mb-3">
                     <div class="row">

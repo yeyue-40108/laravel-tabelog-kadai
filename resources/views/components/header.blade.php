@@ -23,15 +23,17 @@
                     </li>
                 @else
                     @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">ログイン</a>
-                            </li>
-                        @endif
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">会員登録</a>
-                            </li>
+                        @if (!Request::is('admin/*'))
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">ログイン</a>
+                                </li>
+                            @endif
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">会員登録</a>
+                                </li>
+                            @endif
                         @endif
                     @else
                         @if (auth()->user()->role === 'paid')

@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.7"
     },
     "require-dev": {
+        "doctrine/dbal": "^2.13",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "*",
         "laravel/pint": "^1.0",

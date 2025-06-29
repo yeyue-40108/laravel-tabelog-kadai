@@ -28,6 +28,7 @@
                 <div class="mb-3">
                     <label for="shop-category" class="form-label">カテゴリ</label>
                     <select name="category_id" class="form-select" id="shop-category" aria-label="Default select example">
+                        <option value="">-- 選択 --</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach

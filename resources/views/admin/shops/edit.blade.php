@@ -29,6 +29,7 @@
                 <div class="mb-3">
                     <label for="shop-category" class="form-label">カテゴリ</label>
                     <select name="category_id" class="form-control" id="shop-category"  aria-label="Default select example">
+                        <option value="" {{ is_null($shop->category_id) ? 'selected' : '' }}>-- 選択 --</option>
                         @if ($shop->category && !$categories->contains('id', $shop->category_id))
                             <option value="{{ $shop->category_id }}" selected>（削除されたカテゴリ）</option>
                         @endif

@@ -69,6 +69,8 @@ class ShopController extends Controller
     public function store(ShopRequest $request)
     {
         $validated = $request->validated();
+        $master = auth('admin')->user();
+        $validated['master_id'] = $master->id;
 
         $shop = Shop::create($validated);
 
